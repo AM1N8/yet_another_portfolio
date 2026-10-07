@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   MODES,
@@ -16,13 +16,7 @@ import { createRenderer, type ActivityRenderer } from "@/lib/activity/renderer";
 import type { GraphNode } from "@/lib/github/types";
 import { ProjectPeriods } from "./ProjectPeriods";
 
-export function ActivityUniverse({
-  model,
-  children,
-}: {
-  model: ActivityModel;
-  children: ReactNode;
-}) {
+export function ActivityUniverse({ model }: { model: ActivityModel }) {
   const { data, config, projects } = model;
   const modes = MODES.filter((mode) => config.views[mode]);
   const [mode, setMode] = useState<ActivityMode>(
@@ -39,6 +33,7 @@ export function ActivityUniverse({
   const [hovered, setHovered] = useState<GraphNode | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const universeRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<ActivityRenderer | null>(null);
   const unavailableRef = useRef<HTMLParagraphElement>(null);
   const router = useRouter();
@@ -65,16 +60,35 @@ export function ActivityUniverse({
       morph: config.interaction.project_cluster_morph,
       shape: config.appearance.node_shape,
       onHover: setHovered,
+      active: false,
     });
     rendererRef.current = renderer;
     if (unavailableRef.current)
       unavailableRef.current.hidden = Boolean(renderer);
+    let intersecting = false;
+    let active = false;
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    const measure = () => {
+      if (active) setWidth(Math.round(stage.getBoundingClientRect().width));
+    };
+    const visibility = () => {
+      active = intersecting && !document.hidden;
+      renderer?.setActive(active);
+      clearTimeout(resizeTimer);
+      if (active) measure();
+    };
+    const intersection = new IntersectionObserver(([entry]) => {
+      intersecting = entry.isIntersecting;
+      visibility();
+    });
+    if (universeRef.current) intersection.observe(universeRef.current);
+    document.addEventListener("visibilitychange", visibility);
     const resize = () => {
-      setWidth(Math.round(stage.getBoundingClientRect().width));
+      clearTimeout(resizeTimer);
+      if (active) resizeTimer = setTimeout(measure, 100);
     };
     const observer = new ResizeObserver(resize);
     observer.observe(stage);
-    resize();
     const reducedChanged = () =>
       renderer?.setReducedMotion(motion.matches || !config.motion);
     const themeObserver = new MutationObserver(() => renderer?.refreshTheme());
@@ -97,6 +111,9 @@ export function ActivityUniverse({
     watchDpr();
     return () => {
       observer.disconnect();
+      intersection.disconnect();
+      clearTimeout(resizeTimer);
+      document.removeEventListener("visibilitychange", visibility);
       themeObserver.disconnect();
       motion.removeEventListener("change", reducedChanged);
       dprQuery.removeEventListener("change", dprChanged);
@@ -126,6 +143,7 @@ export function ActivityUniverse({
   return (
     <div
       className="activity-universe"
+      ref={universeRef}
       onKeyDown={(event) => {
         if (event.key === "Escape") {
           rendererRef.current?.hover(null);
@@ -276,7 +294,6 @@ export function ActivityUniverse({
         )}
       </div>
       {mode === "timeline" && <ProjectPeriods model={model} year={year} />}
-      {children}
     </div>
   );
 }

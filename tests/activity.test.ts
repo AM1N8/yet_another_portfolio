@@ -148,7 +148,7 @@ test("imperative animation converges, cancels superseded frames and disposes cle
       calculateLayout(nodes.slice(0, 30), mode, 700, model.projects),
       700,
     );
-    assert.equal(frames.size, 1);
+    assert.ok(frames.size <= 1);
   }
   const final = calculateLayout(
     nodes.slice(0, 30),
@@ -170,9 +170,41 @@ test("imperative animation converges, cancels superseded frames and disposes cle
   assert.equal(frames.size, 0);
   renderer.setReducedMotion(false);
   renderer.update(calculateLayout(nodes, "activity", 700, model.projects), 700);
+  renderer.setActive(false);
+  assert.equal(frames.size, 0);
+  const pausedDraws = clear.mock.callCount();
+  renderer.update(
+    calculateLayout(nodes, "languages", 350, model.projects),
+    350,
+  );
+  renderer.refreshTheme();
+  renderer.setReducedMotion(true);
+  assert.equal(clear.mock.callCount(), pausedDraws);
+  assert.equal(frames.size, 0);
+  renderer.setActive(true);
+  assert.equal(canvas.width, 700);
+  assert.ok(clear.mock.callCount() > pausedDraws);
+  assert.equal(frames.size, 0);
   renderer.dispose();
   assert.equal(frames.size, 0);
   const draws = clear.mock.callCount();
   callback(performance.now() + 2000);
   assert.equal(clear.mock.callCount(), draws);
+});
+
+test("density caps all three devices and preserves deterministic IDs across modes", () => {
+  const dense = Array.from({ length: 2400 }, (_, index) => ({
+    ...nodes[index % nodes.length],
+    id: `dense:${index}`,
+  }));
+  for (const [width, limit] of [
+    [350, 550],
+    [700, 1000],
+    [1300, 1800],
+  ]) {
+    const sampled = visibleNodes(dense, width, model.config);
+    assert.equal(sampled.length, limit);
+    assert.deepEqual(sampled, visibleNodes(dense, width, model.config));
+    assert.equal(new Set(sampled.map((node) => node.id)).size, limit);
+  }
 });

@@ -170,8 +170,41 @@ Browser tests exercise populated fixtures and the committed empty fallback in
 separate `.next-browser*` build/cache directories. `tests/fixtures/github-api.mjs`
 replaces only the server GitHub transport during these test builds; it never writes
 fixture activity into the public snapshot or production cache. Screenshots cover
-all four modes, both themes, and the five required viewport sizes. The next
-performance phase remains tracked separately in `TASKS.md`.
+all four modes, both themes, and the five required viewport sizes.
+
+### Activity performance
+
+`LazyActivity.tsx` imports the visualization (including D3) only within 100px of
+the viewport and while the document is visible. Its reserved region and the
+server-rendered text alternative are available before that chunk loads. The
+statically generated, hourly-revalidated homepage does not wait for graph
+JavaScript to paint the hero. Project routes do not import the visualization.
+
+An IntersectionObserver and document visibility listener suspend the renderer.
+Suspension cancels RAF, defers Canvas/layout updates, and retains only the latest
+pending target. Resume continues from current coordinates. Settled and
+reduced-motion layouts have no animation loop. ResizeObserver work is debounced
+100ms and measured on resume; DPR changes retain sharp rendering. Cleanup removes
+all observers/listeners/timers, cancels frames, and releases the Canvas bitmap.
+Deterministic node sampling caps desktop/tablet/mobile at the YAML limits
+(1800/1000/550); the accessible text view retains every record.
+
+`tests/browser/activity-performance.spec.ts` profiles 1440px desktop and 390px
+mobile (4× CPU slowdown) against the production test build. It records LCP,
+long tasks, Canvas frame callback cost, post-GC heap growth, resize draw counts,
+and deferred chunk requests in `test-results/.../performance.json`. It verifies
+zero draws offscreen, hidden, after unmount, and at rest with reduced motion.
+Run in isolation for less noisy measurements:
+
+```bash
+npx playwright test tests/browser/activity-performance.spec.ts --workers=1
+```
+
+These are local Chromium lab checks with a 160-record fixture, not field Web
+Vitals. Density cap tests additionally exercise 2400 input nodes. Initial lab
+profiling showed sub-1.3ms graph frame callbacks at 4× CPU slowdown and under
+0.6MB retained heap growth after repeated mode changes. A Worker is not justified
+by this workload; pointer repulsion remains disabled.
 
 See `DESIGN.md`, `AGENTS.md`, and `TASKS.md` for the design direction, contribution
 rules, and remaining phases.

@@ -206,3 +206,7 @@
     padding: var(--space-5);
   }
 }
+.activity-deferred {
+  min-height: 500px;
+  padding-block: var(--space-6);
+}

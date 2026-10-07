@@ -2,7 +2,7 @@ import type { Portfolio } from "@/lib/content/types";
 import type { GitHubData } from "@/lib/github/types";
 import { createActivityModel } from "@/lib/activity/model";
 import { SectionHeading } from "@/components/home/SectionHeading";
-import { ActivityUniverse } from "./ActivityUniverse";
+import { LazyActivity } from "./LazyActivity";
 import { ActivityText } from "./ActivityText";
 import "./activity.css";
 
@@ -42,9 +42,8 @@ export function ActivitySection({
           <span>API coverage is limited</span>
         )}
       </div>
-      <ActivityUniverse model={model}>
-        <ActivityText model={model} />
-      </ActivityUniverse>
+      <LazyActivity model={model} />
+      <ActivityText model={model} />
     </section>
   );
 }

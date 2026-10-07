@@ -128,7 +128,7 @@ test("DPR, resize, reduced motion, and Canvas failure preserve the alternative",
   await fallback.addInitScript(() => {
     HTMLCanvasElement.prototype.getContext = () => null;
   });
-  await fallback.goto("/");
+  await fallback.goto("/#activity");
   await expect(
     fallback.getByText("Canvas is unavailable.", { exact: false }),
   ).toBeVisible();

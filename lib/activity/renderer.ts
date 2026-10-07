@@ -12,6 +12,7 @@ export interface RendererOptions {
   morph: boolean;
   shape: "square" | "circle";
   onHover: (node: GraphNode | null) => void;
+  active?: boolean;
 }
 const TRANSITION_MS = 420;
 
@@ -28,6 +29,8 @@ export function createRenderer(
   let height = 0;
   let hovered: string | null = null;
   let disposed = false;
+  let active = options.active ?? true;
+  let pending: { layout: ActivityLayout; width: number } | null = null;
   let reducedMotion = options.reducedMotion;
   let colors = { text: "", muted: "", accent: "" };
 
@@ -40,7 +43,7 @@ export function createRenderer(
     };
   }
   function draw() {
-    if (!context) return;
+    if (!context || !active || disposed) return;
     context.clearRect(0, 0, width, height);
     for (const point of nodes) {
       context.globalAlpha =
@@ -69,9 +72,13 @@ export function createRenderer(
     context.globalAlpha = 1;
   }
   function tick(now: number) {
-    if (disposed) return;
+    if (disposed || !active) return;
     const progress =
-      reducedMotion || !options.morph
+      reducedMotion ||
+      !options.morph ||
+      !nodes.some(
+        (node) => node.fromX !== node.targetX || node.fromY !== node.targetY,
+      )
         ? 1
         : Math.min(1, (now - start) / TRANSITION_MS);
     const eased = 1 - Math.pow(1 - progress, 3);
@@ -83,6 +90,11 @@ export function createRenderer(
     frame = progress < 1 ? requestAnimationFrame(tick) : 0;
   }
   function update(layout: ActivityLayout, nextWidth: number) {
+    if (disposed) return;
+    if (!active) {
+      pending = { layout, width: nextWidth };
+      return;
+    }
     cancelAnimationFrame(frame);
     width = nextWidth;
     height = layout.height;
@@ -111,6 +123,7 @@ export function createRenderer(
     tick(start);
   }
   function hitTest(x: number, y: number) {
+    if (!active || disposed) return null;
     let nearest: MovingNode | null = null;
     let distance = Infinity;
     for (const point of nodes) {
@@ -132,13 +145,34 @@ export function createRenderer(
     update,
     hitTest,
     hover,
+    setActive(value: boolean) {
+      if (disposed || active === value) return;
+      active = value;
+      cancelAnimationFrame(frame);
+      frame = 0;
+      if (!active) return;
+      if (pending) {
+        const next = pending;
+        pending = null;
+        update(next.layout, next.width);
+      } else {
+        readColors();
+        for (const node of nodes) {
+          node.fromX = node.x;
+          node.fromY = node.y;
+        }
+        start = performance.now();
+        tick(start);
+      }
+    },
     refreshTheme() {
+      if (!active || disposed) return;
       readColors();
       draw();
     },
     setReducedMotion(value: boolean) {
       reducedMotion = value;
-      if (value && frame) {
+      if (value && frame && active) {
         cancelAnimationFrame(frame);
         tick(start + TRANSITION_MS);
       }
@@ -147,6 +181,9 @@ export function createRenderer(
       disposed = true;
       cancelAnimationFrame(frame);
       nodes = [];
+      pending = null;
+      canvas.width = 0;
+      canvas.height = 0;
     },
   };
 }

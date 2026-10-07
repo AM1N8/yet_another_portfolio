@@ -525,17 +525,17 @@ feat: implement activity universe visualization
 
 ## 10.1 Lifecycle
 
-- [ ] Pause render loop when offscreen.
-- [ ] Pause when document is hidden.
-- [ ] Resume correctly.
-- [ ] Clean up listeners and RAF.
+- [x] Pause render loop when offscreen.
+- [x] Pause when document is hidden.
+- [x] Resume correctly.
+- [x] Clean up listeners and RAF.
 
 ## 10.2 Adaptive density
 
-- [ ] Desktop density.
-- [ ] Tablet density.
-- [ ] Mobile density.
-- [ ] Reduced-motion static layout.
+- [x] Desktop density.
+- [x] Tablet density.
+- [x] Mobile density.
+- [x] Reduced-motion static layout.
 
 Suggested maximums from YAML:
 
@@ -547,23 +547,23 @@ mobile: 550
 
 ## 10.3 Loading
 
-- [ ] Lazy-load visualization code.
-- [ ] Keep hero/content render independent.
-- [ ] Do not delay LCP for graph JavaScript.
+- [x] Lazy-load visualization code.
+- [x] Keep hero/content render independent.
+- [x] Do not delay LCP for graph JavaScript.
 
 ## 10.4 Profiling
 
-- [ ] Check main-thread behavior.
-- [ ] Check memory.
-- [ ] Check resize behavior.
-- [ ] Check mobile performance.
-- [ ] Consider a Web Worker only if profiling proves it useful.
+- [x] Check main-thread behavior.
+- [x] Check memory.
+- [x] Check resize behavior.
+- [x] Check mobile performance.
+- [x] Consider a Web Worker only if profiling proves it useful.
 
 ## Quality gate
 
-- [ ] No graph work while hidden.
-- [ ] Mobile remains responsive.
-- [ ] Reduced-motion mode has no continuous animation.
+- [x] No graph work while hidden.
+- [x] Mobile remains responsive.
+- [x] Reduced-motion mode has no continuous animation.
 
 Suggested commit:
 
