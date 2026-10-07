@@ -34,6 +34,7 @@ test("empty or hidden content removes sections, while Stack stays independent of
   const input = structuredClone(portfolio);
   assert.deepEqual(getHomepageSections(input), [
     "hero",
+    "activity",
     "work",
     "lab",
     "timeline",
@@ -45,6 +46,7 @@ test("empty or hidden content removes sections, while Stack stays independent of
   input.experiments.entries = [];
   input.timeline.events = [];
   input.about.visible = false;
+  input.activity_graph.enabled = false;
   assert.deepEqual(getHomepageSections(input), ["hero", "stack", "contact"]);
   input.skills.groups = [];
   input.contact.email_public = false;

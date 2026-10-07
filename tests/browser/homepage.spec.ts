@@ -51,7 +51,7 @@ test("homepage renders verified YAML content and omits missing or private fields
   await expect(
     page.getByRole("heading", { name: "Languages", exact: true }),
   ).toHaveCount(0);
-  await expect(page.locator("canvas")).toHaveCount(0);
+  await expect(page.locator("canvas")).toHaveCount(1);
   for (const link of await page.getByRole("link").all()) {
     const href = await link.getAttribute("href");
     if (href?.includes("#") && !href.startsWith("http")) {
@@ -112,6 +112,7 @@ test("all static homepage sections remain readable with JavaScript disabled", as
     page.getByRole("heading", { level: 1, name: portfolio.identity.full_name }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { level: 2 })).toHaveText([
+    "ACTIVITY UNIVERSE",
     portfolio.projects.section_label,
     portfolio.experiments.section_label,
     portfolio.timeline.section_label,
@@ -119,11 +120,11 @@ test("all static homepage sections remain readable with JavaScript disabled", as
     portfolio.skills.section_label,
     portfolio.contact.contact_cta + "↗",
   ]);
-  await page.getByRole("link", { name: "Explore" }).click();
-  await expect(page).toHaveURL(/#work$/);
+  await page.getByRole("link", { name: "Explore", exact: true }).click();
+  await expect(page).toHaveURL(/#activity$/);
   await expect(
     page.getByRole("heading", {
-      name: portfolio.projects.section_label,
+      name: "ACTIVITY UNIVERSE",
       exact: true,
     }),
   ).toBeInViewport();

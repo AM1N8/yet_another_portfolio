@@ -445,73 +445,73 @@ This is the most technically demanding phase.
 
 ## 9.1 Renderer foundation
 
-- [ ] Create Canvas renderer.
-- [ ] Keep frame state outside React state.
-- [ ] Use `requestAnimationFrame`.
-- [ ] Support device pixel ratio correctly.
-- [ ] Handle resize.
-- [ ] Handle responsive node density.
+- [x] Create Canvas renderer.
+- [x] Keep frame state outside React state.
+- [x] Use `requestAnimationFrame`.
+- [x] Support device pixel ratio correctly.
+- [x] Handle resize.
+- [x] Handle responsive node density.
 
 ## 9.2 Node model
 
 Each node should support enough data for:
 
-- [ ] date/activity;
-- [ ] project association;
-- [ ] language;
-- [ ] intensity;
-- [ ] current layout position;
-- [ ] target position;
-- [ ] hover metadata.
+- [x] date/activity;
+- [x] project association;
+- [x] language;
+- [x] intensity;
+- [x] current layout position;
+- [x] target position;
+- [x] hover metadata.
 
 ## 9.3 ACTIVITY mode
 
-- [ ] Chronological contribution-style arrangement.
-- [ ] Year controls where useful.
-- [ ] Activity intensity.
-- [ ] Hover details.
+- [x] Chronological contribution-style arrangement.
+- [x] Year controls where useful.
+- [x] Activity intensity.
+- [x] Hover details.
 
 ## 9.4 PROJECTS mode
 
-- [ ] Cluster nodes by project.
-- [ ] Label major clusters.
-- [ ] Support click-through to project.
-- [ ] Unknown activity handled gracefully.
+- [x] Cluster nodes by project.
+- [x] Label major clusters.
+- [x] Support click-through to project.
+- [x] Unknown activity handled gracefully.
 
 ## 9.5 LANGUAGES mode
 
-- [ ] Reorganize by language.
-- [ ] Preserve continuity during transitions.
-- [ ] Show useful labels.
+- [x] Reorganize by language.
+- [x] Preserve continuity during transitions.
+- [x] Show useful labels.
 
 ## 9.6 TIMELINE mode
 
-- [ ] Arrange graph chronologically.
-- [ ] Highlight major project periods.
-- [ ] Keep labels readable.
+- [x] Arrange graph chronologically.
+- [x] Highlight major project periods.
+- [x] Keep labels readable.
 
 ## 9.7 Transitions
 
-- [ ] Nodes animate toward targets.
-- [ ] Do not use React setState per frame.
-- [ ] Keep transition duration restrained.
-- [ ] Avoid expensive physics when interpolation works.
+- [x] Nodes animate toward targets.
+- [x] Do not use React setState per frame.
+- [x] Keep transition duration restrained.
+- [x] Avoid expensive physics when interpolation works.
 
 ## 9.8 Pointer interaction
 
-- [ ] Hover node.
+- [x] Hover node.
 - [ ] Optional constrained pointer repulsion.
-- [ ] Tooltip.
-- [ ] Project navigation.
-- [ ] Keyboard-accessible alternative interaction.
+- [x] Tooltip.
+- [x] Project navigation.
+- [x] Keyboard-accessible alternative interaction.
 
 ## Quality gate
 
-- [ ] All four modes work.
-- [ ] Repeated switching is stable.
-- [ ] No obvious memory leak.
-- [ ] No React-render-per-frame pattern.
-- [ ] Desktop interaction feels smooth.
+- [x] All four modes work.
+- [x] Repeated switching is stable.
+- [x] No obvious memory leak.
+- [x] No React-render-per-frame pattern.
+- [x] Desktop interaction feels smooth.
 
 Suggested commit:
 

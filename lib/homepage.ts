@@ -1,7 +1,14 @@
 import type { Portfolio } from "./content/types.ts";
 
 export type HomepageSection =
-  "hero" | "work" | "lab" | "timeline" | "about" | "stack" | "contact";
+  | "hero"
+  | "activity"
+  | "work"
+  | "lab"
+  | "timeline"
+  | "about"
+  | "stack"
+  | "contact";
 
 export function getSelectedProjects(portfolio: Portfolio) {
   return portfolio.projects.entries
@@ -72,6 +79,9 @@ export function getPublicLinks(portfolio: Portfolio) {
 export function getHomepageSections(portfolio: Portfolio): HomepageSection[] {
   const visible: Record<HomepageSection, boolean> = {
     hero: true,
+    activity:
+      portfolio.activity_graph.enabled &&
+      Object.values(portfolio.activity_graph.views).some(Boolean),
     work: getSelectedProjects(portfolio).length > 0,
     lab: getExperiments(portfolio).length > 0,
     timeline: getTimelineEvents(portfolio).length > 0,
@@ -86,8 +96,6 @@ export function getHomepageSections(portfolio: Portfolio): HomepageSection[] {
   };
   const sections: HomepageSection[] = [];
   for (const section of portfolio.homepage.section_order) {
-    // The reserved activity field lives in the hero until the Universe phase.
-    if (section === "activity") continue;
     if (visible[section]) sections.push(section);
     if (section === "about" && visible.stack) sections.push("stack");
   }

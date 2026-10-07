@@ -82,7 +82,7 @@ Selected Work uses only visible featured projects. Missing project media falls
 back to the supplied architecture component lists, without inventing screenshots
 or connections between components. Results retain their exact YAML values and
 context. Empty optional content and unavailable actions are omitted. The hero
-contains a clearly labelled, static reserved Activity Universe field.
+contains a static coordinate field linking to the Activity Universe section.
 
 `lib/shell.ts` enables section navigation only for rendered sections and project
 navigation only for visible projects. Homepage case-study links and command-palette
@@ -128,7 +128,7 @@ Normalization produces repository/project associations, chronological events and
 contributions, language shares by observed bytes, timeline entries, and graph-ready
 nodes without layout coordinates. Known repositories map to visible, opted-in YAML
 projects case-insensitively; unknown repositories remain generic GitHub activity.
-No Activity Universe UI consumes this data yet.
+The homepage Activity Universe consumes this normalized data on the server.
 
 `public/data/github-activity.json` is a versioned, validated public snapshot. Its
 initial contents are intentionally empty: no activity measurements were invented.
@@ -141,7 +141,37 @@ npm run github:snapshot
 The command uses the configured server environment token when present and writes
 only after the entire fetch succeeds, preserving a previous snapshot on failure.
 Review the public JSON before committing it. Builds do not require a token or API
-availability, and no data-fetching code is added to the current homepage.
+availability. The homepage is statically rendered and revalidates hourly.
+
+## Activity Universe core
+
+`components/activity/ActivitySection.tsx` passes public normalized data to a small
+client visualization and server-renders the complete text alternative. The homepage
+awaits its cached data before rendering, so the text view remains visible without
+JavaScript instead of depending on a streamed Suspense replacement.
+
+`lib/activity/layout.ts` uses focused D3 scale, time, and grouping modules for four
+deterministic views: calendar-style ACTIVITY, PROJECTS clusters, LANGUAGES clusters,
+and chronological TIMELINE lanes with supplied project periods. Calendar totals
+remain unattributed unless the source actually identifies a repository. Language
+groups use repository primary language; byte shares are labelled separately in the
+text view. Filled nodes and outlined nodes distinguish contributions from events.
+
+`lib/activity/renderer.ts` owns current/target coordinates, hit testing, and 420ms
+interpolation in an imperative Canvas renderer. Frames never update React state;
+the loop stops after settling and cleanup cancels pending frames. Canvas sizing
+tracks its container and device pixel ratio. Theme tokens, responsive node limits,
+and reduced-motion static rendering are supported. Controls, cluster links,
+tooltips, year selection, and complete keyboard-accessible records use HTML; project
+period markers use SVG. Empty/API-failure and unavailable-Canvas states retain
+project links and the text alternative. Optional pointer repulsion is not enabled.
+
+Browser tests exercise populated fixtures and the committed empty fallback in
+separate `.next-browser*` build/cache directories. `tests/fixtures/github-api.mjs`
+replaces only the server GitHub transport during these test builds; it never writes
+fixture activity into the public snapshot or production cache. Screenshots cover
+all four modes, both themes, and the five required viewport sizes. The next
+performance phase remains tracked separately in `TASKS.md`.
 
 See `DESIGN.md`, `AGENTS.md`, and `TASKS.md` for the design direction, contribution
 rules, and remaining phases.

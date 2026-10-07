@@ -6,11 +6,20 @@ import { Lab } from "@/components/home/Lab";
 import { Timeline } from "@/components/home/Timeline";
 import { About, Stack } from "@/components/home/About";
 import { Contact } from "@/components/home/Contact";
+import { ActivitySection } from "@/components/activity/ActivitySection";
+import { loadGitHubData } from "@/lib/github/loadGitHubData";
 import "./homepage.css";
 
-export default function Page() {
+export const revalidate = 3600;
+
+export default async function Page() {
   const portfolio = loadPortfolio();
   const sections = getHomepageSections(portfolio);
+  // Resolve before rendering so the static text view is not hidden in a streamed
+  // Suspense replacement that requires JavaScript to reveal its contents.
+  const activity = sections.includes("activity")
+    ? await loadGitHubData()
+    : null;
   return sections.map((section, index) => {
     const props = { portfolio, index: index + 1 };
     switch (section) {
@@ -24,6 +33,12 @@ export default function Page() {
         );
       case "work":
         return <SelectedWork key={section} {...props} />;
+      case "activity":
+        return (
+          activity && (
+            <ActivitySection key={section} {...props} data={activity} />
+          )
+        );
       case "lab":
         return <Lab key={section} {...props} />;
       case "timeline":

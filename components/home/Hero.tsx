@@ -37,13 +37,12 @@ export function Hero({
         </div>
         {hero.show_activity_visual && (
           <figure
-            id="activity"
             className="activity-reserve"
-            aria-label="Reserved Activity Universe visual area"
+            aria-label="Activity Universe coordinate field"
           >
             <div className="reserve-heading label">
               <span>Activity Universe</span>
-              <span className="text-muted">Reserved</span>
+              <span className="text-muted">Coordinate field</span>
             </div>
             <svg
               viewBox="0 0 400 360"
@@ -88,7 +87,15 @@ export function Hero({
               {hero.verbs.length > 0 && (
                 <p className="label">{hero.verbs.join(" / ")}</p>
               )}
-              <p className="text-muted">Static field · no activity data</p>
+              {portfolio.activity_graph.enabled &&
+              portfolio.homepage.section_order.includes("activity") &&
+              Object.values(portfolio.activity_graph.views).some(Boolean) ? (
+                <a className="text-link label" href="#activity">
+                  Explore activity ↓
+                </a>
+              ) : (
+                <p className="text-muted">Static coordinate field</p>
+              )}
             </figcaption>
           </figure>
         )}

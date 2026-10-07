@@ -12,6 +12,11 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
+    env: {
+      PORTFOLIO_BROWSER_TEST: "1",
+      NODE_OPTIONS: "--import ./tests/fixtures/github-api.mjs",
+      GITHUB_TOKEN: "",
+    },
     command:
       "npm run build && npm run start -- --hostname 127.0.0.1 --port 3100",
     url: "http://127.0.0.1:3100",
