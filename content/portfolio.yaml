@@ -1,0 +1,1292 @@
+# =============================================================================
+# PORTFOLIO CONTENT CONFIG — MOHAMED AMINE DARRAJ
+# =============================================================================
+# Generated from the supplied résumé only.
+# Unknown or unsupported facts remain null/empty.
+# Do not place API keys or private tokens in this file.
+# =============================================================================
+
+site:
+  brand_label: "AMINE/OS"
+  language: "en"
+  locale: "en-US"
+  canonical_url: "https://cdxv.vercel.app"
+  repository_url: null
+  source_visible: true
+  default_theme: "system"
+  theme_toggle_labels:
+    dark: "INK"
+    light: "PAPER"
+
+  seo:
+    title: "Mohamed Amine Darraj — AI/ML Engineer"
+    title_template: "%s — Mohamed Amine Darraj"
+    description: "Portfolio of Mohamed Amine Darraj, a final-year dual-degree AI/ML engineering student at ENSAM Meknès and École Centrale de Lyon building applied AI, RAG/GraphRAG, reinforcement learning, and computer vision systems."
+    keywords:
+      - "AI Engineer"
+      - "Machine Learning"
+      - "Artificial Intelligence"
+      - "Computer Vision"
+      - "Reinforcement Learning"
+      - "RAG"
+      - "GraphRAG"
+      - "MLOps"
+      - "Data Science"
+      - "FastAPI"
+      - "PyTorch"
+    og_image: null
+    twitter_handle: null
+
+  analytics:
+    provider: "none"
+    enabled: false
+    website_id: null
+
+identity:
+  full_name: "Mohamed Amine Darraj"
+  preferred_name: "Amine"
+  initials: "MAD"
+  pronouns: null
+  headline: "AI/ML Engineer"
+  short_headline: "AI Engineer / Researcher"
+  positioning_statement: |
+    Final-year dual-degree engineering student at ENSAM Meknès and École Centrale de Lyon,
+    building applied AI systems end to end across RAG/GraphRAG, reinforcement learning,
+    computer vision, and full-stack ML products.
+  profile_photo: null
+  logo_text: "AMINE/OS"
+
+  location:
+    city: "Écully"
+    region: null
+    country: "France"
+    display: "Écully, France"
+    show_on_site: true
+
+  timezone: "Europe/Paris"
+  show_local_time: true
+
+  availability:
+    status: "Targeting AI/ML PFE internships"
+    detail: "Interested in Engineering, Data Science, MLOps, and applied research roles in France and the EU."
+    available_from: null
+    preferred_duration: null
+    preferred_locations:
+      - "France"
+      - "European Union"
+    remote_ok: null
+    visible: true
+
+  languages: []
+
+contact:
+  email: "mohamedaminedarraj@gmail.com"
+  email_public: true
+  phone: "+33 7 45 69 24 67"
+  phone_public: false
+  contact_cta: "Let's talk"
+
+  links:
+    github: "https://github.com/AM1N8"
+    linkedin: "https://linkedin.com/in/mohamed-amine-darraj-5015423ab"
+    x_twitter: null
+    bluesky: null
+    mastodon: null
+    scholar: null
+    huggingface: null
+    kaggle: null
+    devto: null
+    medium: null
+    personal_blog: "https://cdxv.vercel.app"
+    other: []
+
+  resume:
+    url: null
+    filename: null
+    label: "Résumé"
+    visible: true
+
+hero:
+  eyebrow: "AI / ML / SYSTEMS"
+  role: "AI/ML Engineer"
+  statement: |
+    I build applied AI systems end to end: from models and retrieval pipelines
+    to production-ready APIs, data stores, and interfaces.
+  status_label: "CURRENTLY"
+  show_activity_visual: true
+  show_scroll_hint: true
+
+  verbs:
+    - "see"
+    - "reason"
+    - "learn"
+    - "act"
+
+about:
+  visible: true
+  section_label: "ABOUT"
+
+  intro: |
+    I am a final-year dual-degree student at ENSAM Meknès and École Centrale de Lyon,
+    focused on applied artificial intelligence and machine learning. My projects span
+    RAG and GraphRAG copilots, reinforcement-learning recommenders, computer vision,
+    predictive systems, and full-stack AI products.
+
+  philosophy: |
+    I like building AI systems as complete engineering products: understanding the problem,
+    designing the data and model pipeline, evaluating the result, and integrating the system
+    into a usable application.
+
+  interests:
+    - "Applied AI"
+    - "Machine Learning"
+    - "Generative AI"
+    - "RAG / GraphRAG"
+    - "Computer Vision"
+    - "Reinforcement Learning"
+    - "MLOps"
+    - "Data Science"
+
+  currently_exploring: []
+
+  outside_engineering: []
+
+skills:
+  visible: true
+  section_label: "STACK"
+
+  groups:
+    - name: "LANGUAGES"
+      items:
+        - "Python"
+        - "Java"
+        - "C"
+        - "C++"
+        - "R"
+        - "Julia"
+        - "SQL"
+        - "Bash"
+
+    - name: "AI / GENERATIVE AI"
+      items:
+        - "PyTorch"
+        - "TensorFlow"
+        - "LlamaIndex"
+        - "spaCy"
+        - "LangChain"
+        - "FAISS"
+        - "Hugging Face"
+
+    - name: "ML / DATA / MLOPS"
+      items:
+        - "scikit-learn"
+        - "Pandas"
+        - "NumPy"
+        - "MLflow"
+        - "Optuna"
+        - "statsmodels"
+        - "SciPy"
+
+    - name: "PERCEPTION / XAI"
+      items:
+        - "OpenCV"
+        - "YOLO"
+        - "MediaPipe"
+        - "Roboflow"
+        - "Vision Transformers"
+        - "SHAP"
+        - "LIME"
+
+    - name: "WEB / BACKEND"
+      items:
+        - "React"
+        - "Node.js"
+        - "Spring Boot"
+        - "Flask"
+        - "Streamlit"
+        - "FastAPI"
+
+    - name: "SYSTEMS / ENGINEERING"
+      items:
+        - "Linux"
+        - "Git"
+        - "Docker"
+        - "Neo4j"
+        - "Unity"
+        - "Godot"
+        - "MATLAB"
+        - "CATIA"
+        - "AutoCAD"
+        - "QGIS"
+        - "Neovim"
+
+education:
+  visible: true
+  entries:
+    - institution: "ENSAM Meknès"
+      program: "Engineering Degree"
+      specialization: "Artificial Intelligence & Data Technologies"
+      location: "Meknès, Morocco"
+      start_date: "2024"
+      end_date: "2027"
+      expected: true
+      current: true
+      description: "5-year engineering program; final year completed as a dual degree at École Centrale de Lyon."
+      highlights: []
+      link: null
+      visible: true
+
+    - institution: "École Centrale de Lyon"
+      program: "Dual Degree, Master M2 in Computer Science"
+      specialization: "Artificial Intelligence Track"
+      location: "Lyon, France"
+      start_date: "2026"
+      end_date: "2027"
+      expected: true
+      current: true
+      description: "Final-year double-degree track; both the ENSAM engineering degree and the Centrale Lyon M2 are expected in 2027."
+      highlights: []
+      link: null
+      visible: true
+
+    - institution: "ENSAM Meknès"
+      program: "Integrated Preparatory Cycle"
+      specialization: null
+      location: "Meknès, Morocco"
+      start_date: "2022"
+      end_date: "2024"
+      expected: false
+      current: false
+      description: null
+      highlights: []
+      link: null
+      visible: true
+
+    - institution: "Lycée Technique Ibn El Haitham"
+      program: "Baccalaureate in Mathematical Sciences"
+      specialization: "Option B"
+      location: "Morocco"
+      start_date: "2021"
+      end_date: "2022"
+      expected: false
+      current: false
+      description: null
+      highlights: []
+      link: null
+      visible: true
+
+experience:
+  visible: true
+  entries:
+    - organization: "NOMAC Noor III"
+      role: "AI Engineer Intern"
+      location: "Ouarzazate, Morocco"
+      type: "internship"
+      start_date: "2026"
+      end_date: "2026"
+      date_label: "Summer 2026"
+      current: false
+      summary: |
+        Designed and developed Noor Alerts, an intelligent system for managing SCADA alerts
+        and maintenance complaints.
+      highlights:
+        - "Designed and developed Noor Alerts for SCADA alert and maintenance complaint management."
+      technologies: []
+      organization_url: null
+      visible: true
+
+    - organization: "YAZAKI Meknès"
+      role: "IT Intern"
+      location: "Meknès, Morocco"
+      type: "internship"
+      start_date: "2025"
+      end_date: "2025"
+      date_label: "Summer 2025"
+      current: false
+      summary: |
+        Developed a printer monitoring dashboard using SNMP for equipment monitoring
+        and incident detection.
+      highlights:
+        - "Developed an SNMP-based printer monitoring dashboard for equipment monitoring and incident detection."
+      technologies:
+        - "SNMP"
+      organization_url: null
+      visible: true
+
+activities:
+  visible: true
+  entries:
+    - organization: "Gadz'IT"
+      organization_type: "Computer Science Club, ENSAM Meknès"
+      role: "Active Member"
+      location: "Meknès, Morocco"
+      start_date: "2022"
+      end_date: null
+      current: true
+      summary: |
+        Build games, VR experiences, developer tools, and participate in CTF competitions
+        while working extensively across Linux environments.
+      highlights:
+        - "Develop 2D/3D mini-games and virtual reality experiences using Godot and Unity."
+        - "Built DataTUI, a terminal-based EDA toolkit for dataset inspection, analysis, and visualization."
+        - "Compete in CTF competitions and work across Linux distributions, including Arch and Debian."
+      links:
+        - label: "Godot-MiniGames"
+          url: "https://github.com/AM1N8/Godot-MiniGames"
+        - label: "DataTUI"
+          url: "https://github.com/AM1N8/DATATUI"
+
+projects:
+  section_label: "SELECTED WORK"
+
+  entries:
+    - slug: "noor-alerts"
+      visible: true
+      featured: true
+      featured_order: 1
+
+      title: "Noor Alerts"
+      short_title: "Noor Alerts"
+      year: 2026
+      status: "completed"
+      role: "AI Engineer Intern"
+      team_size: null
+
+      domains:
+        - "Applied AI"
+        - "NLP"
+        - "RAG / GraphRAG"
+        - "Industrial Maintenance"
+
+      technologies:
+        - "FastAPI"
+        - "React"
+        - "PostgreSQL"
+        - "Neo4j"
+        - "FAISS"
+        - "TF-IDF"
+        - "Logistic Regression"
+        - "Random Forest"
+        - "Embeddings"
+        - "LLM"
+
+      tags:
+        - "SCADA"
+        - "Maintenance"
+        - "GraphRAG"
+        - "Full Stack AI"
+
+      one_liner: "An intelligent platform for classifying, analyzing, and assisting with SCADA alerts and maintenance complaints."
+
+      summary: |
+        Built an end-to-end AI system for SCADA alert and maintenance complaint management.
+        The platform combines NLP classification, structured maintenance data, and a GraphRAG
+        conversational copilot delivered through a FastAPI/React/PostgreSQL stack.
+
+      problem: |
+        Industrial SCADA alerts and maintenance complaints generate large volumes of operational
+        information that need to be classified, interpreted, and connected to maintenance knowledge.
+
+      why_it_matters: |
+        Better organization and analysis of alerts can support faster maintenance investigation
+        and more usable access to operational knowledge.
+
+      constraints: []
+
+      approach: |
+        Combined embeddings with TF-IDF and Logistic Regression for NLP classification, used
+        Random Forest within the ML pipeline, and developed a conversational analysis layer
+        using GraphRAG with Neo4j, FAISS, an LLM, and a hybrid query router.
+
+      architecture:
+        summary: |
+          SCADA and maintenance data feed an NLP/ML processing layer and a knowledge/retrieval layer.
+          The resulting capabilities are exposed through FastAPI and consumed by a React application
+          backed by PostgreSQL, Neo4j, and FAISS.
+        diagram: null
+        components:
+          - "SCADA alert and maintenance data"
+          - "NLP classification pipeline"
+          - "GraphRAG / retrieval layer"
+          - "FastAPI backend"
+          - "React frontend"
+          - "PostgreSQL"
+          - "Neo4j"
+          - "FAISS"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+
+      results:
+        - label: "Classification accuracy"
+          value: "95%"
+          context: "28,692 SCADA alerts"
+
+        - label: "Dataset size"
+          value: "28,692"
+          context: "SCADA alerts"
+
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: "2026"
+        end: "2026"
+        label: "Summer 2026"
+
+      links:
+        live_demo: null
+        github: "https://github.com/AM1N8/PROJET-STAGE"
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: "AM1N8/PROJET-STAGE"
+        include_in_activity_graph: true
+
+      seo:
+        title: "Noor Alerts — AI for SCADA & Maintenance"
+        description: "AI system for SCADA alert classification, maintenance complaint analysis, and GraphRAG-assisted operational knowledge."
+
+    - slug: "proact-cmms"
+      visible: true
+      featured: true
+      featured_order: 2
+
+      title: "ProAct CMMS"
+      short_title: "ProAct CMMS"
+      year: null
+      status: "completed"
+      role: null
+      team_size: null
+
+      domains:
+        - "Generative AI"
+        - "RAG"
+        - "Predictive Maintenance"
+        - "Full Stack AI"
+
+      technologies:
+        - "Next.js"
+        - "FastAPI"
+        - "PostgreSQL"
+        - "FAISS"
+        - "LLM"
+        - "RAG"
+
+      tags:
+        - "CMMS"
+        - "Maintenance"
+        - "Diagnostics"
+
+      one_liner: "An AI-augmented CMMS with an LLM diagnostic copilot and RAG over technical manuals."
+
+      summary: |
+        Developed a full-stack AI-augmented CMMS combining maintenance management with an LLM
+        diagnostic copilot and retrieval over technical manuals for maintenance assistance.
+
+      problem: |
+        Maintenance teams need structured CMMS workflows while also needing fast access to technical
+        documentation and diagnostic context.
+
+      why_it_matters: |
+        Combining operational maintenance software with retrieval-assisted diagnostics can make
+        technical information easier to access during troubleshooting.
+
+      constraints: []
+
+      approach: |
+        Built the application with Next.js, FastAPI, PostgreSQL, and FAISS, integrating an LLM
+        diagnostic copilot and RAG over technical manuals while supporting MTBF/RUL estimation.
+
+      architecture:
+        summary: |
+          A Next.js interface communicates with a FastAPI backend connected to PostgreSQL and
+          a FAISS retrieval layer over technical maintenance documents.
+        diagram: null
+        components:
+          - "Next.js frontend"
+          - "FastAPI backend"
+          - "PostgreSQL"
+          - "FAISS retrieval"
+          - "LLM diagnostic copilot"
+          - "MTBF / RUL estimation"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+      results: []
+
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: null
+        end: null
+
+      links:
+        live_demo: null
+        github: "https://github.com/AM1N8/GMAO-Project"
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: "AM1N8/GMAO-Project"
+        include_in_activity_graph: true
+
+      seo:
+        title: "ProAct CMMS — AI-Augmented Maintenance"
+        description: "Full-stack CMMS with an LLM diagnostic copilot, RAG over technical manuals, and maintenance intelligence."
+
+    - slug: "musiq"
+      visible: true
+      featured: true
+      featured_order: 3
+
+      title: "MUSIQ"
+      short_title: "MUSIQ"
+      year: null
+      status: "completed"
+      role: null
+      team_size: null
+
+      domains:
+        - "Reinforcement Learning"
+        - "Recommendation Systems"
+
+      technologies:
+        - "DQN"
+        - "A2C"
+        - "SAC"
+        - "CQL"
+        - "Dueling DQN"
+        - "Attention"
+        - "Transformers"
+
+      tags:
+        - "Music Recommendation"
+        - "Long-Term Engagement"
+        - "Sequential Decision Making"
+
+      one_liner: "A reinforcement-learning music recommender optimizing long-term engagement from user listening feedback."
+
+      summary: |
+        Developed a reinforcement-learning music recommender using skip, partial-listen, and
+        completion feedback to optimize long-term engagement and personalization.
+
+      problem: |
+        Music recommendation is a sequential decision problem in which immediate user reactions
+        can affect longer-term engagement and diversity.
+
+      why_it_matters: |
+        Reinforcement learning provides a way to optimize recommendations beyond one-step relevance
+        by incorporating future engagement and behavioral feedback.
+
+      constraints: []
+
+      approach: |
+        Evaluated DQN, A2C, SAC, and CQL across discrete song-selection and continuous
+        embedding-based action spaces. Designed Dueling DQN, attention, and Transformer agents
+        using engagement, diversity, and personalization rewards.
+
+      architecture:
+        summary: |
+          User feedback signals define the reward while different RL agents select songs
+          directly or operate in an embedding-based action space.
+        diagram: null
+        components:
+          - "User feedback signals"
+          - "Reward design"
+          - "Discrete song-selection environment"
+          - "Continuous embedding action space"
+          - "DQN / A2C / SAC / CQL agents"
+          - "Attention / Transformer variants"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+      results: []
+
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: null
+        end: null
+
+      links:
+        live_demo: null
+        github: "https://github.com/AM1N8/MUSIQ-"
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: "AM1N8/MUSIQ-"
+        include_in_activity_graph: true
+
+      seo:
+        title: "MUSIQ — Reinforcement Learning Music Recommender"
+        description: "A music recommendation system exploring DQN, A2C, SAC, CQL, attention, and Transformer agents."
+
+    - slug: "hirfati"
+      visible: true
+      featured: true
+      featured_order: 4
+
+      title: "Hirfati"
+      short_title: "Hirfati"
+      year: 2026
+      status: "completed"
+      role: null
+      team_size: null
+
+      domains:
+        - "Generative AI"
+        - "Multilingual AI"
+        - "RAG"
+        - "Automation"
+
+      technologies:
+        - "Speech Recognition"
+        - "RAG"
+        - "MCP"
+
+      tags:
+        - "Darija"
+        - "Tamazight"
+        - "Moroccan Artisans"
+        - "HackAI 4.0"
+
+      one_liner: "A multilingual AI onboarding studio for Moroccan artisans."
+
+      summary: |
+        Built a multilingual Darija/Tamazight AI pipeline for speech recognition,
+        structured data extraction, RAG-based pricing, and automated publishing through MCP workflows.
+
+      problem: |
+        Moroccan artisans can face barriers when turning spoken product information into structured,
+        priced, and publishable digital listings.
+
+      why_it_matters: |
+        A multilingual AI workflow can reduce the friction between artisan knowledge and digital
+        commerce tooling.
+
+      constraints: []
+
+      approach: |
+        Combined multilingual speech recognition, information extraction, RAG-based pricing,
+        and MCP-driven automated publishing into one onboarding pipeline.
+
+      architecture:
+        summary: |
+          Spoken input is transcribed, structured into product information, enriched with pricing
+          assistance through RAG, then passed into publishing workflows through MCP.
+        diagram: null
+        components:
+          - "Darija / Tamazight speech input"
+          - "Speech recognition"
+          - "Data extraction"
+          - "RAG-based pricing"
+          - "MCP publishing workflow"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+
+      results:
+        - label: "HackAI 4.0"
+          value: "5th Place"
+          context: "1337AI, 2026"
+
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: "2026"
+        end: "2026"
+
+      links:
+        live_demo: null
+        github: null
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: null
+        include_in_activity_graph: false
+
+      seo:
+        title: "Hirfati — AI Onboarding for Moroccan Artisans"
+        description: "Multilingual Darija/Tamazight AI onboarding pipeline with speech recognition, extraction, RAG pricing, and MCP publishing."
+
+    - slug: "computer-vision-healthcare"
+      visible: true
+      featured: false
+      featured_order: null
+
+      title: "Computer Vision System for Healthcare"
+      short_title: "Healthcare Vision"
+      year: null
+      status: "completed"
+      role: null
+      team_size: null
+
+      domains:
+        - "Computer Vision"
+        - "Deep Learning"
+        - "NLP"
+        - "Healthcare"
+
+      technologies:
+        - "Deep Learning"
+        - "NLP"
+
+      tags:
+        - "Medical Imaging"
+        - "Fracture Detection"
+        - "Pulmonary Disease Detection"
+
+      one_liner: "Deep learning for medical image analysis paired with an NLP-based symptom–disease chatbot."
+
+      summary: |
+        Developed deep learning models for early detection of fractures and pulmonary diseases
+        from medical images, paired with an NLP-based medical chatbot for symptom–disease mapping.
+
+      problem: null
+      why_it_matters: null
+      constraints: []
+
+      approach: |
+        Applied deep learning to medical imaging tasks and combined the vision system with
+        an NLP chatbot for symptom–disease mapping.
+
+      architecture:
+        summary: null
+        diagram: null
+        components:
+          - "Medical image analysis"
+          - "Deep learning models"
+          - "NLP symptom–disease chatbot"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+      results: []
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: null
+        end: null
+
+      links:
+        live_demo: null
+        github: "https://github.com/AM1N8/Computer-Vision-HealthCare"
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: "AM1N8/Computer-Vision-HealthCare"
+        include_in_activity_graph: true
+
+      seo:
+        title: "Computer Vision System for Healthcare"
+        description: "Deep-learning medical image analysis for fractures and pulmonary disease detection with an NLP-based chatbot."
+
+    - slug: "trajectory-prediction"
+      visible: true
+      featured: false
+      featured_order: null
+
+      title: "Advanced Trajectory Prediction System"
+      short_title: "Trajectory Prediction"
+      year: null
+      status: "completed"
+      role: null
+      team_size: null
+
+      domains:
+        - "Machine Learning"
+        - "Real-Time Prediction"
+
+      technologies:
+        - "Machine Learning"
+
+      tags:
+        - "Trajectory Prediction"
+        - "Motion Analysis"
+        - "Realtime Inference"
+
+      one_liner: "A real-time ML pipeline for motion-pattern analysis and trajectory prediction."
+
+      summary: |
+        Developed a machine-learning pipeline for motion-pattern analysis and trajectory prediction,
+        optimized for inference speed and evaluated on 7,394 real-time samples.
+
+      problem: null
+      why_it_matters: null
+      constraints:
+        - "Optimized for inference speed."
+
+      approach: |
+        Built a machine-learning pipeline for real-time motion-pattern analysis and positional prediction.
+
+      architecture:
+        summary: null
+        diagram: null
+        components:
+          - "Real-time samples"
+          - "Motion-pattern analysis"
+          - "Trajectory prediction"
+          - "Inference optimization"
+
+      engineering_decisions: []
+      challenges: []
+      iterations: []
+
+      results:
+        - label: "Average positional error"
+          value: "5.5 cm"
+          context: "7,394 real-time samples"
+        - label: "Maximum positional error"
+          value: "24 cm"
+          context: "7,394 real-time samples"
+        - label: "Evaluation samples"
+          value: "7,394"
+          context: "real-time samples"
+
+      lessons: null
+      next_steps: null
+
+      dates:
+        start: null
+        end: null
+
+      links:
+        live_demo: null
+        github: "https://github.com/AM1N8/TrajectoryPredictionProject"
+        paper: null
+        article: null
+        video: null
+        documentation: null
+        other: []
+
+      media:
+        hero: null
+        thumbnail: null
+        gallery: []
+        demo_video: null
+        architecture_diagram: null
+
+      interactive_demo:
+        enabled: false
+        component: null
+        lazy_load: true
+        mobile_fallback_image: null
+
+      activity:
+        github_repo: "AM1N8/TrajectoryPredictionProject"
+        include_in_activity_graph: true
+
+      seo:
+        title: "Advanced Trajectory Prediction System"
+        description: "Real-time machine-learning trajectory prediction system evaluated on 7,394 samples."
+
+experiments:
+  visible: true
+  section_label: "LAB"
+
+  entries:
+    - slug: "datatui"
+      visible: true
+      order: 1
+      title: "DataTUI"
+      code: "LAB / 001"
+      domain: "Developer Tool / Data"
+      status: "completed"
+      summary: "A terminal-based EDA toolkit for dataset inspection, analysis, and visualization."
+      technologies: []
+      preview: null
+      interactive: false
+      component: null
+      github: "https://github.com/AM1N8/DATATUI"
+      live_demo: null
+
+    - slug: "godot-minigames"
+      visible: true
+      order: 2
+      title: "Godot Mini-Games"
+      code: "LAB / 002"
+      domain: "Game Development / 2D / 3D"
+      status: "active"
+      summary: "A collection of 2D/3D mini-games and virtual reality experiments built through Gadz'IT."
+      technologies:
+        - "Godot"
+        - "Unity"
+      preview: null
+      interactive: false
+      component: null
+      github: "https://github.com/AM1N8/Godot-MiniGames"
+      live_demo: null
+
+timeline:
+  visible: true
+  section_label: "TIMELINE"
+
+  events:
+    - date: "2026"
+      year: 2026
+      type: "education"
+      title: "École Centrale de Lyon"
+      subtitle: "Dual Degree — Master M2 Computer Science, Artificial Intelligence Track"
+      description: "Final-year double-degree track, expected 2027."
+      link: null
+      highlighted: true
+      visible: true
+
+    - date: "2026"
+      year: 2026
+      type: "experience"
+      title: "AI Engineer Intern — NOMAC Noor III"
+      subtitle: "Ouarzazate, Morocco"
+      description: "Designed and developed Noor Alerts for SCADA alert and maintenance complaint management."
+      link: null
+      highlighted: true
+      visible: true
+
+    - date: "2026"
+      year: 2026
+      type: "award"
+      title: "5th Place — HackAI 4.0"
+      subtitle: "Hirfati"
+      description: "AI onboarding studio for Moroccan artisans."
+      link: null
+      highlighted: true
+      visible: true
+
+    - date: "2025"
+      year: 2025
+      type: "experience"
+      title: "IT Intern — YAZAKI Meknès"
+      subtitle: "Meknès, Morocco"
+      description: "Built an SNMP printer monitoring dashboard for equipment monitoring and incident detection."
+      link: null
+      highlighted: false
+      visible: true
+
+    - date: "2024"
+      year: 2024
+      type: "education"
+      title: "Engineering Degree — ENSAM Meknès"
+      subtitle: "Artificial Intelligence & Data Technologies"
+      description: "Engineering cycle, expected graduation in 2027."
+      link: null
+      highlighted: true
+      visible: true
+
+    - date: "2022"
+      year: 2022
+      type: "education"
+      title: "Integrated Preparatory Cycle — ENSAM Meknès"
+      subtitle: "Meknès, Morocco"
+      description: null
+      link: null
+      highlighted: false
+      visible: true
+
+    - date: "2022"
+      year: 2022
+      type: "activity"
+      title: "Joined Gadz'IT"
+      subtitle: "Computer Science Club, ENSAM Meknès"
+      description: "Game development, VR experiments, DataTUI, CTF competitions, and Linux."
+      link: null
+      highlighted: false
+      visible: true
+
+    - date: "2021"
+      year: 2021
+      type: "education"
+      title: "Baccalaureate in Mathematical Sciences"
+      subtitle: "Option B — Lycée Technique Ibn El Haitham"
+      description: null
+      link: null
+      highlighted: false
+      visible: true
+
+achievements:
+  visible: true
+  entries:
+    - title: "5th Place, HackAI 4.0"
+      issuer: "1337AI"
+      date: "2026"
+      description: "Hirfati — AI Onboarding Studio for Moroccan Artisans."
+      link: null
+      visible: true
+
+publications:
+  visible: false
+  entries: []
+
+activity_graph:
+  enabled: true
+  source: "github"
+  github_username: "AM1N8"
+  github_token_env: "GITHUB_TOKEN"
+
+  default_view: "activity"
+
+  views:
+    activity: true
+    projects: true
+    languages: true
+    timeline: true
+
+  appearance:
+    accent_from_theme: true
+    node_shape: "square"
+    show_labels: true
+    show_tooltips: true
+    show_year_selector: true
+
+  interaction:
+    pointer_repulsion: true
+    project_cluster_morph: true
+    hover_details: true
+    click_opens_project: true
+
+  performance:
+    desktop_max_nodes: 1800
+    tablet_max_nodes: 1000
+    mobile_max_nodes: 550
+    reduced_motion_static: true
+    pause_when_offscreen: true
+    pause_when_tab_hidden: true
+
+  fallback:
+    static_data_path: "/data/github-activity.json"
+    show_if_api_unavailable: true
+
+navigation:
+  items:
+    - label: "HOME"
+      href: "/"
+      visible: true
+    - label: "WORK"
+      href: "/#work"
+      visible: true
+    - label: "LAB"
+      href: "/#lab"
+      visible: true
+    - label: "TIMELINE"
+      href: "/#timeline"
+      visible: true
+    - label: "ABOUT"
+      href: "/#about"
+      visible: true
+    - label: "CONTACT"
+      href: "/#contact"
+      visible: true
+
+command_palette:
+  enabled: true
+  shortcut: "mod+k"
+
+  actions:
+    navigation: true
+    projects: true
+    experiments: true
+    theme_toggle: true
+    github: true
+    linkedin: true
+    resume: true
+    copy_email: true
+
+homepage:
+  section_order:
+    - "hero"
+    - "activity"
+    - "work"
+    - "lab"
+    - "timeline"
+    - "about"
+    - "contact"
+
+  selected_project_count: 4
+  experiment_count: 4
+  show_education_in_timeline: true
+  show_experience_in_timeline: true
+
+content_style:
+  tone:
+    - "technical"
+    - "concise"
+    - "confident"
+    - "specific"
+    - "curious"
+
+  avoid:
+    - "buzzword-heavy copy"
+    - "generic claims"
+    - "fake metrics"
+    - "excessive superlatives"
+    - "corporate jargon"
+
+  first_person: true
+  preferred_spelling: "american"
+
+ui:
+  section_numbering: true
+  show_system_labels: true
+  enable_page_transitions: true
+  enable_project_hover_previews: true
+
+  theme:
+    accent: "#39d353"
+    allow_custom_accent: false
+
+  motion:
+    enabled: true
+    intensity: "low"
+    respect_reduced_motion: true
+
+  loading_screen:
+    enabled: true
+    first_visit_only: true
+    max_visual_duration_ms: 900
+    never_block_content: true
+
+performance:
+  lcp_target_ms: 2000
+  inp_target_ms: 200
+  cls_target: 0.05
+
+  use_server_components_by_default: true
+  lazy_load_activity_graph: true
+  lazy_load_experiments: true
+  pause_offscreen_animation: true
+  disable_heavy_3d_on_mobile: true
+
+  images:
+    preferred_formats:
+      - "avif"
+      - "webp"
+    lazy_load_below_fold: true
+    require_dimensions: true
+
+accessibility:
+  reduced_motion: true
+  skip_link: true
+  visible_focus: true
+  keyboard_command_palette: true
+  graph_text_fallback: true
+  minimum_touch_target_px: 44
+
+footer:
+  show_copyright: true
+  show_build_stack: true
+  show_source_link: true
+  show_local_time: true
+  custom_text: null
+
+ai:
+  instructions: |
+    Read DESIGN.md before generating or modifying UI.
+
+    Treat this YAML file as the single source of truth for personal content.
+    Do not invent missing facts, project metrics, links, dates, companies,
+    awards, publications, skills, or employment.
+
+    Empty optional fields should usually cause the corresponding UI element
+    to be omitted instead of displaying placeholder text.
+
+    Prioritize visual polish, typography, spacing, responsiveness,
+    accessibility, and performance over adding more effects.
+
+    The activity visualization is the signature interactive feature.
+    It should be elegant and technically impressive but must degrade
+    gracefully on mobile and under prefers-reduced-motion.
+
+    Avoid turning the site into a generic cyberpunk, glassmorphism,
+    component-library, or SaaS aesthetic.

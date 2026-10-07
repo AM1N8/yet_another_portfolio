@@ -1,0 +1,10 @@
+.next/
+node_modules/
+out/
+build/
+package-lock.json
+next-env.d.ts
+content/portfolio.yaml
+DESIGN.md
+AGENTS.md
+TASKS.md
