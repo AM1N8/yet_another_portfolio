@@ -82,7 +82,7 @@ Selected Work uses only visible featured projects. Missing project media falls
 back to the supplied architecture component lists, without inventing screenshots
 or connections between components. Results retain their exact YAML values and
 context. Empty optional content and unavailable actions are omitted. The hero
-contains a static coordinate field linking to the Activity Universe section.
+leads directly into Selected Work; the CDXV point matrix sits in the global footer.
 
 `lib/shell.ts` enables section navigation only for rendered sections and project
 navigation only for visible projects. Homepage case-study links and command-palette
@@ -128,7 +128,8 @@ Normalization produces repository/project associations, chronological events and
 contributions, language shares by observed bytes, timeline entries, and graph-ready
 nodes without layout coordinates. Known repositories map to visible, opted-in YAML
 projects case-insensitively; unknown repositories remain generic GitHub activity.
-The homepage Activity Universe consumes this normalized data on the server.
+This independent utility is retained for snapshot tooling and its existing tests;
+the homepage signature does not import it or request GitHub data.
 
 `public/data/github-activity.json` is a versioned, validated public snapshot. Its
 initial contents are intentionally empty: no activity measurements were invented.
@@ -141,70 +142,65 @@ npm run github:snapshot
 The command uses the configured server environment token when present and writes
 only after the entire fetch succeeds, preserving a previous snapshot on failure.
 Review the public JSON before committing it. Builds do not require a token or API
-availability. The homepage is statically rendered and revalidates hourly.
+availability. The homepage is statically rendered without an API dependency.
 
-## Activity Universe core
+## CDXV hero morph
 
-`components/activity/ActivitySection.tsx` passes public normalized data to a small
-client visualization and server-renders the complete text alternative. The homepage
-awaits its cached data before rendering, so the text view remains visible without
-JavaScript instead of depending on a streamed Suspense replacement.
+`components/hero/CdxvMorph.tsx` adds a compact cell field to the hero's existing
+right column. The name, introduction, metadata, and links retain their existing
+layout. On smaller screens, the visual follows the hero metadata.
 
-`lib/activity/layout.ts` uses focused D3 scale, time, and grouping modules for four
-deterministic views: calendar-style ACTIVITY, PROJECTS clusters, LANGUAGES clusters,
-and chronological TIMELINE lanes with supplied project periods. Calendar totals
-remain unattributed unless the source actually identifies a repository. Language
-groups use repository primary language; byte shares are labelled separately in the
-text view. Filled nodes and outlined nodes distinguish contributions from events.
+The imperative renderer in `lib/hero/morph.ts` samples the original CDXV contours
+and matches persistent particles between shapes. Inspired by the live Canvas
+implementation on [GitHub Innovation Graph](https://innovationgraph.github.com/),
+cells carry velocity, attract toward shape targets, and collide locally. The
+pointer acts as a moving obstacle: nearby cells push around it and flow back when
+it leaves. Positions are simulated rather than interpolated along fixed paths.
+C → D → X → V uses a three-second cycle per letter, with a 1.7-second hold and
+1.3-second reformation window. Desktop/tablet/mobile use 245/180/140 cells
+respectively. Greens are mixed from the existing theme tokens, with soft Paper
+tones and muted Ink tones.
 
-`lib/activity/renderer.ts` owns current/target coordinates, hit testing, and 420ms
-interpolation in an imperative Canvas renderer. Frames never update React state;
-the loop stops after settling and cleanup cancels pending frames. Canvas sizing
-tracks its container and device pixel ratio. Theme tokens, responsive node limits,
-and reduced-motion static rendering are supported. Controls, cluster links,
-tooltips, year selection, and complete keyboard-accessible records use HTML; project
-period markers use SVG. Empty/API-failure and unavailable-Canvas states retain
-project links and the text alternative. Optional pointer repulsion is not enabled.
+The renderer is dynamically imported when visible, caps DPR at 2, and pauses
+offscreen or in hidden tabs. Cleanup cancels RAF, removes observers/listeners,
+and releases the Canvas bitmap. Frame state stays entirely outside React.
+A keyboard-accessible pause control is provided; reduced motion, unavailable
+Canvas, or disabled JavaScript preserves a static CDXV arrangement. No additional
+packages are required; spatial-hash collisions bound the simulation work. Tests
+cover contour settling, actual cursor displacement and recovery, all four held
+shapes, intermediate clouds, lifecycle, resizing, static fallback, and both themes.
+Browser profiling measures frame callback cost on desktop and with a four-times
+CPU slowdown at mobile width; results are attached to the Playwright test report.
 
-Browser tests exercise populated fixtures and the committed empty fallback in
-separate `.next-browser*` build/cache directories. `tests/fixtures/github-api.mjs`
-replaces only the server GitHub transport during these test builds; it never writes
-fixture activity into the public snapshot or production cache. Screenshots cover
-all four modes, both themes, and the five required viewport sizes.
+## CDXV footer signature
 
-### Activity performance
+`components/signature/SignatureMark.tsx` renders a purely visual signature inside
+the global footer, without a separate homepage section or heading.
+`lib/signature/geometry.ts` samples four cut-corner
+contours into 670 square cells, preserving a clear CDXV silhouette at every size.
+The server renders three compact SVG paths, coordinate guides, a plotting grid,
+and a meaningful text description. All geometry is deterministic and represents
+the requested signature rather than portfolio statistics.
 
-`LazyActivity.tsx` imports the visualization (including D3) only within 100px of
-the viewport and while the document is visible. Its reserved region and the
-server-rendered text alternative are available before that chunk loads. The
-statically generated, hourly-revalidated homepage does not wait for graph
-JavaScript to paint the hero. Project routes do not import the visualization.
+`SignatureGraph.tsx` is a small client enhancement. It lazily imports the imperative
+Canvas renderer only when the field is visible. Pointer movement produces a subtle
+local response; the keyboard/touch-accessible Pulse matrix button emphasizes the
+center. Reduced motion preserves a static arrangement with immediate color emphasis.
+There is no idle animation loop or frame-by-frame React state. Rendering pauses
+offscreen or in hidden tabs; cleanup removes observers/listeners, cancels RAF, and
+releases the bitmap. The renderer uses Ink/Paper tokens and caps DPR at 2.
 
-An IntersectionObserver and document visibility listener suspend the renderer.
-Suspension cancels RAF, defers Canvas/layout updates, and retains only the latest
-pending target. Resume continues from current coordinates. Settled and
-reduced-motion layouts have no animation loop. ResizeObserver work is debounced
-100ms and measured on resume; DPR changes retain sharp rendering. Cleanup removes
-all observers/listeners/timers, cancels frames, and releases the Canvas bitmap.
-Deterministic node sampling caps desktop/tablet/mobile at the YAML limits
-(1800/1000/550); the accessible text view retains every record.
+The SVG remains complete with JavaScript disabled, unavailable Canvas, or a failed
+enhancement import. The footer uses the `#footer-signature` anchor; the legacy YAML
+activity section-order slot is ignored. Visibility follows `hero.show_activity_visual`;
+GitHub source, credentials, years, and old activity-mode settings have no effect on
+this component. Its optional ID supports reuse without SVG-ID collisions.
 
-`tests/browser/activity-performance.spec.ts` profiles 1440px desktop and 390px
-mobile (4× CPU slowdown) against the production test build. It records LCP,
-long tasks, Canvas frame callback cost, post-GC heap growth, resize draw counts,
-and deferred chunk requests in `test-results/.../performance.json`. It verifies
-zero draws offscreen, hidden, after unmount, and at rest with reduced motion.
-Run in isolation for less noisy measurements:
-
-```bash
-npx playwright test tests/browser/activity-performance.spec.ts --workers=1
-```
-
-These are local Chromium lab checks with a 160-record fixture, not field Web
-Vitals. Density cap tests additionally exercise 2400 input nodes. Initial lab
-profiling showed sub-1.3ms graph frame callbacks at 4× CPU slowdown and under
-0.6MB retained heap growth after repeated mode changes. A Worker is not justified
-by this workload; pointer repulsion remains disabled.
+The obsolete data-driven renderer, mode controls, API browser fixtures, and D3
+dependencies were removed. `tests/signature.test.ts` verifies contour integrity,
+configuration independence, and renderer lifecycle. Browser tests cover keyboard
+and pointer response, theme changes, static fallback, reduced motion, and screenshots
+in both themes at all five review sizes.
 
 See `DESIGN.md`, `AGENTS.md`, and `TASKS.md` for the design direction, contribution
 rules, and remaining phases.

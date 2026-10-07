@@ -9,17 +9,9 @@ export function ArchitectureDiagram({ components }: { components: string[] }) {
       <ul className="architecture-components">
         {components.map((component, index) => (
           <li key={`${index}-${component}`}>
-            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-              <rect
-                x="4"
-                y="4"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-              />
-              <path d="M0 12h4m16 0h4M12 0v4m0 16v4" stroke="currentColor" />
-            </svg>
+            <span className="component-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
             <span>{component}</span>
           </li>
         ))}

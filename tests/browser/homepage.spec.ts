@@ -52,9 +52,10 @@ test("homepage renders verified YAML content and omits missing or private fields
     page.getByRole("heading", { name: "Languages", exact: true }),
   ).toHaveCount(0);
   await page
-    .getByRole("region", { name: "Activity Universe", exact: true })
+    .getByRole("contentinfo")
+    .getByRole("figure", { name: "CDXV signature graph", exact: true })
     .scrollIntoViewIfNeeded();
-  await expect(page.locator("canvas")).toHaveCount(1);
+  await expect(page.locator("canvas")).toHaveCount(2);
   for (const link of await page.getByRole("link").all()) {
     const href = await link.getAttribute("href");
     if (href?.includes("#") && !href.startsWith("http")) {
@@ -115,7 +116,6 @@ test("all static homepage sections remain readable with JavaScript disabled", as
     page.getByRole("heading", { level: 1, name: portfolio.identity.full_name }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { level: 2 })).toHaveText([
-    "ACTIVITY UNIVERSE",
     portfolio.projects.section_label,
     portfolio.experiments.section_label,
     portfolio.timeline.section_label,
@@ -124,12 +124,97 @@ test("all static homepage sections remain readable with JavaScript disabled", as
     portfolio.contact.contact_cta + "↗",
   ]);
   await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await expect(page).toHaveURL(/#activity$/);
+  await expect(page).toHaveURL(/#work$/);
   await expect(
     page.getByRole("heading", {
-      name: "ACTIVITY UNIVERSE",
+      name: portfolio.projects.section_label,
       exact: true,
     }),
   ).toBeInViewport();
   await context.close();
+});
+
+test("navigation highlight follows manual scrolling in both directions", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const navigation = page.getByRole("navigation", {
+    name: "Primary",
+    exact: true,
+  });
+  const expectActive = async (label: string) => {
+    await expect(navigation.locator("a[aria-current]")).toHaveCount(1);
+    await expect(
+      navigation.getByRole("link", { name: label, exact: true }),
+    ).toHaveAttribute("aria-current", /page|location/);
+  };
+  await expectActive("HOME");
+  for (const id of [
+    "work",
+    "lab",
+    "timeline",
+    "about",
+    "contact",
+    "about",
+    "lab",
+    "work",
+    "home",
+  ]) {
+    await page
+      .locator(`#${id}`)
+      .evaluate((section) => section.scrollIntoView({ block: "start" }));
+    await expectActive(id.toUpperCase());
+  }
+  // Unlisted content inherits the preceding navigation section.
+  await page
+    .locator("#stack")
+    .evaluate((section) => section.scrollIntoView({ block: "start" }));
+  await expectActive("ABOUT");
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await expectActive("CONTACT");
+  await expect(page).toHaveURL("http://127.0.0.1:3100/");
+});
+
+test("navigation highlight supports deep links, mobile and project pages", async ({
+  page,
+}) => {
+  await page.goto("/#timeline");
+  const primary = page.getByRole("navigation", {
+    name: "Primary",
+    exact: true,
+  });
+  await expect(
+    primary.getByRole("link", { name: "TIMELINE", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await primary.getByRole("link", { name: "WORK", exact: true }).click();
+  await expect(
+    primary.getByRole("link", { name: "WORK", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByLabel("Navigation menu", { exact: true }).click();
+  await page
+    .locator("#about")
+    .evaluate((section) => section.scrollIntoView({ block: "start" }));
+  const mobile = page.getByRole("navigation", { name: "Mobile", exact: true });
+  await expect(
+    mobile.getByRole("link", { name: "ABOUT", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await mobile.getByRole("link", { name: "CONTACT", exact: true }).click();
+  // The disclosure closes after navigation, so inspect its hidden link by href.
+  await expect(page.locator('details a[href="/#contact"]')).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  await page.goto("/work/noor-alerts");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(
+    primary.getByRole("link", { name: "WORK", exact: true }),
+  ).toHaveAttribute("aria-current", "location");
+  await expect(
+    primary.getByRole("link", { name: "HOME", exact: true }),
+  ).not.toHaveAttribute("aria-current");
+  await primary.getByRole("link", { name: "HOME", exact: true }).click();
+  await expect(
+    primary.getByRole("link", { name: "HOME", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
 });

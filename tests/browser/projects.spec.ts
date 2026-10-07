@@ -61,7 +61,10 @@ for (const project of projects) {
         page.getByRole("figure").getByText(component, { exact: true }),
       ).toBeVisible();
     await expect(page.getByText("N/A", { exact: true })).toHaveCount(0);
-    await expect(page.locator("canvas")).toHaveCount(0);
+    await expect(page.getByRole("main").locator("canvas")).toHaveCount(0);
+    await expect(page.getByRole("contentinfo").locator("canvas")).toHaveCount(
+      1,
+    );
   });
 }
 

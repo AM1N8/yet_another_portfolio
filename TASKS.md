@@ -365,22 +365,22 @@ Review at least the strongest featured projects.
 
 Improve:
 
-- [ ] project hero composition;
-- [ ] technical metadata presentation;
-- [ ] architecture diagram styling;
-- [ ] long-form readability;
-- [ ] results/metrics presentation;
-- [ ] media framing;
-- [ ] mobile case-study layout;
-- [ ] spacing between technical and editorial content.
+- [x] project hero composition;
+- [x] technical metadata presentation;
+- [x] architecture diagram styling;
+- [x] long-form readability;
+- [x] results/metrics presentation;
+- [x] media framing;
+- [x] mobile case-study layout;
+- [x] spacing between technical and editorial content.
 
 Avoid turning every subsection into a card.
 
 ## Quality gate
 
-- [ ] Strongest projects feel distinct and memorable.
-- [ ] Case studies remain easy to scan.
-- [ ] No performance-heavy decoration is introduced.
+- [x] Strongest projects feel distinct and memorable.
+- [x] Case studies remain easy to scan.
+- [x] No performance-heavy decoration is introduced.
 
 Suggested commit:
 
@@ -440,6 +440,10 @@ feat: add resilient github activity data pipeline
 ---
 
 # PHASE 9 — Activity Universe Core
+
+Historical implementation below was completed, then superseded by the user-requested
+CDXV signature replacement. The current visualization no longer uses activity data
+or the four mode controls. See the replacement checklist after Phase 10.
 
 This is the most technically demanding phase.
 
@@ -573,22 +577,50 @@ perf: optimize activity universe lifecycle and rendering
 
 ---
 
+# CDXV Signature Replacement — Current Direction
+
+The CDXV point matrix lives in the global footer. The standalone Signature
+Field section and its empty hero preview have been removed; the hero leads into
+Selected Work. A separately requested compact CDXV morph now occupies the hero's
+right column, retaining the existing identity content and layout.
+Its fluid behavior follows the Innovation Graph reference: persistent velocity,
+local cell collisions, shape attraction, and a cursor-driven obstacle, with a
+static reduced-motion fallback.
+
+- [x] Replace activity modes with a dense, readable CDXV cell field.
+- [x] Remove the homepage visualization's GitHub/API dependency.
+- [x] Use a reusable server-rendered SVG with a lightweight Canvas enhancement.
+- [x] Preserve Ink/Paper tokens, homepage rhythm, and existing navigation anchors.
+- [x] Support pointer and keyboard/touch interaction with restrained motion.
+- [x] Provide a static reduced-motion arrangement and meaningful accessible description.
+- [x] Keep the complete visual available without JavaScript or Canvas.
+- [x] Pause offscreen/hidden rendering and clean up observers, listeners, RAF, and bitmap.
+- [x] Remove obsolete activity UI and unused visualization dependencies.
+- [x] Pass validation and review both themes at all five required viewport sizes.
+
+---
+
 # PHASE 11 — Activity Universe Visual Review
+
+The original Activity Universe review is superseded by the CDXV signature direction;
+the checklist below remains a record of the original plan. The review pass was
+completed against its successor, the footer CDXV point matrix (cells, labels,
+controls, and page integration), preserving its Canvas renderer and lifecycle.
 
 Do not rewrite stable rendering architecture merely for styling.
 
 Refine:
 
-- [ ] node size;
-- [ ] node density;
-- [ ] cluster spacing;
-- [ ] label typography;
-- [ ] tooltip composition;
-- [ ] selected states;
-- [ ] transition feel;
-- [ ] graph-to-page integration;
-- [ ] Ink/Paper treatment;
-- [ ] mobile simplification.
+- [x] node size;
+- [x] node density;
+- [x] cluster spacing;
+- [x] label typography;
+- [x] tooltip composition;
+- [x] selected states;
+- [x] transition feel;
+- [x] graph-to-page integration;
+- [x] Ink/Paper treatment;
+- [x] mobile simplification.
 
 Preserve:
 
@@ -600,9 +632,9 @@ Preserve:
 
 ## Quality gate
 
-- [ ] Activity Universe feels like part of the design system.
-- [ ] It does not visually overpower the portfolio.
-- [ ] The graph remains smooth after visual refinement.
+- [x] Activity Universe feels like part of the design system.
+- [x] It does not visually overpower the portfolio.
+- [x] The graph remains smooth after visual refinement.
 
 Suggested commit:
 

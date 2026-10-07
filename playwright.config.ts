@@ -14,7 +14,6 @@ export default defineConfig({
   webServer: {
     env: {
       PORTFOLIO_BROWSER_TEST: "1",
-      NODE_OPTIONS: "--import ./tests/fixtures/github-api.mjs",
       GITHUB_TOKEN: "",
     },
     command:

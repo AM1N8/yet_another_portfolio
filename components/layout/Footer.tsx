@@ -1,11 +1,17 @@
 import type { Portfolio } from "@/lib/content/types";
 import { ThemeControls } from "@/components/ui/ThemeControls";
 import { LocalClock } from "@/components/ui/LocalClock";
+import { SignatureMark } from "@/components/signature/SignatureMark";
 
 export function Footer({ portfolio }: { portfolio: Portfolio }) {
   const { footer, identity, site } = portfolio;
   return (
     <footer className="site-footer">
+      {portfolio.hero.show_activity_visual && (
+        <div className="container">
+          <SignatureMark portfolio={portfolio} />
+        </div>
+      )}
       <div className="container footer-inner">
         <div className="footer-meta label">
           {footer.show_copyright && (

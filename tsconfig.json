@@ -30,9 +30,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next-browser/types/**/*.ts",
-    ".next-browser/dev/types/**/*.ts",
-    ".next-browser-empty/types/**/*.ts",
-    ".next-browser-empty/dev/types/**/*.ts"
+    ".next-browser/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

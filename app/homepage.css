@@ -55,6 +55,7 @@
 }
 .hero-introduction {
   min-width: 0;
+  container-type: inline-size;
   order: 1;
 }
 .hero-eyebrow {
@@ -63,12 +64,9 @@
 .hero-name > span {
   display: block;
 }
-.hero-name .hero-name-prefix {
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  letter-spacing: -0.035em;
-  font-weight: 400;
-  line-height: 1.3;
-  margin-bottom: var(--space-3);
+.hero-name .hero-given-name {
+  font-size: clamp(2rem, 12cqi, 7rem);
+  white-space: nowrap;
 }
 .hero-role {
   margin-top: var(--space-6);
@@ -78,37 +76,6 @@
   max-width: 42ch;
   margin-top: var(--space-5);
   text-wrap: pretty;
-}
-.activity-reserve {
-  order: 3;
-  min-width: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.reserve-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-block: var(--space-4);
-}
-.reserve-field {
-  width: 100%;
-  height: 132px;
-  color: var(--border-strong);
-}
-.reserve-corners {
-  color: var(--text-muted-readable);
-}
-.reserve-caption {
-  padding-block: var(--space-4);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-2);
-  font-size: 0.875rem;
 }
 .hero-bottom {
   order: 2;
@@ -339,12 +306,8 @@
   left: calc(-1 * var(--space-5) - 4px);
   width: 7px;
   height: 7px;
-  background: var(--bg);
-  border: 1px solid var(--border-strong);
-}
-.timeline-event.is-significant::before {
   background: var(--accent);
-  border-color: var(--text-muted-readable);
+  border: 1px solid var(--text-muted-readable);
 }
 .timeline-event-meta {
   display: flex;
@@ -451,9 +414,6 @@
     gap: var(--space-6);
     padding-top: var(--space-6);
   }
-  .reserve-field {
-    height: 260px;
-  }
   .system-components {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4) var(--space-5);
@@ -499,13 +459,6 @@
   .scroll-hint {
     align-self: flex-start;
     margin-top: var(--space-6);
-  }
-  .reserve-field {
-    height: auto;
-    aspect-ratio: 10 / 9;
-  }
-  .reserve-caption {
-    display: grid;
   }
   .project-composition {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);

@@ -1,14 +1,7 @@
 import type { Portfolio } from "./content/types.ts";
 
 export type HomepageSection =
-  | "hero"
-  | "activity"
-  | "work"
-  | "lab"
-  | "timeline"
-  | "about"
-  | "stack"
-  | "contact";
+  "hero" | "work" | "lab" | "timeline" | "about" | "stack" | "contact";
 
 export function getSelectedProjects(portfolio: Portfolio) {
   return portfolio.projects.entries
@@ -79,9 +72,6 @@ export function getPublicLinks(portfolio: Portfolio) {
 export function getHomepageSections(portfolio: Portfolio): HomepageSection[] {
   const visible: Record<HomepageSection, boolean> = {
     hero: true,
-    activity:
-      portfolio.activity_graph.enabled &&
-      Object.values(portfolio.activity_graph.views).some(Boolean),
     work: getSelectedProjects(portfolio).length > 0,
     lab: getExperiments(portfolio).length > 0,
     timeline: getTimelineEvents(portfolio).length > 0,
@@ -96,6 +86,8 @@ export function getHomepageSections(portfolio: Portfolio): HomepageSection[] {
   };
   const sections: HomepageSection[] = [];
   for (const section of portfolio.homepage.section_order) {
+    // The legacy activity slot is retired; CDXV now belongs to the footer.
+    if (section === "activity") continue;
     if (visible[section]) sections.push(section);
     if (section === "about" && visible.stack) sections.push("stack");
   }
