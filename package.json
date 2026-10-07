@@ -14,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --conditions=react-server --test tests/*.test.ts"
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --conditions=react-server --test tests/*.test.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "next": "^16.4.0",
@@ -25,6 +27,7 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

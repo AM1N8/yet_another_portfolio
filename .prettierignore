@@ -8,3 +8,5 @@ content/portfolio.yaml
 DESIGN.md
 AGENTS.md
 TASKS.md
+test-results/
+playwright-report/

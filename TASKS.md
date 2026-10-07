@@ -98,40 +98,40 @@ Do not add elaborate motion yet.
 
 ## 2.1 Tokens
 
-- [ ] Implement Ink/Paper CSS variables from `DESIGN.md`.
-- [ ] Implement spacing scale.
-- [ ] Implement border/radius tokens.
-- [ ] Implement text colors.
-- [ ] Implement restrained accent usage.
+- [x] Implement Ink/Paper CSS variables from `DESIGN.md`.
+- [x] Implement spacing scale.
+- [x] Implement border/radius tokens.
+- [x] Implement text colors.
+- [x] Implement restrained accent usage.
 
 ## 2.2 Typography
 
-- [ ] Add optimized primary font.
-- [ ] Add optimized mono font.
-- [ ] Configure display/body/mono classes.
-- [ ] Implement responsive typography using `clamp()` where appropriate.
+- [x] Add optimized primary font.
+- [x] Add optimized mono font.
+- [x] Configure display/body/mono classes.
+- [x] Implement responsive typography using `clamp()` where appropriate.
 
 ## 2.3 Grid
 
-- [ ] Implement global max width.
-- [ ] Implement desktop 12-column grid utilities.
-- [ ] Implement responsive page gutters.
-- [ ] Establish consistent vertical section spacing.
+- [x] Implement global max width.
+- [x] Implement desktop 12-column grid utilities.
+- [x] Implement responsive page gutters.
+- [x] Establish consistent vertical section spacing.
 
 ## 2.4 Theme
 
-- [ ] Implement system theme detection.
-- [ ] Implement `INK / PAPER` toggle.
-- [ ] Persist explicit preference.
-- [ ] Avoid theme flash/hydration mismatch.
+- [x] Implement system theme detection.
+- [x] Implement `INK / PAPER` toggle.
+- [x] Persist explicit preference.
+- [x] Avoid theme flash/hydration mismatch.
 
 ## Quality gate
 
-- [ ] Ink theme works.
-- [ ] Paper theme works.
-- [ ] Mobile gutters look intentional.
-- [ ] Theme toggle is keyboard accessible.
-- [ ] Static content does not require a large client wrapper.
+- [x] Ink theme works.
+- [x] Paper theme works.
+- [x] Mobile gutters look intentional.
+- [x] Theme toggle is keyboard accessible.
+- [x] Static content does not require a large client wrapper.
 
 Suggested commit:
 
@@ -145,31 +145,31 @@ feat: establish portfolio design system
 
 ## 3.1 Layout
 
-- [ ] Root layout.
-- [ ] Header.
-- [ ] Desktop navigation.
-- [ ] Mobile navigation.
-- [ ] Footer.
-- [ ] Skip-to-content link.
+- [x] Root layout.
+- [x] Header.
+- [x] Desktop navigation.
+- [x] Mobile navigation.
+- [x] Footer.
+- [x] Skip-to-content link.
 
 ## 3.2 Command palette
 
-- [ ] Add `Cmd/Ctrl + K`.
+- [x] Add `Cmd/Ctrl + K`.
 - [ ] Support section navigation.
 - [ ] Support project navigation.
-- [ ] Support experiment navigation.
-- [ ] Support theme toggle.
-- [ ] Support GitHub.
-- [ ] Support LinkedIn.
-- [ ] Support email copy.
-- [ ] Support résumé action only when URL exists.
+- [x] Support experiment navigation.
+- [x] Support theme toggle.
+- [x] Support GitHub.
+- [x] Support LinkedIn.
+- [x] Support email copy.
+- [x] Support résumé action only when URL exists.
 
 ## Quality gate
 
-- [ ] Full keyboard navigation works.
-- [ ] Mobile menu works.
-- [ ] No broken internal links.
-- [ ] Command palette restores focus correctly.
+- [x] Full keyboard navigation works.
+- [x] Mobile menu works.
+- [x] No broken internal links.
+- [x] Command palette restores focus correctly.
 
 Suggested commit:
 
