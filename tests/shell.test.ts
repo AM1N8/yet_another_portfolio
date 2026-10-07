@@ -11,6 +11,14 @@ test("navigation exposes only implemented or external destinations as available"
   assert.ok(
     navigation
       .filter((item) => item.href.startsWith("/#"))
+      .every((item) => item.available),
+  );
+  const input = structuredClone(portfolio);
+  input.experiments.visible = false;
+  input.about.visible = false;
+  assert.ok(
+    getNavigation(input)
+      .filter((item) => ["/#lab", "/#about"].includes(item.href))
       .every((item) => !item.available),
   );
 });

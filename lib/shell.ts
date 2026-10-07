@@ -1,4 +1,5 @@
 import type { Portfolio } from "./content/types.ts";
+import { getHomepageSections } from "./homepage.ts";
 
 export type NavigationItem = {
   label: string;
@@ -23,9 +24,15 @@ export type Command = {
   | { kind: "copy-email"; email: string }
 );
 
-// Add destinations here when their later-phase routes/sections are implemented.
-export function isDestinationAvailable(href: string): boolean {
-  return href === "/" || /^https?:\/\//.test(href);
+export function isDestinationAvailable(
+  href: string,
+  portfolio: Portfolio,
+): boolean {
+  if (href === "/" || /^https?:\/\//.test(href)) return true;
+  const section = href.match(/^\/?#([\w-]+)$/)?.[1];
+  return getHomepageSections(portfolio).some(
+    (entry) => (entry === "hero" ? "home" : entry) === section,
+  );
 }
 
 export function getNavigation(portfolio: Portfolio): NavigationItem[] {
@@ -34,7 +41,7 @@ export function getNavigation(portfolio: Portfolio): NavigationItem[] {
     .map((item) => ({
       label: item.label,
       href: item.href,
-      available: isDestinationAvailable(item.href),
+      available: isDestinationAvailable(item.href, portfolio),
     }));
 }
 

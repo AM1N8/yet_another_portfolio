@@ -185,65 +185,65 @@ The homepage should already look good at the end of this phase without the Activ
 
 ## 4.1 Hero
 
-- [ ] Render name from YAML.
-- [ ] Render role.
-- [ ] Render positioning statement.
-- [ ] Render availability status.
-- [ ] Render location.
-- [ ] Render public GitHub/LinkedIn/contact links.
-- [ ] Create reserved visual region for Activity Universe.
-- [ ] Add scroll hint.
-- [ ] Add restrained technical/system labels.
+- [x] Render name from YAML.
+- [x] Render role.
+- [x] Render positioning statement.
+- [x] Render availability status.
+- [x] Render location.
+- [x] Render public GitHub/LinkedIn/contact links.
+- [x] Create reserved visual region for Activity Universe.
+- [x] Add scroll hint.
+- [x] Add restrained technical/system labels.
 
 Do not implement complex particles yet.
 
 ## 4.2 Selected Work
 
-- [ ] Sort by `featured_order`.
-- [ ] Show only featured projects on homepage.
-- [ ] Create editorial project layout.
-- [ ] Avoid generic 3-column card grid.
-- [ ] Include domain/technology metadata.
-- [ ] Include verified metrics when useful.
+- [x] Sort by `featured_order`.
+- [x] Show only featured projects on homepage.
+- [x] Create editorial project layout.
+- [x] Avoid generic 3-column card grid.
+- [x] Include domain/technology metadata.
+- [x] Include verified metrics when useful.
 - [ ] Link to project case-study routes.
 
 ## 4.3 LAB
 
-- [ ] Render experiment entries.
-- [ ] Use compact experimental/research styling.
-- [ ] Hide unavailable actions.
-- [ ] Support GitHub links.
+- [x] Render experiment entries.
+- [x] Use compact experimental/research styling.
+- [x] Hide unavailable actions.
+- [x] Support GitHub links.
 
 ## 4.4 Timeline
 
-- [ ] Render YAML timeline.
-- [ ] Implement clean vertical log.
-- [ ] Highlight significant entries.
-- [ ] Keep mobile layout readable.
+- [x] Render YAML timeline.
+- [x] Implement clean vertical log.
+- [x] Highlight significant entries.
+- [x] Keep mobile layout readable.
 
 ## 4.5 About / Stack
 
-- [ ] Render concise intro.
-- [ ] Render philosophy.
-- [ ] Render interests.
-- [ ] Render semantic skill groups.
-- [ ] Never use proficiency percentages.
+- [x] Render concise intro.
+- [x] Render philosophy.
+- [x] Render interests.
+- [x] Render semantic skill groups.
+- [x] Never use proficiency percentages.
 
 ## 4.6 Contact
 
-- [ ] Render CTA.
-- [ ] Render email.
-- [ ] Render public links.
-- [ ] Respect privacy visibility fields.
-- [ ] Keep phone hidden when `phone_public: false`.
+- [x] Render CTA.
+- [x] Render email.
+- [x] Render public links.
+- [x] Respect privacy visibility fields.
+- [x] Keep phone hidden when `phone_public: false`.
 
 ## Quality gate
 
-- [ ] All homepage content comes from YAML.
-- [ ] Empty fields disappear gracefully.
-- [ ] No project facts are invented.
-- [ ] Homepage remains understandable with minimal JavaScript.
-- [ ] Mobile has no horizontal overflow.
+- [x] All homepage content comes from YAML.
+- [x] Empty fields disappear gracefully.
+- [x] No project facts are invented.
+- [x] Homepage remains understandable with minimal JavaScript.
+- [x] Mobile has no horizontal overflow.
 
 Suggested commit:
 

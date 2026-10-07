@@ -156,7 +156,7 @@ test("mobile disclosure is keyboard accessible, closes on Escape and outside cli
   const main = page.getByRole("main");
   const bounds = await main.boundingBox();
   expect(bounds).not.toBeNull();
-  await main.click({ position: { x: 10, y: bounds!.height - 20 } });
+  await main.click({ position: { x: 10, y: 680 } });
   await expect(
     page.getByRole("navigation", { name: "Mobile", exact: true }),
   ).not.toBeVisible();
@@ -258,6 +258,20 @@ for (const viewport of viewports) {
         path: testInfo.outputPath("shell.png"),
         fullPage: true,
       });
+      for (const section of [
+        "home",
+        "work",
+        "lab",
+        "timeline",
+        "about",
+        "stack",
+        "contact",
+      ]) {
+        await page
+          .locator(`#${section}`)
+          .screenshot({ path: testInfo.outputPath(`${section}.png`) });
+      }
+      await page.evaluate(() => scrollTo(0, 0));
       const shell = new ShellPage(page);
       await shell.open();
       await page.screenshot({
