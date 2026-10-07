@@ -96,7 +96,7 @@ test("command destinations, unavailable routes, missing resume, clipboard and em
   ).toHaveCount(0);
   await shell.search.fill("Projects");
   for (const option of await shell.palette.getByRole("option").all())
-    await expect(option).toBeDisabled();
+    await expect(option).toBeEnabled();
   await shell.run("Copy email");
   await expect(shell.palette.getByRole("status")).toHaveText(
     "Email copied to clipboard.",

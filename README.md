@@ -84,12 +84,64 @@ or connections between components. Results retain their exact YAML values and
 context. Empty optional content and unavailable actions are omitted. The hero
 contains a clearly labelled, static reserved Activity Universe field.
 
-`lib/shell.ts` enables section navigation only for rendered sections. Case-study
-commands remain disabled, and homepage case-study links are deferred until Phase 6
-provides `/work/[slug]`; the corresponding task remains unchecked. Existing
-project and experiment repository links work without API integration. Homepage
+`lib/shell.ts` enables section navigation only for rendered sections and project
+navigation only for visible projects. Homepage case-study links and command-palette
+project actions navigate to `/work/[slug]`. Existing project and experiment
+repository links work without API integration. Homepage
 content and section links remain usable without JavaScript. Browser QA captures
 full-page and individual section screenshots for Ink and Paper at all five sizes.
+
+## Project case studies
+
+`app/work/[slug]/page.tsx` statically generates every visible YAML project, including
+non-featured projects, and returns 404 for unknown slugs. Project-specific titles,
+descriptions, canonical URLs, Open Graph, and Twitter metadata use validated content.
+
+`components/work/CaseStudy.tsx` shares the editorial layout and conditionally renders
+narrative, architecture, results, lessons, links, and media. Empty sections disappear.
+`ArchitectureDiagram.tsx` uses lightweight HTML/SVG component registers without
+inventing connections. Images use `next/image`; videos have native controls and do
+not autoplay. All case-study content remains server-rendered. Route-local styling
+preserves the homepage design and supports Ink/Paper and reduced motion.
+
+Project browser tests cover metadata, conditional content, navigation, 404 behavior,
+JavaScript-disabled rendering, and screenshots of all projects at the five review
+sizes in both themes.
+
+## GitHub activity data
+
+`lib/github/loadGitHubData.ts` exports the server-only `loadGitHubData()` loader.
+It reads the username, source, token environment-variable name, and fallback path
+from validated YAML. Public repositories, language byte counts, and recent public
+events work without a token. An optional server-only `GITHUB_TOKEN` also enables
+the GitHub contribution calendar. Public events are explicitly separate from
+contribution counts: the REST feed is limited and is not a complete activity history.
+
+Requests revalidate hourly and use bounded pagination, timeouts, and language-query
+concurrency. Coverage flags expose truncation and calendar availability. API errors,
+rate limits, and invalid responses select the validated static fallback, or return
+an empty dataset when fallback is unavailable/disabled. Error messages and tokens
+are never serialized. Import types from `lib/github/types.ts`; server loaders must
+not be imported by Client Components.
+
+Normalization produces repository/project associations, chronological events and
+contributions, language shares by observed bytes, timeline entries, and graph-ready
+nodes without layout coordinates. Known repositories map to visible, opted-in YAML
+projects case-insensitively; unknown repositories remain generic GitHub activity.
+No Activity Universe UI consumes this data yet.
+
+`public/data/github-activity.json` is a versioned, validated public snapshot. Its
+initial contents are intentionally empty: no activity measurements were invented.
+To replace it with verified API data, run:
+
+```bash
+npm run github:snapshot
+```
+
+The command uses the configured server environment token when present and writes
+only after the entire fetch succeeds, preserving a previous snapshot on failure.
+Review the public JSON before committing it. Builds do not require a token or API
+availability, and no data-fetching code is added to the current homepage.
 
 See `DESIGN.md`, `AGENTS.md`, and `TASKS.md` for the design direction, contribution
 rules, and remaining phases.

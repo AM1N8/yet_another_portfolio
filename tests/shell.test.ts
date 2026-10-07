@@ -57,7 +57,7 @@ test("missing resume is omitted; a visible resume with a URL is included", () =>
   assert.ok(!getCommands(input).some((command) => command.id === "resume"));
 });
 
-test("project destinations remain unavailable until their routes exist", () => {
+test("visible project destinations are available", () => {
   const commands = getCommands(portfolio).filter(
     (command) => command.group === "Projects",
   );
@@ -65,5 +65,5 @@ test("project destinations remain unavailable until their routes exist", () => {
     commands.length,
     portfolio.projects.entries.filter((entry) => entry.visible).length,
   );
-  assert.ok(commands.every((command) => !command.available));
+  assert.ok(commands.every((command) => command.available));
 });

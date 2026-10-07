@@ -16,7 +16,8 @@
     "format:check": "prettier --check .",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "node --conditions=react-server --test tests/*.test.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "github:snapshot": "node --conditions=react-server scripts/github-snapshot.ts"
   },
   "dependencies": {
     "next": "^16.4.0",

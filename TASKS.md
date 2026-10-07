@@ -301,55 +301,55 @@ style: complete first visual refinement pass
 
 ## 6.1 Dynamic routing
 
-- [ ] Create `/work/[slug]`.
-- [ ] Generate routes from visible YAML projects.
-- [ ] Handle missing slug with 404.
-- [ ] Add project-specific SEO metadata.
+- [x] Create `/work/[slug]`.
+- [x] Generate routes from visible YAML projects.
+- [x] Handle missing slug with 404.
+- [x] Add project-specific SEO metadata.
 
 ## 6.2 Case study composition
 
 For each project, render when available:
 
-- [ ] title;
-- [ ] one-liner;
-- [ ] status;
-- [ ] year;
-- [ ] role;
-- [ ] technologies;
-- [ ] problem;
-- [ ] why it matters;
-- [ ] constraints;
-- [ ] approach;
-- [ ] architecture;
-- [ ] engineering decisions;
-- [ ] challenges;
-- [ ] iterations;
-- [ ] results;
-- [ ] lessons;
-- [ ] next steps;
-- [ ] project links;
-- [ ] media.
+- [x] title;
+- [x] one-liner;
+- [x] status;
+- [x] year;
+- [x] role;
+- [x] technologies;
+- [x] problem;
+- [x] why it matters;
+- [x] constraints;
+- [x] approach;
+- [x] architecture;
+- [x] engineering decisions;
+- [x] challenges;
+- [x] iterations;
+- [x] results;
+- [x] lessons;
+- [x] next steps;
+- [x] project links;
+- [x] media.
 
 ## 6.3 Empty-data behavior
 
-- [ ] Do not show headings for empty sections.
-- [ ] Do not render `N/A`.
-- [ ] Do not generate placeholder copy.
+- [x] Do not show headings for empty sections.
+- [x] Do not render `N/A`.
+- [x] Do not generate placeholder copy.
 
 ## 6.4 Architecture visual
 
-- [ ] Create reusable architecture-diagram component.
-- [ ] Use lightweight HTML/SVG.
-- [ ] Use YAML component lists when possible.
-- [ ] Keep visual style consistent across projects.
+- [x] Create reusable architecture-diagram component.
+- [x] Use lightweight HTML/SVG.
+- [x] Use YAML component lists when possible.
+- [x] Keep visual style consistent across projects.
 
 ## Quality gate
 
-- [ ] All visible project pages render.
-- [ ] No fake project details.
-- [ ] Project metadata is internally consistent.
-- [ ] Project pages are responsive.
-- [ ] Long-form pages remain readable.
+- [x] All visible project pages render.
+- [x] No fake project details.
+- [x] Project metadata is internally consistent.
+- [x] Project pages are responsive.
+- [x] Long-form pages remain readable.
 
 Suggested commit:
 
@@ -398,38 +398,38 @@ Do not build the visualization before the data layer is stable.
 
 Create normalized internal types for:
 
-- [ ] contribution/activity entries;
-- [ ] project/repository associations;
-- [ ] language distribution;
-- [ ] timeline activity;
-- [ ] graph nodes.
+- [x] contribution/activity entries;
+- [x] project/repository associations;
+- [x] language distribution;
+- [x] timeline activity;
+- [x] graph nodes.
 
 ## 8.2 Server GitHub integration
 
-- [ ] Read `github_username` from YAML.
-- [ ] Read token from server-only environment variable.
-- [ ] Never expose token to client bundle.
-- [ ] Add server-side fetch.
-- [ ] Add caching/revalidation.
-- [ ] Handle API rate/error states.
+- [x] Read `github_username` from YAML.
+- [x] Read token from server-only environment variable.
+- [x] Never expose token to client bundle.
+- [x] Add server-side fetch.
+- [x] Add caching/revalidation.
+- [x] Handle API rate/error states.
 
 ## 8.3 Fallback
 
-- [ ] Support `/public/data/github-activity.json`.
-- [ ] Use fallback if API unavailable.
-- [ ] Ensure site can build without private token.
+- [x] Support `/public/data/github-activity.json`.
+- [x] Use fallback if API unavailable.
+- [x] Ensure site can build without private token.
 
 ## 8.4 Data normalization
 
-- [ ] Normalize GitHub data into graph-friendly shape.
-- [ ] Map known repositories to portfolio projects.
-- [ ] Preserve unknown repositories as generic activity where useful.
+- [x] Normalize GitHub data into graph-friendly shape.
+- [x] Map known repositories to portfolio projects.
+- [x] Preserve unknown repositories as generic activity where useful.
 
 ## Quality gate
 
-- [ ] Production build works without leaking secrets.
-- [ ] Graph data can be inspected in normalized form.
-- [ ] Fallback works when API is unavailable.
+- [x] Production build works without leaking secrets.
+- [x] Graph data can be inspected in normalized form.
+- [x] Fallback works when API is unavailable.
 
 Suggested commit:
 

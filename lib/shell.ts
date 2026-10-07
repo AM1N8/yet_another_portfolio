@@ -1,5 +1,6 @@
 import type { Portfolio } from "./content/types.ts";
 import { getHomepageSections } from "./homepage.ts";
+import { findProject } from "./projects.ts";
 
 export type NavigationItem = {
   label: string;
@@ -29,6 +30,8 @@ export function isDestinationAvailable(
   portfolio: Portfolio,
 ): boolean {
   if (href === "/" || /^https?:\/\//.test(href)) return true;
+  const projectSlug = href.match(/^\/work\/([\w-]+)$/)?.[1];
+  if (projectSlug) return Boolean(findProject(portfolio, projectSlug));
   const section = href.match(/^\/?#([\w-]+)$/)?.[1];
   return getHomepageSections(portfolio).some(
     (entry) => (entry === "hero" ? "home" : entry) === section,
@@ -71,7 +74,7 @@ export function getCommands(portfolio: Portfolio): Command[] {
         group: "Projects",
         kind: "link",
         href: `/work/${project.slug}`,
-        available: false,
+        available: true,
       });
     }
   }

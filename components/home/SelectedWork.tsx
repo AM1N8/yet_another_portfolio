@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Portfolio, Project } from "@/lib/content/types";
 import { getSelectedProjects } from "@/lib/homepage";
+import { getProjectLinks } from "@/lib/projects";
 import { SectionHeading } from "./SectionHeading";
 
 function ProjectVisual({ project }: { project: Project }) {
@@ -63,21 +65,7 @@ export function SelectedWork({
       />
       <div className="project-list">
         {getSelectedProjects(portfolio).map((project, projectIndex) => {
-          const labels = {
-            github: "Repository",
-            live_demo: "Live demo",
-            paper: "Paper",
-            article: "Article",
-            video: "Video",
-            documentation: "Documentation",
-          } as const;
-          const links: { label: string; url: string }[] = Object.entries(
-            labels,
-          ).flatMap(([key, label]) => {
-            const url = project.links?.[key as keyof typeof labels];
-            return url ? [{ label, url }] : [];
-          });
-          links.push(...(project.links?.other ?? []));
+          const links = getProjectLinks(project);
           const hasEvidence = Boolean(
             project.media?.hero ||
             project.media?.thumbnail ||
@@ -132,6 +120,13 @@ export function SelectedWork({
                       </ul>
                     </div>
                   )}
+                  <Link
+                    className="text-link label"
+                    href={`/work/${project.slug}`}
+                  >
+                    View case study <span aria-hidden="true">↗</span>
+                    <span className="sr-only"> for {project.title}</span>
+                  </Link>
                   {links.length > 0 && (
                     <div className="project-links">
                       {links.map((link) => (

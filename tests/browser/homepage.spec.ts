@@ -57,7 +57,13 @@ test("homepage renders verified YAML content and omits missing or private fields
     if (href?.includes("#") && !href.startsWith("http")) {
       await expect(page.locator(`#${href.split("#")[1]}`)).toHaveCount(1);
     }
-    expect(href).not.toMatch(/^\/work\//);
+    if (href?.startsWith("/work/")) {
+      expect(
+        portfolio.projects.entries.some(
+          (project) => project.visible && href === `/work/${project.slug}`,
+        ),
+      ).toBeTruthy();
+    }
   }
 });
 
