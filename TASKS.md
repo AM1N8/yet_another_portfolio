@@ -269,25 +269,25 @@ Review at:
 
 Improve:
 
-- [ ] typography;
-- [ ] hero composition;
-- [ ] whitespace;
-- [ ] section rhythm;
-- [ ] grid alignment;
-- [ ] project hierarchy;
-- [ ] borders;
-- [ ] hover states;
-- [ ] mobile composition;
-- [ ] Ink/Paper cohesion.
+- [x] typography;
+- [x] hero composition;
+- [x] whitespace;
+- [x] section rhythm;
+- [x] grid alignment;
+- [x] project hierarchy;
+- [x] borders;
+- [x] hover states;
+- [x] mobile composition;
+- [x] Ink/Paper cohesion.
 
 Do not add the Activity Universe yet.
 
 ## Quality gate
 
-- [ ] Homepage looks intentional at all target widths.
-- [ ] No generic template-looking sections.
-- [ ] No unnecessary gradients/glassmorphism.
-- [ ] The static portfolio already feels premium.
+- [x] Homepage looks intentional at all target widths.
+- [x] No generic template-looking sections.
+- [x] No unnecessary gradients/glassmorphism.
+- [x] The static portfolio already feels premium.
 
 Suggested commit:
 

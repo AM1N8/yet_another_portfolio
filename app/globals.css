@@ -164,12 +164,14 @@ button {
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 .project-title {
   font-size: clamp(2rem, 4vw, 4rem);
   font-weight: 500;
   line-height: 1.02;
   letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 .body {
   font-size: clamp(1rem, 1.1vw, 1.125rem);
@@ -252,14 +254,21 @@ button {
   display: inline-flex;
   align-items: center;
   min-height: var(--touch-target);
-  text-decoration: none;
-  gap: var(--space-2);
-}
-.navigation-link[aria-current] {
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: transparent;
   text-decoration-thickness: 2px;
   text-underline-offset: 8px;
+  gap: var(--space-2);
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+.navigation-link:hover:not([aria-disabled="true"]) {
+  color: var(--text);
+  text-decoration-color: var(--border-strong);
+}
+.navigation-link[aria-current] {
+  text-decoration-color: var(--accent);
 }
 .navigation-index {
   color: var(--text-muted-readable);

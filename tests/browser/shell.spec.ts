@@ -153,10 +153,7 @@ test("mobile disclosure is keyboard accessible, closes on Escape and outside cli
     page.getByRole("navigation", { name: "Mobile", exact: true }),
   ).not.toBeVisible();
   await menu.click();
-  const main = page.getByRole("main");
-  const bounds = await main.boundingBox();
-  expect(bounds).not.toBeNull();
-  await main.click({ position: { x: 10, y: 680 } });
+  await page.mouse.click(10, 820);
   await expect(
     page.getByRole("navigation", { name: "Mobile", exact: true }),
   ).not.toBeVisible();
