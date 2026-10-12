@@ -156,15 +156,16 @@ implementation on [GitHub Innovation Graph](https://innovationgraph.github.com/)
 cells carry velocity, attract toward shape targets, and collide locally. The
 pointer acts as a moving obstacle: nearby cells push around it and flow back when
 it leaves. Positions are simulated rather than interpolated along fixed paths.
-C → D → X → V uses a three-second cycle per letter, with a 1.7-second hold and
-1.3-second reformation window. Desktop/tablet/mobile use 245/180/140 cells
+C → D → X → V uses a 2.5-second cycle per letter, with a 1.4-second hold and
+1.1-second reformation window. Desktop/tablet/mobile use 245/180/140 cells
 respectively. Greens are mixed from the existing theme tokens, with soft Paper
 tones and muted Ink tones.
 
 The renderer is dynamically imported when visible, caps DPR at 2, and pauses
 offscreen or in hidden tabs. Cleanup cancels RAF, removes observers/listeners,
 and releases the Canvas bitmap. Frame state stays entirely outside React.
-A keyboard-accessible pause control is provided; reduced motion, unavailable
+The visual has no visible labels or controls; clicking/tapping it or pressing
+Space/Enter while focused pauses or resumes it. Reduced motion, unavailable
 Canvas, or disabled JavaScript preserves a static CDXV arrangement. No additional
 packages are required; spatial-hash collisions bound the simulation work. Tests
 cover contour settling, actual cursor displacement and recovery, all four held

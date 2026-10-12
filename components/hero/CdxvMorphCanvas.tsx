@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 export function CdxvMorphCanvas({
   children,
@@ -11,12 +11,9 @@ export function CdxvMorphCanvas({
 }) {
   const host = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const toggle = useRef<HTMLButtonElement>(null);
-  const [paused, setPaused] = useState(false);
   useEffect(() => {
     const element = host.current!,
-      bitmap = canvas.current!,
-      button = toggle.current!;
+      bitmap = canvas.current!;
     let disposed = false,
       visible = false,
       loading = false,
@@ -30,6 +27,23 @@ export function CdxvMorphCanvas({
     const syncMotion = () => {
       element.dataset.static = String(!motionEnabled || motion.matches);
       renderer?.setMotion(motionEnabled && !motion.matches && !userPaused);
+      if (renderer && motionEnabled && !motion.matches) {
+        element.setAttribute("role", "button");
+        element.setAttribute("tabindex", "0");
+        element.setAttribute(
+          "aria-label",
+          "Pause or resume the CDXV animation",
+        );
+        element.setAttribute("aria-pressed", String(userPaused));
+      } else {
+        for (const attribute of [
+          "role",
+          "tabindex",
+          "aria-label",
+          "aria-pressed",
+        ])
+          element.removeAttribute(attribute);
+      }
     };
     const sync = () => {
       if (disposed) return;
@@ -48,6 +62,7 @@ export function CdxvMorphCanvas({
           );
           if (renderer) {
             element.dataset.enhanced = "true";
+            syncMotion();
             sync();
           }
         })
@@ -72,9 +87,14 @@ export function CdxvMorphCanvas({
       attributeFilter: ["data-theme"],
     });
     const pause = () => {
+      if (!renderer || !motionEnabled || motion.matches) return;
       userPaused = !userPaused;
-      setPaused(userPaused);
       syncMotion();
+    };
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key !== " " && event.key !== "Enter") return;
+      event.preventDefault();
+      pause();
     };
     const pointerMove = (event: PointerEvent) => {
       if (event.pointerType === "touch") return;
@@ -93,7 +113,8 @@ export function CdxvMorphCanvas({
       resized();
     };
     syncMotion();
-    button.addEventListener("click", pause);
+    element.addEventListener("click", pause);
+    element.addEventListener("keydown", keydown);
     bitmap.addEventListener("pointermove", pointerMove);
     bitmap.addEventListener("pointerleave", pointerLeave);
     bitmap.addEventListener("pointercancel", pointerLeave);
@@ -107,7 +128,8 @@ export function CdxvMorphCanvas({
       intersection.disconnect();
       resize.disconnect();
       theme.disconnect();
-      button.removeEventListener("click", pause);
+      element.removeEventListener("click", pause);
+      element.removeEventListener("keydown", keydown);
       bitmap.removeEventListener("pointermove", pointerMove);
       bitmap.removeEventListener("pointerleave", pointerLeave);
       bitmap.removeEventListener("pointercancel", pointerLeave);
@@ -122,12 +144,6 @@ export function CdxvMorphCanvas({
     <div className="hero-morph-stage" ref={host}>
       {children}
       <canvas ref={canvas} aria-hidden="true" className="hero-morph-canvas" />
-      <div className="hero-morph-controls label text-muted">
-        <span>CDXV / FLUID FIELD</span>
-        <button ref={toggle} type="button" aria-pressed={paused}>
-          {paused ? "Resume motion" : "Pause motion"}
-        </button>
-      </div>
     </div>
   );
 }

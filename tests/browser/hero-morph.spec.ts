@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { writeFile } from "node:fs/promises";
+import { CYCLE_MS, HOLD_MS } from "../../lib/hero/morph";
 
 test("each held letter and its intermediate cloud are visually reviewable", async ({
   page,
@@ -14,16 +15,16 @@ test("each held letter and its intermediate cloud are visually reviewable", asyn
   await page.goto("/");
   const figure = page.getByRole("figure", { name: "CDXV morphing cell field" });
   await expect(
-    figure.getByRole("button", { name: "Pause motion" }),
+    figure.getByRole("button", { name: "Pause or resume the CDXV animation" }),
   ).toBeVisible();
   await page.clock.runFor(100);
   for (const letter of ["C", "D", "X", "V"]) {
     await figure.screenshot({ path: testInfo.outputPath(`${letter}.png`) });
-    await page.clock.runFor(1750);
+    await page.clock.runFor(HOLD_MS + 50);
     await figure.screenshot({
       path: testInfo.outputPath(`${letter}-reflow.png`),
     });
-    await page.clock.runFor(1250);
+    await page.clock.runFor(CYCLE_MS - HOLD_MS - 50);
   }
 });
 
@@ -40,7 +41,7 @@ test("cursor carves a moving gap in the cell field and cells flow back after it 
   await page.goto("/");
   const figure = page.getByRole("figure", { name: "CDXV morphing cell field" });
   await expect(
-    figure.getByRole("button", { name: "Pause motion" }),
+    figure.getByRole("button", { name: "Pause or resume the CDXV animation" }),
   ).toBeVisible();
   const canvas = figure.locator("canvas");
   await page.clock.runFor(700);
@@ -115,7 +116,9 @@ for (const width of [1440, 390]) {
     });
     await figure.scrollIntoViewIfNeeded();
     await expect(
-      figure.getByRole("button", { name: "Pause motion" }),
+      figure.getByRole("button", {
+        name: "Pause or resume the CDXV animation",
+      }),
     ).toBeVisible();
     const bounds = (await figure.locator("canvas").boundingBox())!;
     await page.mouse.move(
@@ -182,7 +185,7 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
     exact: true,
   });
   const pause = figure.getByRole("button", {
-    name: "Pause motion",
+    name: "Pause or resume the CDXV animation",
     exact: true,
   });
   await expect(pause).toBeVisible();
@@ -202,7 +205,10 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
   await pause.focus();
   await page.keyboard.press("Enter");
   await expect(
-    figure.getByRole("button", { name: "Resume motion", pressed: true }),
+    figure.getByRole("button", {
+      name: "Pause or resume the CDXV animation",
+      pressed: true,
+    }),
   ).toBeVisible();
   const isStill = () =>
     page.evaluate(async () => {
@@ -214,7 +220,9 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
       return start === (window as unknown as { heroDraws: number }).heroDraws;
     });
   expect(await isStill()).toBeTruthy();
-  await figure.getByRole("button", { name: "Resume motion" }).click();
+  await figure
+    .getByRole("button", { name: "Pause or resume the CDXV animation" })
+    .click();
   await page.locator("#work").scrollIntoViewIfNeeded();
   expect(await isStill()).toBeTruthy();
   await figure.scrollIntoViewIfNeeded();
@@ -294,8 +302,13 @@ for (const [width, height] of [
       });
       await figure.scrollIntoViewIfNeeded();
       await expect(
-        figure.getByRole("button", { name: "Pause motion" }),
+        figure.getByRole("button", {
+          name: "Pause or resume the CDXV animation",
+        }),
       ).toBeVisible();
+      await expect(figure.locator("button")).toHaveCount(0);
+      await expect(figure).not.toContainText("CDXV / FLUID FIELD");
+      await expect(figure).not.toContainText("Pause motion");
       await page.evaluate(() => document.fonts.ready);
       await figure.screenshot({ path: testInfo.outputPath("morph.png") });
       await page

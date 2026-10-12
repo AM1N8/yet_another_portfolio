@@ -4,8 +4,8 @@ export interface MorphPoint {
   x: number;
   y: number;
 }
-export const HOLD_MS = 1700;
-export const MORPH_MS = 1300;
+export const HOLD_MS = 1400;
+export const MORPH_MS = 1100;
 export const CYCLE_MS = HOLD_MS + MORPH_MS;
 
 export function particleCount(width: number, viewportWidth: number) {
@@ -87,16 +87,16 @@ export function createFluidSimulation(count: number, elapsed = 0) {
       const changed = letter !== previousLetter;
       previousLetter = letter;
       const dt = Math.min(delta / (1000 / 60), 2);
-      const damping = 0.82 ** dt;
-      const attraction = transitioning ? 0.012 + progress * 0.033 : 0.045;
+      const damping = 0.87 ** dt;
+      const attraction = transitioning ? 0.015 + progress * 0.04 : 0.055;
       for (let index = 0; index < particles.length; index++) {
         const cell = particles[index];
         const target = targets[letter][index];
         const angle = index * 2.399963;
         if (changed) {
           // A small tangential impulse loosens the old contour before it reforms.
-          cell.vx += Math.cos(angle) * 3.5;
-          cell.vy += Math.sin(angle) * 3.5;
+          cell.vx += Math.cos(angle) * 4.5;
+          cell.vy += Math.sin(angle) * 4.5;
         }
         const idle = Math.sin(time * 0.0008 + index) * 0.6;
         cell.vx += (target.x + idle - cell.x) * attraction * dt;

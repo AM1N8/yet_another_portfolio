@@ -1,5 +1,6 @@
 import type { Portfolio } from "@/lib/content/types";
 import { SectionHeading } from "./SectionHeading";
+import { TechnologyIcon } from "./TechnologyIcon";
 
 export function About({
   portfolio,
@@ -85,7 +86,10 @@ export function Stack({
               <h3 className="label text-muted">{group.name}</h3>
               <ul>
                 {group.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item}>
+                    <TechnologyIcon name={item} />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
