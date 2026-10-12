@@ -88,6 +88,16 @@ export function CommandPalette({
     if (command.kind === "theme") toggleTheme();
     else if (command.kind === "system-theme") setTheme("system");
     dialog.current?.close();
+    if (command.kind === "terminal") {
+      // Transfer focus after the palette's close event has restored its launcher.
+      requestAnimationFrame(() =>
+        window.dispatchEvent(
+          new CustomEvent("portfolio-open-terminal", {
+            detail: { returnFocus: previousFocus.current },
+          }),
+        ),
+      );
+    }
     if (command.kind === "link") window.location.assign(command.href);
   };
 

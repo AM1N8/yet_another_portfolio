@@ -7,7 +7,7 @@
 # =============================================================================
 
 site:
-  brand_label: "AMINE/OS"
+  brand_label: "CDXV"
   language: "en"
   locale: "en-US"
   canonical_url: "https://cdxv.vercel.app"
@@ -19,11 +19,11 @@ site:
     light: "PAPER"
 
   seo:
-    title: "Mohamed Amine Darraj — AI/ML Engineer"
+    title: "Mohamed Amine Darraj — AI Engineering Student"
     title_template: "%s — Mohamed Amine Darraj"
-    description: "Portfolio of Mohamed Amine Darraj, a final-year dual-degree AI/ML engineering student at ENSAM Meknès and École Centrale de Lyon building applied AI, RAG/GraphRAG, reinforcement learning, and computer vision systems."
+    description: "Portfolio of Mohamed Amine Darraj, a final-year dual-degree AI engineering student at ENSAM Meknès and École Centrale de Lyon building applied AI, RAG/GraphRAG, reinforcement learning, and computer vision systems."
     keywords:
-      - "AI Engineer"
+      - "AI Engineering Student"
       - "Machine Learning"
       - "Artificial Intelligence"
       - "Computer Vision"
@@ -47,14 +47,14 @@ identity:
   preferred_name: "Amine"
   initials: "MAD"
   pronouns: null
-  headline: "AI/ML Engineer"
-  short_headline: "AI Engineer / Researcher"
+  headline: "AI Engineering Student"
+  short_headline: "AI Engineering Student"
   positioning_statement: |
     Final-year dual-degree engineering student at ENSAM Meknès and École Centrale de Lyon,
     building applied AI systems end to end across RAG/GraphRAG, reinforcement learning,
     computer vision, and full-stack ML products.
   profile_photo: null
-  logo_text: "AMINE/OS"
+  logo_text: "CDXV"
 
   location:
     city: "Écully"
@@ -108,7 +108,7 @@ contact:
 
 hero:
   eyebrow: "AI / ML / SYSTEMS"
-  role: "AI/ML Engineer"
+  role: "AI Engineering Student"
   statement: |
     I build applied AI systems end to end: from models and retrieval pipelines
     to production-ready APIs, data stores, and interfaces.

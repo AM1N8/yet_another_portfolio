@@ -1,4 +1,4 @@
-# AMINE/OS Portfolio — Design & Implementation Specification
+# CDXV Portfolio — Design & Implementation Specification
 
 > **Purpose:** This file is the source of truth for the visual identity, interaction model, information architecture, component behavior, performance constraints, and implementation quality of the portfolio.
 >
@@ -103,13 +103,13 @@ Interactive visuals should draw attention to real work:
 
 Use the interface identity:
 
-`AMINE/OS`
+`CDXV`
 
 The exact display name must come from `portfolio.yaml`.
 
-`/OS` is a visual metaphor for the website behaving like a personal engineering operating system.
+`CDXV` is the compact visual signature for the personal engineering environment.
 
-Do **not** overuse the metaphor. It should appear mostly in:
+Do **not** overuse the signature. It should appear mostly in:
 
 - logo;
 - loading state;
@@ -429,13 +429,13 @@ Example spatial concept:
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
-│ AMINE/OS          01 HOME  02 WORK  03 LAB       INK ○     │
+│ CDXV              01 HOME  02 WORK  03 LAB       INK ○     │
 │                                                             │
 │ AMINE                 ·  ▪ ▪▪                               │
 │ DARRAJ              ▪ ▪▪▪▪  ▪                              │
 │                   ▪▪▪▪▪▪▪▪▪        / ACTIVITY              │
-│ AI ENGINEER       ▪▪▪▪▪▪▪▪         / PROJECTS              │
-│ / RESEARCHER        ▪▪▪▪▪           / EXPERIMENTS           │
+│ AI ENGINEERING    ▪▪▪▪▪▪▪▪         / PROJECTS              │
+│ STUDENT             ▪▪▪▪▪           / EXPERIMENTS           │
 │                                                             │
 │ I build systems that see, reason, learn and act.             │
 │                                                             │
@@ -480,7 +480,7 @@ The loader is allowed only when it reflects **real app initialization** and must
 Visual concept:
 
 ```text
-LOADING AMINE/OS
+LOADING CDXV
 
 [██████████████████░░] 91%
 

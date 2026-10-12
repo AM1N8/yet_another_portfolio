@@ -1,0 +1,107 @@
+.portfolio-terminal {
+  --terminal-bg: #0f100e;
+  --terminal-text: #ecece6;
+  --terminal-muted: #a5a79d;
+  --terminal-border: #484a43;
+  width: min(72vw, 1320px);
+  max-width: calc(100vw - 16px);
+  height: 62dvh;
+  max-height: 760px;
+  padding: 0;
+  overflow: hidden;
+  color: var(--terminal-text);
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-geist-mono), monospace;
+}
+.portfolio-terminal[open] {
+  display: flex;
+  flex-direction: column;
+}
+.portfolio-terminal::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--terminal-border);
+}
+.terminal-header h2 {
+  margin: 0;
+  color: var(--terminal-text);
+  font-weight: 400;
+}
+.terminal-header-tools {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.terminal-header kbd {
+  color: var(--terminal-muted);
+}
+.terminal-header button {
+  min-width: 64px;
+  min-height: 44px;
+  border: 0;
+  padding: 0;
+  color: var(--terminal-text);
+  background: none;
+  cursor: pointer;
+}
+.terminal-header button:hover {
+  color: #49df68;
+}
+.terminal-header button:focus-visible {
+  outline-color: var(--terminal-text);
+}
+.terminal-screen {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  margin: 20px;
+}
+.terminal-screen .xterm {
+  height: 100%;
+}
+.terminal-screen .xterm-viewport {
+  background-color: var(--terminal-bg);
+  scrollbar-width: thin;
+  scrollbar-color: #484a43 #0f100e;
+}
+.terminal-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--terminal-border);
+  color: var(--terminal-muted);
+  padding: 12px 20px;
+}
+@media (max-width: 767px) {
+  .portfolio-terminal {
+    width: calc(100vw - 16px);
+    height: 80dvh;
+    max-height: none;
+  }
+  .terminal-header {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+  .terminal-header-tools {
+    gap: 8px;
+  }
+  .terminal-header kbd {
+    display: none;
+  }
+  .terminal-screen {
+    margin: 12px;
+  }
+  .terminal-status {
+    padding: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

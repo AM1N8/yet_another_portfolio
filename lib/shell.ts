@@ -17,11 +17,12 @@ export type Command = {
     | "Experiments"
     | "Appearance"
     | "Links"
-    | "Contact";
+    | "Contact"
+    | "Tools";
   available: boolean;
 } & (
   | { kind: "link"; href: string }
-  | { kind: "theme" | "system-theme" }
+  | { kind: "theme" | "system-theme" | "terminal" }
   | { kind: "copy-email"; email: string }
 );
 
@@ -152,5 +153,12 @@ export function getCommands(portfolio: Portfolio): Command[] {
       available: true,
     });
   }
+  commands.push({
+    id: "terminal",
+    label: "TERMINAL",
+    group: "Tools",
+    kind: "terminal",
+    available: true,
+  });
   return commands;
 }

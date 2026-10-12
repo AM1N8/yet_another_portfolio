@@ -5,6 +5,7 @@ import { NavigationLinks } from "@/components/navigation/NavigationLinks";
 import { MobileMenu } from "@/components/navigation/MobileMenu";
 import { ThemeControls } from "@/components/ui/ThemeControls";
 import { CommandPalette } from "@/components/command/CommandPalette";
+import { TerminalLauncher } from "@/components/terminal/TerminalLauncher";
 
 export function Header({ portfolio }: { portfolio: Portfolio }) {
   const navigation = getNavigation(portfolio);
@@ -23,6 +24,7 @@ export function Header({ portfolio }: { portfolio: Portfolio }) {
         </nav>
         <div className="header-tools">
           <ThemeControls labels={portfolio.site.theme_toggle_labels} />
+          <TerminalLauncher brand={portfolio.site.brand_label} />
           {portfolio.command_palette.enabled && (
             <CommandPalette
               commands={getCommands(portfolio)}

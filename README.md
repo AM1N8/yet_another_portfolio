@@ -70,6 +70,36 @@ arrow keys, Enter, Escape, Cmd/Ctrl+K, focus trapping/restoration, theme actions
 configured social links, experiment links, and public-email copy with a fallback.
 Résumé and source actions are omitted when their URLs are missing.
 
+## Portfolio terminal
+
+Open **CDXV / TERMINAL** with **Ctrl+`** (or **Ctrl+~**), the desktop `[ >_ ]`button, or the command palette's **TERMINAL** action. Escape,`exit`, the close
+button, and the same shortcut close it and restore focus. Outside clicks close
+the shell unless an interactive program is running. On mobile, use the palette.
+
+`TerminalLauncher.tsx` loads xterm, its fit addon, terminal CSS and shell code only
+on invocation. `/api/terminal` is a static public projection of validated YAML,
+requested on opening; it excludes private contact fields, hidden projects and
+environment configuration. The homepage remains server-rendered. The virtual
+filesystem is read-only and exists entirely in browser memory: `/home/amine`
+contains `README.md`, `about.txt`, `contact.txt`, `skills/`, `projects/`, and `lab/`;
+`/etc` contains the portfolio hostname and welcome message.
+
+Use `help` for browsing, portfolio, display and navigation commands. `fastfetch`
+and `neofetch` show a CDXV ASCII mark and actual public identity, education and
+focus. Project paths are clickable; `open <slug>`, `github`, `linkedin` and
+`resume` accept only available portfolio destinations. Missing résumé content
+gets a concise unavailable message. No command executes code, processes,
+network shells or host filesystem operations.
+
+The line editor supports quotes, command/path Tab completion, arrow-key history
+and editing, Home/End, Backspace, Ctrl+C and Ctrl+L. Tab completes input;
+Shift+Tab reaches Close. `cmatrix` draws bounded green character frames in an
+alternate screen, stops with Ctrl+C, pauses in hidden tabs, and renders once
+under reduced motion. Closing disposes timers, listeners, observers and xterm.
+Unit tests cover filesystem, parsing, commands, privacy, editing and timer
+ownership; browser tests cover lazy invocation, focus, completion, navigation,
+cleanup and Ink/Paper screenshots at all five review sizes.
+
 ## Static homepage
 
 Phase 4 adds server-rendered Hero, Selected Work, LAB, Timeline, About, Stack, and

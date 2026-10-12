@@ -322,6 +322,11 @@ button {
 .command-trigger-label {
   display: none;
 }
+@media (max-width: 767px) {
+  .terminal-launcher {
+    display: none;
+  }
+}
 .mobile-menu {
   position: relative;
 }
