@@ -15,7 +15,9 @@ test("each held letter and its intermediate cloud are visually reviewable", asyn
   await page.goto("/");
   const figure = page.getByRole("figure", { name: "CDXV morphing cell field" });
   await expect(
-    figure.getByRole("button", { name: "Pause or resume the CDXV animation" }),
+    figure.getByRole("button", {
+      name: "Create a shockwave in the CDXV animation",
+    }),
   ).toBeVisible();
   await page.clock.runFor(100);
   for (const letter of ["C", "D", "X", "V"]) {
@@ -41,7 +43,9 @@ test("cursor carves a moving gap in the cell field and cells flow back after it 
   await page.goto("/");
   const figure = page.getByRole("figure", { name: "CDXV morphing cell field" });
   await expect(
-    figure.getByRole("button", { name: "Pause or resume the CDXV animation" }),
+    figure.getByRole("button", {
+      name: "Create a shockwave in the CDXV animation",
+    }),
   ).toBeVisible();
   const canvas = figure.locator("canvas");
   await page.clock.runFor(700);
@@ -117,7 +121,7 @@ for (const width of [1440, 390]) {
     await figure.scrollIntoViewIfNeeded();
     await expect(
       figure.getByRole("button", {
-        name: "Pause or resume the CDXV animation",
+        name: "Create a shockwave in the CDXV animation",
       }),
     ).toBeVisible();
     const bounds = (await figure.locator("canvas").boundingBox())!;
@@ -125,6 +129,12 @@ for (const width of [1440, 390]) {
       bounds.x + bounds.width * 0.26,
       bounds.y + bounds.width * 0.5,
     );
+    for (let index = 0; index < 6; index++) {
+      await page.mouse.click(
+        bounds.x + bounds.width * (0.26 + index * 0.02),
+        bounds.y + bounds.height * 0.5,
+      );
+    }
     await expect
       .poll(() =>
         page.evaluate(
@@ -165,7 +175,7 @@ for (const width of [1440, 390]) {
   });
 }
 
-test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and becomes static with reduced motion", async ({
+test("hero morph keeps running after keyboard shockwaves, can freeze with Escape, suspends offscreen/hidden, and respects reduced motion", async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -184,11 +194,11 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
     name: "CDXV morphing cell field",
     exact: true,
   });
-  const pause = figure.getByRole("button", {
-    name: "Pause or resume the CDXV animation",
+  const trigger = figure.getByRole("button", {
+    name: "Create a shockwave in the CDXV animation",
     exact: true,
   });
-  await expect(pause).toBeVisible();
+  await expect(trigger).toBeVisible();
   const canvas = figure.locator("canvas");
   const first = await canvas.evaluate((element: HTMLCanvasElement) =>
     element.toDataURL(),
@@ -202,14 +212,9 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
       },
     )
     .not.toBe(first);
-  await pause.focus();
+  await trigger.focus();
   await page.keyboard.press("Enter");
-  await expect(
-    figure.getByRole("button", {
-      name: "Pause or resume the CDXV animation",
-      pressed: true,
-    }),
-  ).toBeVisible();
+  await expect(trigger).not.toHaveAttribute("aria-pressed");
   const isStill = () =>
     page.evaluate(async () => {
       await new Promise((resolve) =>
@@ -219,10 +224,18 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
       await new Promise((resolve) => setTimeout(resolve, 250));
       return start === (window as unknown as { heroDraws: number }).heroDraws;
     });
+  expect(await isStill()).toBeFalsy();
+  await page.keyboard.press("Space");
+  expect(await isStill()).toBeFalsy();
+  await page.keyboard.press("Escape");
+  await expect(trigger).toHaveAttribute("aria-description", /Animation paused/);
   expect(await isStill()).toBeTruthy();
-  await figure
-    .getByRole("button", { name: "Pause or resume the CDXV animation" })
-    .click();
+  await trigger.click();
+  await expect(trigger).toHaveAttribute(
+    "aria-description",
+    "Animation running.",
+  );
+  expect(await isStill()).toBeFalsy();
   await page.locator("#work").scrollIntoViewIfNeeded();
   expect(await isStill()).toBeTruthy();
   await figure.scrollIntoViewIfNeeded();
@@ -239,7 +252,14 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
     document.dispatchEvent(new Event("visibilitychange"));
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(pause).not.toBeVisible();
+  await expect(trigger).not.toBeVisible();
+  const staticImage = await canvas.evaluate((element: HTMLCanvasElement) =>
+    element.toDataURL(),
+  );
+  await figure.click();
+  expect(
+    await canvas.evaluate((element: HTMLCanvasElement) => element.toDataURL()),
+  ).toBe(staticImage);
   expect(await isStill()).toBeTruthy();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect
@@ -256,6 +276,97 @@ test("hero morph animates, pauses by keyboard, suspends offscreen/hidden, and be
     .toBeTruthy();
   expect(errors).toEqual([]);
 });
+
+for (const touch of [false, true]) {
+  test(`${touch ? "tap" : "click"} sends a shockwave from its exact off-center position without stopping the morph`, async ({
+    browser,
+  }, testInfo) => {
+    const context = await browser.newContext({
+      viewport: touch
+        ? { width: 390, height: 844 }
+        : { width: 1440, height: 900 },
+      hasTouch: touch,
+      deviceScaleFactor: 2,
+      colorScheme: touch ? "light" : "dark",
+      reducedMotion: "no-preference",
+    });
+    try {
+      const page = await context.newPage();
+      const start = new Date("2026-10-07T12:00:00Z");
+      await page.clock.install({ time: start });
+      await page.clock.pauseAt(start);
+      await page.goto("http://127.0.0.1:3100/");
+      const figure = page.getByRole("figure", {
+        name: "CDXV morphing cell field",
+      });
+      await figure.scrollIntoViewIfNeeded();
+      const trigger = figure.getByRole("button", {
+        name: "Create a shockwave in the CDXV animation",
+      });
+      await expect(trigger).toBeVisible();
+      const canvas = figure.locator("canvas");
+      await page.clock.runFor(700);
+      const occupied = () =>
+        canvas.evaluate((element: HTMLCanvasElement) => {
+          const image = element
+            .getContext("2d")!
+            .getImageData(0, 0, element.width, element.height);
+          const x = (element.width * 125) / 480;
+          const y = (element.height * 240) / 480;
+          const radius = (element.width * 22) / 480;
+          let count = 0;
+          for (let row = Math.floor(y - radius); row < y + radius; row++) {
+            for (
+              let column = Math.floor(x - radius);
+              column < x + radius;
+              column++
+            ) {
+              if (
+                Math.hypot(column - x, row - y) < radius &&
+                image.data[(row * image.width + column) * 4 + 3]
+              )
+                count++;
+            }
+          }
+          return count;
+        });
+      const before = await occupied();
+      expect(before).toBeGreaterThan(30);
+      const bounds = (await canvas.boundingBox())!;
+      const x = bounds.x + (bounds.width * 125) / 480;
+      const y = bounds.y + (bounds.height * 240) / 480;
+      if (touch) await page.touchscreen.tap(x, y);
+      else {
+        await page.mouse.click(x, y);
+        await page.mouse.move(bounds.x - 10, bounds.y - 10);
+      }
+      await expect(trigger).not.toHaveAttribute("aria-pressed");
+      await expect(trigger).toHaveAttribute(
+        "aria-description",
+        "Animation running.",
+      );
+      await page.clock.runFor(100);
+      expect(await occupied()).toBeLessThan(before * 0.5);
+      await figure.screenshot({ path: testInfo.outputPath("shockwave.png") });
+      await page.clock.runFor(650);
+      await expect(trigger).toBeVisible();
+      const continuing = await canvas.evaluate((element: HTMLCanvasElement) =>
+        element.toDataURL(),
+      );
+      await page.clock.runFor(800);
+      expect(
+        await canvas.evaluate((element: HTMLCanvasElement) =>
+          element.toDataURL(),
+        ),
+      ).not.toBe(continuing);
+      await figure.screenshot({
+        path: testInfo.outputPath("continuing-morph.png"),
+      });
+    } finally {
+      await context.close();
+    }
+  });
+}
 
 test("hero has a complete static CDXV fallback without JavaScript or Canvas", async ({
   browser,
@@ -303,7 +414,7 @@ for (const [width, height] of [
       await figure.scrollIntoViewIfNeeded();
       await expect(
         figure.getByRole("button", {
-          name: "Pause or resume the CDXV animation",
+          name: "Create a shockwave in the CDXV animation",
         }),
       ).toBeVisible();
       await expect(figure.locator("button")).toHaveCount(0);

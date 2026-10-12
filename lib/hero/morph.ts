@@ -66,6 +66,11 @@ interface FluidCell extends MorphPoint {
   size: number;
 }
 
+const SHOCKWAVE_MS = 650;
+const SHOCKWAVE_RADIUS = 140;
+const SHOCKWAVE_BAND = 26;
+const MAX_SHOCKWAVES = 6;
+
 export function createFluidSimulation(count: number, elapsed = 0) {
   const targets = createMorphTargets(count);
   const particles: FluidCell[] = targets[
@@ -77,9 +82,25 @@ export function createFluidSimulation(count: number, elapsed = 0) {
     size: 6.8 + noise(index + 20) ** 2 * 4.2,
   }));
   let previousLetter = Math.floor(elapsed / CYCLE_MS) % 4;
+  let currentTime = elapsed;
+  const shockwaves: (MorphPoint & { startedAt: number })[] = [];
   return {
     particles,
+    shockwave(point: MorphPoint) {
+      if (!Number.isFinite(point.x + point.y)) return;
+      if (shockwaves.length === MAX_SHOCKWAVES) shockwaves.shift();
+      shockwaves.push({ ...point, startedAt: currentTime });
+    },
+    clearShockwaves() {
+      shockwaves.length = 0;
+    },
     step(time: number, delta: number, pointer: MorphPoint | null) {
+      currentTime = time;
+      while (
+        shockwaves.length &&
+        time - shockwaves[0].startedAt >= SHOCKWAVE_MS
+      )
+        shockwaves.shift();
       const phase = time % CYCLE_MS;
       const transitioning = phase >= HOLD_MS;
       const progress = transitioning ? (phase - HOLD_MS) / MORPH_MS : 1;
@@ -120,6 +141,27 @@ export function createFluidSimulation(count: number, elapsed = 0) {
               cell.y += (dy / distance) * overlap * 0.55;
             }
           }
+        }
+        for (const wave of shockwaves) {
+          const progress = (time - wave.startedAt) / SHOCKWAVE_MS;
+          let dx = cell.x - wave.x;
+          let dy = cell.y - wave.y;
+          let distance = Math.hypot(dx, dy);
+          if (distance < 0.01) {
+            dx = Math.cos(angle);
+            dy = Math.sin(angle);
+            distance = 1;
+          }
+          // An expanding annulus pushes outward from the actual activation point.
+          // Its bounded lifetime/radius let contour attraction restore the cells.
+          const band = Math.max(
+            0,
+            1 -
+              Math.abs(distance - progress * SHOCKWAVE_RADIUS) / SHOCKWAVE_BAND,
+          );
+          const push = band ** 2 * (1 - progress) * 18 * dt;
+          cell.vx += (dx / distance) * push;
+          cell.vy += (dy / distance) * push;
         }
         cell.vx = Math.max(-12, Math.min(12, cell.vx * damping));
         cell.vy = Math.max(-12, Math.min(12, cell.vy * damping));
@@ -185,6 +227,7 @@ export function createMorphRenderer(
   let active = false;
   let disposed = false;
   let moving = motionEnabled;
+  let paused = false;
   let frame = 0;
   let elapsed = 0;
   let lastTime: number | null = null;
@@ -241,7 +284,7 @@ export function createMorphRenderer(
   };
   const tick = (time: number) => {
     frame = 0;
-    if (!active || !moving || disposed) return;
+    if (!active || !moving || paused || disposed) return;
     const delta = lastTime === null ? 1000 / 60 : Math.min(time - lastTime, 48);
     elapsed += delta;
     lastTime = time;
@@ -261,7 +304,7 @@ export function createMorphRenderer(
     lastTime = null;
   };
   const schedule = () => {
-    if (active && moving && !frame && !disposed)
+    if (active && moving && !paused && !frame && !disposed)
       frame = requestAnimationFrame(tick);
   };
   const resize = () => {
@@ -282,8 +325,22 @@ export function createMorphRenderer(
   return {
     resize,
     setPointer(point: MorphPoint | null) {
-      if (!active || !moving || disposed) return;
+      if (!active || !moving || paused || disposed) return;
       pointer = point;
+    },
+    shockwave(point: MorphPoint) {
+      if (!active || !moving || disposed) return;
+      paused = false;
+      pointer = null;
+      simulation?.shockwave(point);
+      schedule();
+    },
+    setPaused(value: boolean) {
+      if (disposed || paused === value) return;
+      paused = value;
+      pointer = null;
+      stop();
+      schedule();
     },
     refresh() {
       if (active && !disposed) {
@@ -304,6 +361,7 @@ export function createMorphRenderer(
       if (disposed || moving === value) return;
       moving = value;
       pointer = null;
+      simulation?.clearShockwaves();
       stop();
       draw();
       schedule();

@@ -12,8 +12,9 @@ export function CdxvMorph({
     <figure className="hero-morph" aria-label="CDXV morphing cell field">
       <figcaption className="sr-only">
         Rounded cells flow through C, D, X and V, gently pushing around the
-        pointer and returning to their contours. With reduced motion, all four
-        letters remain static.
+        pointer and returning to their contours. Clicking or tapping sends a
+        repulsive shockwave outward from that point without stopping the morph.
+        With reduced motion, all four letters remain static.
       </figcaption>
       <CdxvMorphCanvas motionEnabled={motionEnabled}>
         <svg

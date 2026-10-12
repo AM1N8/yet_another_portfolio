@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 
 export function CdxvMorphCanvas({
   children,
@@ -11,6 +11,7 @@ export function CdxvMorphCanvas({
 }) {
   const host = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const instructionsId = useId();
   useEffect(() => {
     const element = host.current!,
       bitmap = canvas.current!;
@@ -26,21 +27,28 @@ export function CdxvMorphCanvas({
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const syncMotion = () => {
       element.dataset.static = String(!motionEnabled || motion.matches);
-      renderer?.setMotion(motionEnabled && !motion.matches && !userPaused);
+      renderer?.setMotion(motionEnabled && !motion.matches);
       if (renderer && motionEnabled && !motion.matches) {
         element.setAttribute("role", "button");
         element.setAttribute("tabindex", "0");
         element.setAttribute(
           "aria-label",
-          "Pause or resume the CDXV animation",
+          "Create a shockwave in the CDXV animation",
         );
-        element.setAttribute("aria-pressed", String(userPaused));
+        element.setAttribute("aria-describedby", instructionsId);
+        element.setAttribute(
+          "aria-description",
+          userPaused
+            ? "Animation paused. Press Escape to resume."
+            : "Animation running.",
+        );
       } else {
         for (const attribute of [
           "role",
           "tabindex",
           "aria-label",
-          "aria-pressed",
+          "aria-describedby",
+          "aria-description",
         ])
           element.removeAttribute(attribute);
       }
@@ -58,7 +66,7 @@ export function CdxvMorphCanvas({
           if (disposed) return;
           renderer = createMorphRenderer(
             bitmap,
-            motionEnabled && !motion.matches && !userPaused,
+            motionEnabled && !motion.matches,
           );
           if (renderer) {
             element.dataset.enhanced = "true";
@@ -86,23 +94,44 @@ export function CdxvMorphCanvas({
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    const pause = () => {
+    const shockwave = (point: { x: number; y: number }) => {
       if (!renderer || !motionEnabled || motion.matches) return;
-      userPaused = !userPaused;
+      userPaused = false;
+      renderer.shockwave(point);
       syncMotion();
     };
+    const clicked = (event: MouseEvent) => {
+      const bounds = bitmap.getBoundingClientRect();
+      if (!bounds.width || !bounds.height) return;
+      shockwave(
+        event.detail === 0 && event.clientX === 0 && event.clientY === 0
+          ? { x: 240, y: 240 }
+          : {
+              x: ((event.clientX - bounds.left) / bounds.width) * 480,
+              y: ((event.clientY - bounds.top) / bounds.height) * 480,
+            },
+      );
+    };
     const keydown = (event: KeyboardEvent) => {
+      if (!renderer || !motionEnabled || motion.matches || event.repeat) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        userPaused = !userPaused;
+        renderer.setPaused(userPaused);
+        syncMotion();
+        return;
+      }
       if (event.key !== " " && event.key !== "Enter") return;
       event.preventDefault();
-      pause();
+      shockwave({ x: 240, y: 240 });
     };
     const pointerMove = (event: PointerEvent) => {
       if (event.pointerType === "touch") return;
       const bounds = bitmap.getBoundingClientRect();
-      if (!bounds.width) return;
+      if (!bounds.width || !bounds.height) return;
       renderer?.setPointer({
         x: ((event.clientX - bounds.left) / bounds.width) * 480,
-        y: ((event.clientY - bounds.top) / bounds.width) * 480,
+        y: ((event.clientY - bounds.top) / bounds.height) * 480,
       });
     };
     const pointerLeave = () => renderer?.setPointer(null);
@@ -113,7 +142,7 @@ export function CdxvMorphCanvas({
       resized();
     };
     syncMotion();
-    element.addEventListener("click", pause);
+    element.addEventListener("click", clicked);
     element.addEventListener("keydown", keydown);
     bitmap.addEventListener("pointermove", pointerMove);
     bitmap.addEventListener("pointerleave", pointerLeave);
@@ -128,7 +157,7 @@ export function CdxvMorphCanvas({
       intersection.disconnect();
       resize.disconnect();
       theme.disconnect();
-      element.removeEventListener("click", pause);
+      element.removeEventListener("click", clicked);
       element.removeEventListener("keydown", keydown);
       bitmap.removeEventListener("pointermove", pointerMove);
       bitmap.removeEventListener("pointerleave", pointerLeave);
@@ -139,11 +168,15 @@ export function CdxvMorphCanvas({
       window.removeEventListener("resize", resized);
       renderer?.dispose();
     };
-  }, [motionEnabled]);
+  }, [motionEnabled, instructionsId]);
   return (
     <div className="hero-morph-stage" ref={host}>
       {children}
       <canvas ref={canvas} aria-hidden="true" className="hero-morph-canvas" />
+      <p className="sr-only" id={instructionsId}>
+        Click or tap to push cells outward from that point. Enter or Space
+        creates a centered shockwave. Escape pauses or resumes motion.
+      </p>
     </div>
   );
 }

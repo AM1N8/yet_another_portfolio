@@ -164,12 +164,17 @@ tones and muted Ink tones.
 The renderer is dynamically imported when visible, caps DPR at 2, and pauses
 offscreen or in hidden tabs. Cleanup cancels RAF, removes observers/listeners,
 and releases the Canvas bitmap. Frame state stays entirely outside React.
-The visual has no visible labels or controls; clicking/tapping it or pressing
-Space/Enter while focused pauses or resumes it. Reduced motion, unavailable
-Canvas, or disabled JavaScript preserves a static CDXV arrangement. No additional
-packages are required; spatial-hash collisions bound the simulation work. Tests
-cover contour settling, actual cursor displacement and recovery, all four held
-shapes, intermediate clouds, lifecycle, resizing, static fallback, and both themes.
+The visual has no visible labels or controls. Clicking or tapping sends a localized
+repulsive shockwave from the exact pointer position while the letter cycle keeps
+running. Each expanding wave expires after 650ms; at most six are retained, and
+contour attraction restores the cells. Enter/Space creates a centered wave;
+Escape freezes or resumes the current animation for keyboard accessibility.
+Reduced motion, unavailable Canvas, or disabled JavaScript preserves a static
+CDXV arrangement. No additional packages are required; spatial-hash collisions
+bound the simulation work. Tests cover contour settling, actual cursor and
+shockwave displacement/recovery, touch coordinates at DPR 2, continued morphing,
+all four held shapes, intermediate clouds, lifecycle, resizing, static fallback,
+and both themes.
 Browser profiling measures frame callback cost on desktop and with a four-times
 CPU slowdown at mobile width; results are attached to the Playwright test report.
 
