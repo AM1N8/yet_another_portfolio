@@ -49,7 +49,7 @@ use root-relative paths. Dates accept valid `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` v
 
 ## Design system and shell
 
-`app/globals.css` contains the Ink/Paper tokens, spacing scale, typography utilities,
+`lib/themes/tokens.css` defines the shared semantic color contract. `app/globals.css` contains the spacing scale, typography utilities,
 responsive gutters, and 4/8/12-column grid. Use `.container`, `.grid`, `.col-4`,
 `.col-6`, `.col-8`, `.col-full`, `.section`, and `.stack` for shared alignment and
 rhythm. Type utilities are `.display`, `.section-title`, `.project-title`, `.body`,
@@ -62,6 +62,38 @@ The theme initialization script applies the saved or OS theme before paint.
 system mode, and persists explicit choices in `portfolio-theme`. The command
 palette includes an action to return to system mode. CSS handles the OS theme
 even with JavaScript disabled.
+
+### Terminal-only palettes
+
+The visible controls and command palette expose only **INK / PAPER** (plus the
+existing system-preference action). The terminal also supports **Catppuccin Mocha**,
+**Tokyo Night**, **Ayu Mirage**, and **Gruvbox Dark**:
+
+```text
+theme list
+theme current
+theme catppuccin    # aliases: cat, mocha
+theme tokyonight    # aliases: tokyo, tn
+theme ayu          # alias: ayu-mirage
+theme gruvbox      # aliases: gruv, gruvbox-dark
+theme ink
+theme paper
+```
+
+`lib/themes/registry.ts` owns names, labels and aliases; `lib/theme.ts` owns the
+single preference and shared `portfolio-theme-change` subscription. All six
+palettes restore from the same storage key before paint. Selecting INK or PAPER
+overrides an active hidden palette. Palette colors live only in CSS: components,
+SVG icons, diagrams, code and form controls consume semantic custom properties.
+The open xterm updates its options in place, including ANSI colors. Canvas reads
+the particle tokens on initialization/theme changes, caches them, and blends
+animated palettes for 300ms without new RAF loops or React frame state. Static
+and reduced-motion renderers update immediately. Body/muted/terminal/ANSI text
+contrast and focus/control boundaries are covered by browser checks.
+
+Theme screenshots include homepage sections, the fluid visual, terminal, palette
+and a case study at 1440×900 and 390×844 in all six palettes, under
+`test-results/themes-palette-visual-*`.
 
 The root layout, header, and footer remain Server Components. Small client leaves
 handle theme controls, the local clock, current-route navigation, the mobile
@@ -188,8 +220,9 @@ pointer acts as a moving obstacle: nearby cells push around it and flow back whe
 it leaves. Positions are simulated rather than interpolated along fixed paths.
 C → D → X → V uses a 2.5-second cycle per letter, with a 1.4-second hold and
 1.1-second reformation window. Desktop/tablet/mobile use 245/180/140 cells
-respectively. Greens are mixed from the existing theme tokens, with soft Paper
-tones and muted Ink tones.
+respectively. Colors derive from the semantic particle tokens: green in Ink/Paper,
+blue/cyan/purple in Tokyo Night, green/teal in Catppuccin, amber/teal in Ayu, and
+olive/aqua in Gruvbox.
 
 The renderer is dynamically imported when visible, caps DPR at 2, and pauses
 offscreen or in hidden tabs. Cleanup cancels RAF, removes observers/listeners,

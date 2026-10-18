@@ -1,15 +1,11 @@
 .portfolio-terminal {
-  --terminal-bg: #0f100e;
-  --terminal-text: #ecece6;
-  --terminal-muted: #a5a79d;
-  --terminal-border: #484a43;
   width: min(72vw, 1320px);
   max-width: calc(100vw - 16px);
   height: 62dvh;
   max-height: 760px;
   padding: 0;
   overflow: hidden;
-  color: var(--terminal-text);
+  color: var(--terminal-fg);
   background: var(--terminal-bg);
   border: 1px solid var(--terminal-border);
   border-radius: var(--radius-xs);
@@ -20,7 +16,7 @@
   flex-direction: column;
 }
 .portfolio-terminal::backdrop {
-  background: rgb(0 0 0 / 45%);
+  background: var(--backdrop);
 }
 .terminal-header {
   display: flex;
@@ -32,7 +28,7 @@
 }
 .terminal-header h2 {
   margin: 0;
-  color: var(--terminal-text);
+  color: var(--terminal-fg);
   font-weight: 400;
 }
 .terminal-header-tools {
@@ -48,15 +44,15 @@
   min-height: 44px;
   border: 0;
   padding: 0;
-  color: var(--terminal-text);
+  color: var(--terminal-fg);
   background: none;
   cursor: pointer;
 }
 .terminal-header button:hover {
-  color: #49df68;
+  color: var(--accent-hover);
 }
 .terminal-header button:focus-visible {
-  outline-color: var(--terminal-text);
+  outline-color: var(--terminal-fg);
 }
 .terminal-screen {
   flex: 1;
@@ -70,7 +66,7 @@
 .terminal-screen .xterm-viewport {
   background-color: var(--terminal-bg);
   scrollbar-width: thin;
-  scrollbar-color: #484a43 #0f100e;
+  scrollbar-color: var(--terminal-border) var(--terminal-bg);
 }
 .terminal-status {
   display: flex;

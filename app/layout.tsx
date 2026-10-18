@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { loadPortfolio } from "@/lib/content/loadPortfolio";
 import { initializeTheme } from "@/lib/theme";
+import { THEME_NAMES } from "@/lib/themes/registry";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(${initializeTheme.toString()})(${JSON.stringify(portfolio.site.default_theme)})`,
+            __html: `(${initializeTheme.toString()})(${JSON.stringify(portfolio.site.default_theme)},${JSON.stringify(THEME_NAMES)})`,
           }}
         />
       </head>

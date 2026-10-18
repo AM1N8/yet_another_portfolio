@@ -3,6 +3,11 @@ import { plainText } from "./content.ts";
 import { VirtualFilesystem, normalizePath } from "./filesystem.ts";
 import { fastfetch } from "./Fastfetch.ts";
 import { parseCommand } from "./parser.ts";
+import {
+  THEMES,
+  resolveThemeName,
+  type ThemePreference,
+} from "../../lib/themes/registry.ts";
 
 export const COMMANDS = [
   "help",
@@ -37,7 +42,7 @@ export const COMMANDS = [
 export type ShellAction =
   | { kind: "clear" | "exit" | "cmatrix" }
   | { kind: "open"; href: string }
-  | { kind: "theme"; theme: "ink" | "paper" | "system" };
+  | { kind: "theme"; theme: ThemePreference };
 export type CommandResult = { output: string; action?: ShellAction };
 export type CommandContext = {
   content: TerminalContent;
@@ -89,7 +94,7 @@ export function executeCommand(
   switch (command) {
     case "help":
       return result(
-        "PORTFOLIO-SH / COMMANDS\n\nBrowse   ls [-la] [path], cd [path], pwd, cat <file>, tree [path]\nExplore  projects, skills, contact, fastfetch, neofetch\nOpen     open <project-slug|github|linkedin|resume>\nSystem   whoami, hostname, uname, date, echo, history\nDisplay  clear, theme [ink|paper|system], cmatrix, exit\n\n↑ ↓ history · Tab completion · Ctrl+C cancel · Ctrl+L clear\nHome / End edit · Escape close · Ctrl+~ toggle\n\nFiles are read-only portfolio content. Commands run only in this browser.",
+        "PORTFOLIO-SH / COMMANDS\n\nBrowse   ls [-la] [path], cd [path], pwd, cat <file>, tree [path]\nExplore  projects, skills, contact, fastfetch, neofetch\nOpen     open <project-slug|github|linkedin|resume>\nSystem   whoami, hostname, uname, date, echo, history\nDisplay  clear, theme <name>, theme list, theme current, cmatrix, exit\n\n↑ ↓ history · Tab completion · Ctrl+C cancel · Ctrl+L clear\nHome / End edit · Escape close · Ctrl+~ toggle\n\nFiles are read-only portfolio content. Commands run only in this browser.",
       );
     case "clear":
       return result("", { kind: "clear" });
@@ -204,14 +209,32 @@ export function executeCommand(
         ? destination(args.join(" "))
         : error("Usage: open <project-slug|github|linkedin|resume>");
     case "theme": {
-      if (!args.length) return result(context.theme.toUpperCase());
-      const theme = args[0].toLowerCase();
-      return ["ink", "paper", "system"].includes(theme)
-        ? result(`Theme: ${theme.toUpperCase()}`, {
-            kind: "theme",
-            theme: theme as "ink" | "paper" | "system",
-          })
-        : error("Usage: theme [ink|paper|system]");
+      if (
+        !args.length ||
+        (args.length === 1 && args[0].toLowerCase() === "current")
+      )
+        return result(`theme: ${context.theme}`);
+      if (args.length !== 1) return error("Usage: theme <name> · theme list");
+      const name = args[0].toLowerCase();
+      if (name === "list")
+        return result(
+          `${content.brand} THEMES\n\ndefault\n${THEMES.filter(
+            (theme) => !theme.hidden,
+          )
+            .map((theme) => `  ${theme.name.padEnd(16)}${theme.label}`)
+            .join("\n")}\n\nhidden\n${THEMES.filter((theme) => theme.hidden)
+            .map((theme) => `  ${theme.name.padEnd(16)}${theme.label}`)
+            .join("\n")}\n\nUsage:\n  theme <name>`,
+        );
+      const theme = name === "system" ? "system" : resolveThemeName(name);
+      return theme
+        ? result(
+            `theme: ${theme}\n${theme === "system" ? "System preference" : THEMES.find((entry) => entry.name === theme)!.label} enabled.`,
+            { kind: "theme", theme },
+          )
+        : error(
+            `Unknown theme: ${args[0]}. Type \`theme list\` for available themes.`,
+          );
     }
     case "cmatrix":
       return result("CMATRIX / Ctrl+C to stop", { kind: "cmatrix" });

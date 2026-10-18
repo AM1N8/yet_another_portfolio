@@ -1,21 +1,6 @@
+@import "../lib/themes/tokens.css";
+
 :root {
-  color-scheme: light;
-  --bg: #f1f0ea;
-  --surface: #e9e8e1;
-  --surface-elevated: #f7f6f1;
-  --text: #141512;
-  --text-muted: #6f7069;
-  /* Preserve the design palette while meeting contrast for small UI labels. */
-  --text-muted-readable: color-mix(
-    in srgb,
-    var(--text-muted) 88%,
-    var(--text) 12%
-  );
-  --border: #c9c8bf;
-  --border-strong: #999990;
-  --accent: #39d353;
-  --accent-soft: rgba(57, 211, 83, 0.12);
-  --selection: rgba(57, 211, 83, 0.24);
   --radius-xs: 2px;
   --radius-sm: 5px;
   --radius-md: 8px;
@@ -38,37 +23,6 @@
   --touch-target: 44px;
 }
 
-[data-theme="ink"] {
-  color-scheme: dark;
-  --bg: #0f100e;
-  --surface: #151613;
-  --surface-elevated: #1a1b18;
-  --text: #ecece6;
-  --text-muted: #909188;
-  --border: #2a2b27;
-  --border-strong: #484a43;
-  --accent: #49df68;
-  --accent-soft: rgba(73, 223, 104, 0.12);
-  --selection: rgba(73, 223, 104, 0.24);
-}
-
-/* Match the OS before JavaScript, including when scripting is disabled. */
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] {
-    color-scheme: dark;
-    --bg: #0f100e;
-    --surface: #151613;
-    --surface-elevated: #1a1b18;
-    --text: #ecece6;
-    --text-muted: #909188;
-    --border: #2a2b27;
-    --border-strong: #484a43;
-    --accent: #49df68;
-    --accent-soft: rgba(73, 223, 104, 0.12);
-    --selection: rgba(73, 223, 104, 0.24);
-  }
-}
-
 * {
   box-sizing: border-box;
 }
@@ -87,6 +41,24 @@ body {
 ::selection {
   background: var(--selection);
   color: var(--text);
+}
+/* Transition shared surfaces, not every visualization cell. */
+body,
+.site-header,
+.command-dialog,
+.command-search input,
+.mobile-menu-panel,
+.portfolio-terminal,
+.tool-button {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+pre,
+code {
+  background: var(--code-bg);
+  color: var(--code-text);
 }
 a {
   color: inherit;
@@ -418,7 +390,7 @@ button {
   color: var(--text);
 }
 .command-dialog::backdrop {
-  background: rgb(0 0 0 / 55%);
+  background: var(--backdrop);
 }
 .command-dialog-header {
   display: flex;
@@ -437,9 +409,13 @@ button {
   width: 100%;
   min-height: var(--touch-target);
   background: var(--bg);
-  border: var(--border-width) solid var(--border);
+  border: var(--border-width) solid var(--control-border);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-xs);
+}
+.command-search input::placeholder {
+  color: var(--text-muted-readable);
+  opacity: 1;
 }
 .command-results {
   max-height: 44svh;

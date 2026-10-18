@@ -1,4 +1,10 @@
 import { createSignaturePoints } from "../signature/geometry.ts";
+import {
+  readParticlePalette,
+  particleColors,
+  blendParticlePalette,
+  type ParticlePalette,
+} from "../themes/particles.ts";
 
 export interface MorphPoint {
   x: number;
@@ -235,28 +241,22 @@ export function createMorphRenderer(
   let simulation: ReturnType<typeof createFluidSimulation> | undefined;
   let pointer: MorphPoint | null = null;
   let palette: string[] = [];
+  let resolved: ParticlePalette = [];
+  let previous: ParticlePalette = [];
+  let colorStartedAt = 0;
   const staticPoints = staticMorphPoints();
   const colors = () => {
-    const style = getComputedStyle(canvas);
-    const parse = (name: string) =>
-      style
-        .getPropertyValue(name)
-        .trim()
-        .replace("#", "")
-        .match(/.{2}/g)!
-        .map((part) => parseInt(part, 16));
-    const bg = parse("--bg"),
-      accent = parse("--accent"),
-      text = parse("--text");
-    const ink = bg[0] < 100;
-    palette = Array.from({ length: 9 }, (_, tone) => {
-      const dark = !ink && tone === 0;
-      const amount = dark
-        ? 0.62
-        : (ink ? 0.3 : 0.24) + tone * (ink ? 0.075 : 0.052);
-      const color = dark ? text : accent;
-      return `rgb(${bg.map((channel, index) => Math.round(channel + (color[index] - channel) * amount)).join(",")})`;
-    });
+    previous = previous.length
+      ? blendParticlePalette(
+          previous,
+          resolved,
+          Math.min(1, (performance.now() - colorStartedAt) / 300),
+        )
+      : resolved;
+    resolved = readParticlePalette(canvas);
+    colorStartedAt = performance.now();
+    if (!previous.length || !moving || paused) previous = resolved;
+    palette = particleColors(resolved, previous, moving && !paused ? 0 : 1);
   };
   const draw = () => {
     if (!active || disposed || !width) return;
@@ -288,6 +288,16 @@ export function createMorphRenderer(
     const delta = lastTime === null ? 1000 / 60 : Math.min(time - lastTime, 48);
     elapsed += delta;
     lastTime = time;
+    if (time - colorStartedAt < 300)
+      palette = particleColors(
+        resolved,
+        previous,
+        Math.min(1, (time - colorStartedAt) / 300),
+      );
+    else if (previous !== resolved) {
+      palette = particleColors(resolved);
+      previous = resolved;
+    }
     const steps = Math.ceil(delta / (1000 / 60));
     for (let step = 0; step < steps; step++)
       simulation!.step(
@@ -340,6 +350,11 @@ export function createMorphRenderer(
       paused = value;
       pointer = null;
       stop();
+      if (paused && resolved.length) {
+        previous = resolved;
+        palette = particleColors(resolved);
+        draw();
+      }
       schedule();
     },
     refresh() {
@@ -363,6 +378,10 @@ export function createMorphRenderer(
       pointer = null;
       simulation?.clearShockwaves();
       stop();
+      if (!moving && resolved.length) {
+        previous = resolved;
+        palette = particleColors(resolved);
+      }
       draw();
       schedule();
     },

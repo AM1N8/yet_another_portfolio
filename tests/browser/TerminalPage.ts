@@ -15,10 +15,19 @@ export class TerminalPage {
     return this.dialog.locator(".xterm-accessibility-tree");
   }
   async open() {
-    await expect(
-      this.page.locator('[data-theme-option][aria-pressed="true"]'),
-    ).toHaveCount(2);
-    await this.page.keyboard.press("Control+Backquote");
+    // A hidden theme intentionally leaves neither normal theme button selected.
+    const launcher = this.page.getByRole("button", {
+      name: "Open portfolio terminal",
+    });
+    if (await this.page.getByRole("dialog").isVisible())
+      await this.page.keyboard.press("Control+Backquote");
+    else if (await launcher.isVisible()) await launcher.click();
+    else {
+      await expect(
+        this.page.locator("[data-theme-option][aria-pressed]"),
+      ).toHaveCount(4);
+      await this.page.keyboard.press("Control+Backquote");
+    }
     await expect(this.dialog).toBeVisible();
     await expect(this.dialog.getByRole("status")).toHaveText("Ready");
     await expect(this.input).toBeFocused();

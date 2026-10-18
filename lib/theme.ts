@@ -1,12 +1,21 @@
-export type Theme = "ink" | "paper";
-export type ThemePreference = Theme | "system";
+import {
+  THEME_NAMES,
+  isThemePreference,
+  type ThemeName,
+  type ThemePreference,
+} from "./themes/registry.ts";
+export type Theme = ThemeName;
+export type { ThemePreference } from "./themes/registry.ts";
 
-export function initializeTheme(defaultTheme: ThemePreference) {
+export function initializeTheme(
+  defaultTheme: ThemePreference,
+  names: readonly string[],
+) {
   let preference = defaultTheme;
   try {
     const stored = localStorage.getItem("portfolio-theme");
-    if (stored === "ink" || stored === "paper" || stored === "system") {
-      preference = stored;
+    if (stored && (names.includes(stored) || stored === "system")) {
+      preference = stored as ThemePreference;
     }
   } catch {
     // System preferences still work when browser storage is unavailable.
@@ -22,7 +31,8 @@ export function initializeTheme(defaultTheme: ThemePreference) {
 }
 
 export function getTheme(): Theme {
-  return document.documentElement.dataset.theme === "ink" ? "ink" : "paper";
+  const name = document.documentElement.dataset.theme;
+  return THEME_NAMES.includes(name as Theme) ? (name as Theme) : "paper";
 }
 
 function applyPreference(preference: ThemePreference) {
@@ -50,7 +60,9 @@ export function toggleTheme() {
   setTheme(getTheme() === "ink" ? "paper" : "ink");
 }
 
-export function subscribeTheme(listener: () => void) {
+const listeners = new Set<() => void>();
+let cleanupThemeEvents: (() => void) | undefined;
+function connectThemeEvents() {
   const media = matchMedia("(prefers-color-scheme: dark)");
   const systemChanged = () => {
     if (document.documentElement.dataset.themePreference === "system") {
@@ -62,18 +74,28 @@ export function subscribeTheme(listener: () => void) {
     const stored = event.newValue;
     const fallback = document.documentElement.dataset
       .defaultTheme as ThemePreference;
-    applyPreference(
-      stored === "ink" || stored === "paper" || stored === "system"
-        ? stored
-        : fallback,
-    );
+    applyPreference(isThemePreference(stored) ? stored : fallback);
   };
-  window.addEventListener("portfolio-theme-change", listener);
+  const notify = () => {
+    for (const listener of listeners) listener();
+  };
+  window.addEventListener("portfolio-theme-change", notify);
   window.addEventListener("storage", storageChanged);
   media.addEventListener("change", systemChanged);
   return () => {
-    window.removeEventListener("portfolio-theme-change", listener);
+    window.removeEventListener("portfolio-theme-change", notify);
     window.removeEventListener("storage", storageChanged);
     media.removeEventListener("change", systemChanged);
+  };
+}
+export function subscribeTheme(listener: () => void) {
+  listeners.add(listener);
+  cleanupThemeEvents ??= connectThemeEvents();
+  return () => {
+    listeners.delete(listener);
+    if (!listeners.size) {
+      cleanupThemeEvents?.();
+      cleanupThemeEvents = undefined;
+    }
   };
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { subscribeTheme } from "@/lib/theme";
 
 export function SignatureGraph({
   children,
@@ -56,11 +57,7 @@ export function SignatureGraph({
     observer.observe(element);
     const resize = new ResizeObserver(() => renderer?.resize());
     resize.observe(element);
-    const theme = new MutationObserver(() => renderer?.refresh());
-    theme.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    const unsubscribeTheme = subscribeTheme(() => renderer?.refresh());
     const move = (event: PointerEvent) => {
       const bounds = bitmap.getBoundingClientRect();
       renderer?.point(event.clientX - bounds.left, event.clientY - bounds.top);
@@ -79,7 +76,7 @@ export function SignatureGraph({
       disposed = true;
       observer.disconnect();
       resize.disconnect();
-      theme.disconnect();
+      unsubscribeTheme();
       element.removeEventListener("pointermove", move);
       element.removeEventListener("pointerleave", leave);
       button.removeEventListener("click", activate);

@@ -7,6 +7,7 @@ import {
   type ShellAction,
 } from "./commands.ts";
 import { VirtualFilesystem } from "./filesystem.ts";
+import { THEME_NAMES } from "../../lib/themes/registry.ts";
 
 export type ShellScreen = {
   cols: number;
@@ -94,14 +95,22 @@ export class TerminalShell {
     const first = !before.slice(0, before.length - prefix.length).trim();
     const candidates = first
       ? COMMANDS.filter((name) => name.startsWith(prefix))
-      : command === "open"
-        ? [
-            ...this.context.content.projects.map((project) => project.slug),
-            "github",
-            "linkedin",
-            "resume",
-          ].filter((name) => name.startsWith(prefix))
-        : this.context.fs.complete(prefix, this.context.cwd, command === "cd");
+      : command === "theme"
+        ? [...THEME_NAMES, "current", "list", "system"].filter((name) =>
+            name.startsWith(prefix),
+          )
+        : command === "open"
+          ? [
+              ...this.context.content.projects.map((project) => project.slug),
+              "github",
+              "linkedin",
+              "resume",
+            ].filter((name) => name.startsWith(prefix))
+          : this.context.fs.complete(
+              prefix,
+              this.context.cwd,
+              command === "cd",
+            );
     if (candidates.length === 1) {
       const replacement =
         candidates[0] + (candidates[0].endsWith("/") ? "" : " ");

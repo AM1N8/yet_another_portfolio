@@ -161,13 +161,15 @@ test("shockwaves expand from their exact point, stay local and recover without c
 test("morph renderer owns one RAF, preserves paused time, respects DPR and fully stops in static/disposed states", (t) => {
   const frames = new Map<number, FrameRequestCallback>();
   let next = 1;
+  let color = "#49df68",
+    reads = 0;
   for (const [key, value] of Object.entries({
     devicePixelRatio: 3,
     window: { innerWidth: 1440 },
-    getComputedStyle: () => ({
-      getPropertyValue: (name: string) =>
-        name === "--accent" ? "#49df68" : "#0f100e",
-    }),
+    getComputedStyle: () => {
+      reads++;
+      return { getPropertyValue: () => color };
+    },
     requestAnimationFrame: (callback: FrameRequestCallback) => {
       const id = next++;
       frames.set(id, callback);
@@ -184,17 +186,22 @@ test("morph renderer owns one RAF, preserves paused time, respects DPR and fully
   }
   const clear = t.mock.fn();
   const roundRect = t.mock.fn();
+  const fills: string[] = [];
+  const context = {
+    fillStyle: "",
+    setTransform() {},
+    clearRect: clear,
+    beginPath() {},
+    roundRect,
+    fill() {
+      fills.push(this.fillStyle);
+    },
+  };
   const canvas = {
     width: 0,
     height: 0,
     getBoundingClientRect: () => ({ width: 480 }),
-    getContext: () => ({
-      setTransform() {},
-      clearRect: clear,
-      beginPath() {},
-      roundRect,
-      fill() {},
-    }),
+    getContext: () => context,
   } as unknown as HTMLCanvasElement;
   const renderer = createMorphRenderer(canvas, true)!;
   assert.equal(frames.size, 0);
@@ -209,6 +216,15 @@ test("morph renderer owns one RAF, preserves paused time, respects DPR and fully
     callback(time);
     assert.equal(frames.size, 1);
   }
+  assert.equal(reads, 1, "animation frames use cached colors");
+  color = "#7dcfff";
+  renderer.refresh();
+  assert.equal(reads, 2);
+  assert.equal(frames.size, 1, "theme refresh never adds an animation loop");
+  const [colorFrame, colorTick] = frames.entries().next().value!;
+  frames.delete(colorFrame);
+  colorTick(performance.now() + 350);
+  assert.ok(fills.slice(-9).every((fill) => fill === "rgb(125,207,255)"));
   renderer.setActive(false);
   const paused = clear.mock.callCount();
   renderer.resize();

@@ -1,0 +1,212 @@
+/* Theme colors live only here. Components consume the same semantic contract. */
+:root {
+  color-scheme: light;
+  --bg: #f1f0ea;
+  --surface: #e9e8e1;
+  --surface-elevated: #f7f6f1;
+  --text: #141512;
+  --text-muted: #6f7069;
+  --text-subtle: #797a72;
+  --border: #c9c8bf;
+  --border-strong: #999990;
+  --accent: #39d353;
+  --accent-hover: #226f32;
+  --accent-soft: rgba(57, 211, 83, 0.12);
+  --selection: rgba(57, 211, 83, 0.24);
+  --success: #278a3c;
+  --warning: #895719;
+  --danger: #b63e36;
+  --particle-dim: #b6e8bb;
+  --particle-base: #8dde97;
+  --particle-bright: #6bdb7c;
+  --particle-hot: #39d353;
+  --particle-line: #687165;
+  --ansi-blue: #315e9d;
+  --ansi-magenta: #79528f;
+  --ansi-cyan: #21686d;
+}
+[data-theme="ink"] {
+  color-scheme: dark;
+  --bg: #0f100e;
+  --surface: #151613;
+  --surface-elevated: #1a1b18;
+  --text: #ecece6;
+  --text-muted: #909188;
+  --text-subtle: #707268;
+  --border: #2a2b27;
+  --border-strong: #484a43;
+  --accent: #49df68;
+  --accent-hover: #8ae49e;
+  --accent-soft: rgba(73, 223, 104, 0.12);
+  --selection: rgba(73, 223, 104, 0.24);
+  --success: #6fbf7b;
+  --warning: #d9b66e;
+  --danger: #e8877e;
+  --particle-dim: #204529;
+  --particle-base: #328e43;
+  --particle-bright: #40ba56;
+  --particle-hot: #49df68;
+  --particle-line: #42664b;
+  --ansi-blue: #8aafd5;
+  --ansi-magenta: #b7a0d1;
+  --ansi-cyan: #83c5bc;
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    color-scheme: dark;
+    --bg: #0f100e;
+    --surface: #151613;
+    --surface-elevated: #1a1b18;
+    --text: #ecece6;
+    --text-muted: #909188;
+    --text-subtle: #707268;
+    --border: #2a2b27;
+    --border-strong: #484a43;
+    --accent: #49df68;
+    --accent-hover: #8ae49e;
+    --accent-soft: rgba(73, 223, 104, 0.12);
+    --selection: rgba(73, 223, 104, 0.24);
+    --success: #6fbf7b;
+    --warning: #d9b66e;
+    --danger: #e8877e;
+    --particle-dim: #204529;
+    --particle-base: #328e43;
+    --particle-bright: #40ba56;
+    --particle-hot: #49df68;
+    --particle-line: #42664b;
+    --ansi-blue: #8aafd5;
+    --ansi-magenta: #b7a0d1;
+    --ansi-cyan: #83c5bc;
+  }
+}
+[data-theme="catppuccin"] {
+  color-scheme: dark;
+  --bg: #1e1e2e;
+  --surface: #181825;
+  --surface-elevated: #313244;
+  --text: #cdd6f4;
+  --text-muted: #a6adc8;
+  --text-subtle: #7f849c;
+  --border: #313244;
+  --border-strong: #45475a;
+  --accent: #a6e3a1;
+  --accent-hover: #94e2d5;
+  --accent-soft: rgba(166, 227, 161, 0.13);
+  --selection: rgba(166, 227, 161, 0.24);
+  --success: #a6e3a1;
+  --warning: #f9e2af;
+  --danger: #f38ba8;
+  --particle-dim: #313244;
+  --particle-base: #74c7a8;
+  --particle-bright: #a6e3a1;
+  --particle-hot: #94e2d5;
+  --particle-line: #6c7086;
+  --ansi-blue: #89b4fa;
+  --ansi-magenta: #cba6f7;
+  --ansi-cyan: #94e2d5;
+}
+[data-theme="tokyonight"] {
+  color-scheme: dark;
+  --bg: #1a1b26;
+  --surface: #16161e;
+  --surface-elevated: #24283b;
+  --text: #c0caf5;
+  --text-muted: #9aa5ce;
+  --text-subtle: #565f89;
+  --border: #292e42;
+  --border-strong: #3b4261;
+  --accent: #7aa2f7;
+  --accent-hover: #7dcfff;
+  --accent-soft: rgba(122, 162, 247, 0.14);
+  --selection: rgba(122, 162, 247, 0.26);
+  --success: #9ece6a;
+  --warning: #e0af68;
+  --danger: #f7768e;
+  --particle-dim: #3b4261;
+  --particle-base: #7aa2f7;
+  --particle-bright: #7dcfff;
+  --particle-hot: #bb9af7;
+  --particle-line: #565f89;
+  --ansi-blue: #7aa2f7;
+  --ansi-magenta: #bb9af7;
+  --ansi-cyan: #7dcfff;
+}
+[data-theme="ayu"] {
+  color-scheme: dark;
+  --bg: #1f2430;
+  --surface: #191e2a;
+  --surface-elevated: #232834;
+  --text: #cccac2;
+  --text-muted: #a6a6a0;
+  --text-subtle: #707a8c;
+  --border: #343a46;
+  --border-strong: #47505d;
+  --accent: #ffcc66;
+  --accent-hover: #ffad66;
+  --accent-soft: rgba(255, 204, 102, 0.13);
+  --selection: rgba(255, 204, 102, 0.25);
+  --success: #bae67e;
+  --warning: #ffd580;
+  --danger: #f28779;
+  --particle-dim: #47505d;
+  --particle-base: #ffad66;
+  --particle-bright: #ffcc66;
+  --particle-hot: #95e6cb;
+  --particle-line: #5c6773;
+  --ansi-blue: #73d0ff;
+  --ansi-magenta: #d4bfff;
+  --ansi-cyan: #95e6cb;
+}
+[data-theme="gruvbox"] {
+  color-scheme: dark;
+  --bg: #282828;
+  --surface: #1d2021;
+  --surface-elevated: #32302f;
+  --text: #ebdbb2;
+  --text-muted: #bdae93;
+  --text-subtle: #928374;
+  --border: #3c3836;
+  --border-strong: #504945;
+  --accent: #b8bb26;
+  --accent-hover: #8ec07c;
+  --accent-soft: rgba(184, 187, 38, 0.13);
+  --selection: rgba(184, 187, 38, 0.25);
+  --success: #b8bb26;
+  --warning: #fabd2f;
+  --danger: #fb4934;
+  --particle-dim: #504945;
+  --particle-base: #98971a;
+  --particle-bright: #b8bb26;
+  --particle-hot: #8ec07c;
+  --particle-line: #665c54;
+  --ansi-blue: #83a598;
+  --ansi-magenta: #d3869b;
+  --ansi-cyan: #8ec07c;
+}
+:root {
+  /* Readable labels preserve the original Paper palette's subtle distinction. */
+  --text-muted-readable: color-mix(
+    in srgb,
+    var(--text-muted) 88%,
+    var(--text) 12%
+  );
+  --code-bg: var(--surface);
+  --code-text: var(--text);
+  --terminal-bg: var(--surface);
+  --terminal-fg: var(--text);
+  --terminal-muted: var(--text-muted-readable);
+  --terminal-cursor: var(--accent-hover);
+  --terminal-selection: var(--selection);
+  --terminal-border: var(--border-strong);
+  --control-border: color-mix(
+    in srgb,
+    var(--border-strong) 65%,
+    var(--text) 35%
+  );
+  --ansi-black: var(--text-muted-readable);
+  --ansi-red: var(--danger);
+  --ansi-green: var(--accent-hover);
+  --ansi-yellow: var(--warning);
+  --ansi-white: var(--text);
+  --backdrop: rgb(0 0 0 / 55%);
+}

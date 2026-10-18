@@ -375,6 +375,9 @@
   color: var(--text-muted-readable);
   fill: currentColor;
 }
+.skill-group li:hover .technology-icon {
+  color: var(--accent-hover);
+}
 .contact-label {
   margin-bottom: var(--space-7);
 }

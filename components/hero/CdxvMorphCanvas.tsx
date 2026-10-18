@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
+import { subscribeTheme } from "@/lib/theme";
 
 export function CdxvMorphCanvas({
   children,
@@ -89,11 +90,7 @@ export function CdxvMorphCanvas({
     };
     const resize = new ResizeObserver(resized);
     resize.observe(element);
-    const theme = new MutationObserver(() => renderer?.refresh());
-    theme.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    const unsubscribeTheme = subscribeTheme(() => renderer?.refresh());
     const shockwave = (point: { x: number; y: number }) => {
       if (!renderer || !motionEnabled || motion.matches) return;
       userPaused = false;
@@ -156,7 +153,7 @@ export function CdxvMorphCanvas({
       clearTimeout(resizeTimer);
       intersection.disconnect();
       resize.disconnect();
-      theme.disconnect();
+      unsubscribeTheme();
       element.removeEventListener("click", clicked);
       element.removeEventListener("keydown", keydown);
       bitmap.removeEventListener("pointermove", pointerMove);

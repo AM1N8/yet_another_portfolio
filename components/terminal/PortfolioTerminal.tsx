@@ -4,7 +4,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Terminal } from "@xterm/xterm";
 import { FitAddon } from "@xterm/addon-fit";
-import { getTheme, setTheme } from "@/lib/theme";
+import { getTheme, setTheme, subscribeTheme } from "@/lib/theme";
+import { readTerminalTheme } from "@/lib/themes/terminal";
 import type { TerminalContent } from "./content";
 import type { TerminalPanelProps } from "./TerminalLauncher";
 import { TerminalShell } from "./TerminalShell";
@@ -50,15 +51,7 @@ export function PortfolioTerminal({ brand, onClose }: TerminalPanelProps) {
           scrollback: 1000,
           screenReaderMode: true,
           allowProposedApi: false,
-          theme: {
-            background: "#0f100e",
-            foreground: "#ecece6",
-            cursor: "#49df68",
-            selectionBackground: "#28432c",
-            black: "#0f100e",
-            green: "#6fbf7b",
-            brightGreen: "#49df68",
-          },
+          theme: readTerminalTheme(element),
         });
         const fit = new FitAddon();
         terminal.loadAddon(fit);
@@ -163,7 +156,11 @@ export function PortfolioTerminal({ brand, onClose }: TerminalPanelProps) {
         const reduced = () => program.current?.setReducedMotion(motion.matches);
         document.addEventListener("visibilitychange", visibility);
         motion.addEventListener("change", reduced);
+        const unsubscribeTheme = subscribeTheme(() => {
+          terminal.options.theme = readTerminalTheme(element);
+        });
         cleanup = () => {
+          unsubscribeTheme();
           clearTimeout(timer);
           resize.disconnect();
           document.removeEventListener("visibilitychange", visibility);
