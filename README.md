@@ -102,6 +102,44 @@ arrow keys, Enter, Escape, Cmd/Ctrl+K, focus trapping/restoration, theme actions
 configured social links, experiment links, and public-email copy with a fallback.
 Résumé and source actions are omitted when their URLs are missing.
 
+## Visual archive
+
+`/gallery` is a dedicated archive, not a homepage section. Its header and artifact
+entries are server-rendered from `gallery` in the validated YAML. The first three
+assets are authored component/result sheets using already documented project
+facts; they are not application screenshots or invented measurements.
+
+Each item has a unique `id`, `title`, `type`, `image`, explicit `width`/`height`,
+and meaningful `alt`. Optional fields include `project_slug`, `thumbnail`, `date`,
+`caption`, `tags`, and `links` (`project`, `github`, `external`). `visible` and
+`featured` control inclusion and editorial emphasis. Project references and dates
+are validated; hidden projects' artifacts are omitted. A thumbnail should retain
+the original image's aspect ratio. Put local media in `public/gallery/`; images
+use Next Image, lazy loading, responsive sizes and AVIF/WebP negotiation for
+optimizable raster assets. External image URLs render unoptimized until a trusted
+image host is configured. Failed images preserve their geometry and show alt text.
+
+The small `GalleryBrowser` client filters the server-rendered contact sheet using
+`type`, `project`, `year`, and `q` (title/project/tags/caption) without a search
+service or page reload. State, including `view=grid|index`, lives in the URL.
+The GET form and filtered entries also work without JavaScript. The artifact
+viewer is loaded only when opened and uses `item=<id>` deep links, a native modal,
+Escape, arrow navigation, a focus trap/restoration and preserved filter state.
+Desktop Index previews respond to focus as well as hover. No full-resolution
+viewer image is mounted until needed; original artwork remains unfiltered.
+
+Gallery is linked in normal navigation and the command palette. Terminal examples:
+
+```text
+gallery
+gallery noor-alerts
+gallery --type demo
+gallery noor-alerts --type architecture
+```
+
+Gallery screenshots cover Grid, Index, viewer and optional metadata in Ink,
+Paper and Tokyo Night at 1440×900 and 390×844 (`test-results/gallery-*`).
+
 ## Portfolio terminal
 
 Open **CDXV / TERMINAL** with **Ctrl+`** (or **Ctrl+~**), the desktop `[ >_ ]`button, or the command palette's **TERMINAL** action. Escape,`exit`, the close
@@ -241,35 +279,13 @@ and both themes.
 Browser profiling measures frame callback cost on desktop and with a four-times
 CPU slowdown at mobile width; results are attached to the Playwright test report.
 
-## CDXV footer signature
+## Footer
 
-`components/signature/SignatureMark.tsx` renders a purely visual signature inside
-the global footer, without a separate homepage section or heading.
-`lib/signature/geometry.ts` samples four cut-corner
-contours into 670 square cells, preserving a clear CDXV silhouette at every size.
-The server renders three compact SVG paths, coordinate guides, a plotting grid,
-and a meaningful text description. All geometry is deterministic and represents
-the requested signature rather than portfolio statistics.
-
-`SignatureGraph.tsx` is a small client enhancement. It lazily imports the imperative
-Canvas renderer only when the field is visible. Pointer movement produces a subtle
-local response; the keyboard/touch-accessible Pulse matrix button emphasizes the
-center. Reduced motion preserves a static arrangement with immediate color emphasis.
-There is no idle animation loop or frame-by-frame React state. Rendering pauses
-offscreen or in hidden tabs; cleanup removes observers/listeners, cancels RAF, and
-releases the bitmap. The renderer uses Ink/Paper tokens and caps DPR at 2.
-
-The SVG remains complete with JavaScript disabled, unavailable Canvas, or a failed
-enhancement import. The footer uses the `#footer-signature` anchor; the legacy YAML
-activity section-order slot is ignored. Visibility follows `hero.show_activity_visual`;
-GitHub source, credentials, years, and old activity-mode settings have no effect on
-this component. Its optional ID supports reuse without SVG-ID collisions.
-
-The obsolete data-driven renderer, mode controls, API browser fixtures, and D3
-dependencies were removed. `tests/signature.test.ts` verifies contour integrity,
-configuration independence, and renderer lifecycle. Browser tests cover keyboard
-and pointer response, theme changes, static fallback, reduced motion, and screenshots
-in both themes at all five review sizes.
+The footer contains only the configured copyright/build information, local clock,
+and INK / PAPER controls. The large CDXV point matrix and its Canvas enhancement
+have been removed. The separate fluid hero visual retains the shared contour
+geometry in `lib/signature/geometry.ts`; the legacy YAML activity section-order
+slot remains ignored.
 
 See `DESIGN.md`, `AGENTS.md`, and `TASKS.md` for the design direction, contribution
 rules, and remaining phases.

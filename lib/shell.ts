@@ -31,6 +31,7 @@ export function isDestinationAvailable(
   portfolio: Portfolio,
 ): boolean {
   if (href === "/" || /^https?:\/\//.test(href)) return true;
+  if (href === "/gallery") return portfolio.gallery.visible;
   const projectSlug = href.match(/^\/work\/([\w-]+)$/)?.[1];
   if (projectSlug) return Boolean(findProject(portfolio, projectSlug));
   const section = href.match(/^\/?#([\w-]+)$/)?.[1];

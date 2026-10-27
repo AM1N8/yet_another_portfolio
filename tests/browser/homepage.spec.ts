@@ -51,11 +51,7 @@ test("homepage renders verified YAML content and omits missing or private fields
   await expect(
     page.getByRole("heading", { name: "Languages", exact: true }),
   ).toHaveCount(0);
-  await page
-    .getByRole("contentinfo")
-    .getByRole("figure", { name: "CDXV signature graph", exact: true })
-    .scrollIntoViewIfNeeded();
-  await expect(page.locator("canvas")).toHaveCount(2);
+  await expect(page.locator("canvas")).toHaveCount(1);
   for (const link of await page.getByRole("link").all()) {
     const href = await link.getAttribute("href");
     if (href?.includes("#") && !href.startsWith("http")) {

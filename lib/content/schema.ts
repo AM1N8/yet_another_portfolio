@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { GALLERY_TYPES } from "../gallery.ts";
 
 const text = z.string().refine((value) => value.trim().length > 0, {
   message: "Must contain non-whitespace text",
@@ -372,6 +373,37 @@ const homepageSection = z.enum([
   "contact",
 ]);
 
+export const galleryItemSchema = z.strictObject({
+  id: slug,
+  title: text,
+  project_slug: slug.nullish(),
+  type: z.enum(GALLERY_TYPES),
+  tags: textList,
+  date: optionalDate,
+  image: resource,
+  thumbnail: optionalResource,
+  width: positiveInteger,
+  height: positiveInteger,
+  alt: text,
+  caption: optionalText,
+  featured: z.boolean().default(false),
+  links: z
+    .strictObject({
+      project: optionalResource,
+      github: optionalUrl,
+      external: optionalUrl,
+    })
+    .nullish(),
+  visible: z.boolean().default(true),
+});
+export const gallerySchema = z.strictObject({
+  visible: z.boolean(),
+  section_number: text,
+  title: text,
+  description: text,
+  items: z.array(galleryItemSchema),
+});
+
 export const portfolioSchema = z
   .strictObject({
     site: siteSchema,
@@ -403,6 +435,7 @@ export const portfolioSchema = z
       section_label: text,
       entries: z.array(projectSchema),
     }),
+    gallery: gallerySchema,
     experiments: z.strictObject({
       visible: z.boolean(),
       section_label: text,
@@ -528,6 +561,27 @@ export const portfolioSchema = z
     ai: z.strictObject({ instructions: text }),
   })
   .superRefine((portfolio, context) => {
+    const ids = new Set<string>();
+    portfolio.gallery.items.forEach((item, index) => {
+      if (ids.has(item.id))
+        context.addIssue({
+          code: "custom",
+          path: ["gallery", "items", index, "id"],
+          message: `Duplicate gallery id: ${item.id}`,
+        });
+      ids.add(item.id);
+      if (
+        item.project_slug &&
+        !portfolio.projects.entries.some(
+          (project) => project.slug === item.project_slug,
+        )
+      )
+        context.addIssue({
+          code: "custom",
+          path: ["gallery", "items", index, "project_slug"],
+          message: "Unknown project slug",
+        });
+    });
     for (const section of ["projects", "experiments"] as const) {
       const seen = new Set<string>();
       portfolio[section].entries.forEach((entry, index) => {

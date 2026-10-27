@@ -99,18 +99,24 @@ export class TerminalShell {
         ? [...THEME_NAMES, "current", "list", "system"].filter((name) =>
             name.startsWith(prefix),
           )
-        : command === "open"
+        : command === "gallery"
           ? [
               ...this.context.content.projects.map((project) => project.slug),
-              "github",
-              "linkedin",
-              "resume",
+              "--type",
+              ...this.context.content.gallery.types,
             ].filter((name) => name.startsWith(prefix))
-          : this.context.fs.complete(
-              prefix,
-              this.context.cwd,
-              command === "cd",
-            );
+          : command === "open"
+            ? [
+                ...this.context.content.projects.map((project) => project.slug),
+                "github",
+                "linkedin",
+                "resume",
+              ].filter((name) => name.startsWith(prefix))
+            : this.context.fs.complete(
+                prefix,
+                this.context.cwd,
+                command === "cd",
+              );
     if (candidates.length === 1) {
       const replacement =
         candidates[0] + (candidates[0].endsWith("/") ? "" : " ");

@@ -13,6 +13,7 @@ import type {
   siteSchema,
   skillsSchema,
   timelineEventSchema,
+  galleryItemSchema,
 } from "./schema.ts";
 
 export type Portfolio = z.infer<typeof portfolioSchema>;
@@ -28,3 +29,4 @@ export type TimelineEvent = z.infer<typeof timelineEventSchema>;
 export type Skills = z.infer<typeof skillsSchema>;
 export type ActivityGraphConfig = z.infer<typeof activityGraphSchema>;
 export type ContentLink = z.infer<typeof linkSchema>;
+export type GalleryItem = z.infer<typeof galleryItemSchema>;

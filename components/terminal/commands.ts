@@ -27,6 +27,7 @@ export const COMMANDS = [
   "neofetch",
   "cmatrix",
   "projects",
+  "gallery",
   "skills",
   "contact",
   "github",
@@ -94,7 +95,7 @@ export function executeCommand(
   switch (command) {
     case "help":
       return result(
-        "PORTFOLIO-SH / COMMANDS\n\nBrowse   ls [-la] [path], cd [path], pwd, cat <file>, tree [path]\nExplore  projects, skills, contact, fastfetch, neofetch\nOpen     open <project-slug|github|linkedin|resume>\nSystem   whoami, hostname, uname, date, echo, history\nDisplay  clear, theme <name>, theme list, theme current, cmatrix, exit\n\n↑ ↓ history · Tab completion · Ctrl+C cancel · Ctrl+L clear\nHome / End edit · Escape close · Ctrl+~ toggle\n\nFiles are read-only portfolio content. Commands run only in this browser.",
+        "PORTFOLIO-SH / COMMANDS\n\nBrowse   ls [-la] [path], cd [path], pwd, cat <file>, tree [path]\nExplore  projects, gallery [project] [--type type], skills, contact, fastfetch, neofetch\nOpen     open <project-slug|github|linkedin|resume>\nSystem   whoami, hostname, uname, date, echo, history\nDisplay  clear, theme <name>, theme list, theme current, cmatrix, exit\n\n↑ ↓ history · Tab completion · Ctrl+C cancel · Ctrl+L clear\nHome / End edit · Escape close · Ctrl+~ toggle\n\nFiles are read-only portfolio content. Commands run only in this browser.",
       );
     case "clear":
       return result("", { kind: "clear" });
@@ -190,6 +191,33 @@ export function executeCommand(
           )
           .join("\n\n"),
       );
+    case "gallery": {
+      if (!content.gallery.visible) return error("The archive is unavailable.");
+      const params = new URLSearchParams();
+      for (let index = 0; index < args.length; index++) {
+        if (args[index] === "--type") {
+          const type = args[++index];
+          if (!type || !content.gallery.types.includes(type))
+            return error(
+              `Unknown type. Available: ${content.gallery.types.join(", ")}`,
+            );
+          params.set("type", type);
+        } else {
+          const project = content.projects.find(
+            (entry) =>
+              entry.slug === args[index] ||
+              entry.title.toLowerCase() === args[index].toLowerCase(),
+          );
+          if (!project || params.has("project"))
+            return error("Usage: gallery [project-slug] [--type type]");
+          params.set("project", project.slug);
+        }
+      }
+      return result("Opening visual archive…", {
+        kind: "open",
+        href: `/gallery${params.size ? `?${params}` : ""}`,
+      });
+    }
     case "skills":
       return result(
         content.skills

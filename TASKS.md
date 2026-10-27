@@ -579,10 +579,10 @@ perf: optimize activity universe lifecycle and rendering
 
 # CDXV Signature Replacement — Current Direction
 
-The CDXV point matrix lives in the global footer. The standalone Signature
-Field section and its empty hero preview have been removed; the hero leads into
-Selected Work. A separately requested compact CDXV morph now occupies the hero's
-right column, retaining the existing identity content and layout.
+The large footer CDXV point matrix has been removed at the user's request. The
+standalone Signature Field section and its empty hero preview are also removed;
+the hero leads into Selected Work. A separately requested compact CDXV morph
+occupies the hero's right column, retaining the existing identity content and layout.
 Its fluid behavior follows the Innovation Graph reference: persistent velocity,
 local cell collisions, shape attraction, and a cursor-driven obstacle, with a
 static reduced-motion fallback.

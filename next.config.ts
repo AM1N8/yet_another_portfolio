@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: { formats: ["image/avif", "image/webp"] },
   // Keep browser-test builds independent of the local development server.
   distDir:
     process.env.PORTFOLIO_BROWSER_TEST === "1" ? ".next-browser" : ".next",

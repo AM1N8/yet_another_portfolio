@@ -1148,6 +1148,239 @@ activity_graph:
     static_data_path: "/data/github-activity.json"
     show_if_api_unavailable: true
 
+gallery:
+  visible: true
+  section_number: "07"
+  title: "VISUAL ARCHIVE"
+  description: "Project captures, demos, experiments, systems and documented results."
+  items:
+    - id: "noor-components"
+      title: "Noor Alerts — system components"
+      project_slug: "noor-alerts"
+      type: "architecture"
+      tags: ["GraphRAG", "NLP", "FastAPI", "SCADA"]
+      date: "2026"
+      image: "/gallery/noor-components.svg"
+      width: 1200
+      height: 800
+      alt: "Noor Alerts component register: SCADA data, NLP classification, GraphRAG, FastAPI, React, PostgreSQL, Neo4j and FAISS."
+      caption: "A visual register of the documented system components; positions do not imply execution order."
+      featured: false
+      visible: true
+    - id: "musiq-agents"
+      title: "MUSIQ — reinforcement learning components"
+      project_slug: "musiq"
+      type: "architecture"
+      tags: ["Reinforcement learning", "DQN", "Transformer"]
+      date: null
+      image: "/gallery/musiq-agents.svg"
+      width: 1000
+      height: 1000
+      alt: "MUSIQ component register showing feedback signals, reward design, discrete and continuous environments, RL agents and attention variants."
+      caption: "The documented environments, reward signals and agent families, arranged as a component register."
+      featured: false
+      visible: true
+    - id: "trajectory-results"
+      title: "Trajectory prediction — evaluation results"
+      project_slug: "trajectory-prediction"
+      type: "result"
+      tags: ["Machine learning", "Real-time", "Evaluation"]
+      date: null
+      image: "/gallery/trajectory-results.svg"
+      width: 1200
+      height: 720
+      alt: "Trajectory prediction results: average positional error 5.5 cm, maximum positional error 24 cm, evaluated on 7,394 real-time samples."
+      caption: "Reported positional errors over 7,394 real-time samples. These are summary measurements, not a distribution plot."
+      featured: false
+      visible: true
+
+    - id: "datatui-cli"
+      title: "DataTUI — outlier detection"
+      project_slug: null
+      type: "interface"
+      tags: ["DataTUI", "CLI", "Data analysis", "Outlier detection"]
+      date: null
+      image: "/gallery/DATATUI_CLI.png"
+      width: 1324
+      height: 651
+      alt: "DataTUI terminal interface with its blue ASCII heading and a table of outlier detection results."
+      featured: true
+      links:
+        github: "https://github.com/AM1N8/DATATUI"
+      visible: true
+    - id: "datatui-distribution"
+      title: "DataTUI — distribution explorer"
+      project_slug: null
+      type: "visualization"
+      tags: ["DataTUI", "CLI", "Data analysis", "Histogram"]
+      date: null
+      image: "/gallery/DATATUI_distribution_page.png"
+      width: 1748
+      height: 977
+      alt: "DataTUI distribution overview with a tabular summary and a purple histogram of current balance values."
+      featured: false
+      links:
+        github: "https://github.com/AM1N8/DATATUI"
+      visible: true
+    - id: "datatui-statistics"
+      title: "DataTUI — descriptive statistics"
+      project_slug: null
+      type: "interface"
+      tags: ["DataTUI", "CLI", "Statistics", "Histogram"]
+      date: null
+      image: "/gallery/DATATUI_stats.png"
+      width: 1752
+      height: 983
+      alt: "DataTUI numeric statistics table alongside a histogram of debit transaction values."
+      featured: false
+      links:
+        github: "https://github.com/AM1N8/DATATUI"
+      visible: true
+    - id: "reptree-cli"
+      title: "REP Tree — classification CLI"
+      project_slug: null
+      type: "interface"
+      tags: ["CLI", "Classification", "Decision tree", "Iris"]
+      date: null
+      image: "/gallery/REPTREE_Example.png"
+      width: 1383
+      height: 655
+      alt: "A terminal classification example using the Iris dataset, showing training output and evaluation tables."
+      featured: false
+      visible: true
+    - id: "lidar-detection"
+      title: "LiDAR — vehicle detection"
+      project_slug: null
+      type: "visualization"
+      tags: ["LiDAR", "Point cloud", "Vehicle detection"]
+      date: null
+      image: "/gallery/Lidar_detection.png"
+      width: 962
+      height: 953
+      alt: "Top-down LiDAR point cloud with vehicle bounding boxes and front, left and right distance annotations."
+      featured: false
+      visible: true
+    - id: "pathfinding-raylib"
+      title: "Pathfinding — grid explorer"
+      project_slug: null
+      type: "visualization"
+      tags: ["Raylib", "Pathfinding", "BFS", "Grid"]
+      date: null
+      image: "/gallery/Pathfinding_Raylib.png"
+      width: 839
+      height: 634
+      alt: "A blue pathfinding grid with a yellow breadth-first search route and algorithm controls on the right."
+      featured: false
+      visible: true
+    - id: "rl-fighting-game"
+      title: "Fighting game — arena demo"
+      project_slug: null
+      type: "demo"
+      tags: ["Godot", "Reinforcement learning", "Game development"]
+      date: null
+      image: "/gallery/RL_Based_fightingGame.png"
+      width: 1919
+      height: 1079
+      alt: "A Godot fighting game debug view with two pixel-art combatants and health bars in an arena."
+      featured: false
+      visible: true
+    - id: "raylib-isometric"
+      title: "Raylib — isometric terrain"
+      project_slug: null
+      type: "demo"
+      tags: ["Raylib", "Isometric", "Game development"]
+      date: null
+      image: "/gallery/Raylib_isometric_demo.png"
+      width: 1920
+      height: 1080
+      alt: "A Raylib isometric terrain demo built from red blocks, with its console output visible on the left."
+      featured: false
+      visible: true
+    - id: "sand-simulation"
+      title: "Sand simulation — particle sandbox"
+      project_slug: null
+      type: "experiment"
+      tags: ["Godot", "Simulation", "Particles"]
+      date: null
+      image: "/gallery/Sand_sim_game.png"
+      width: 802
+      height: 630
+      alt: "A sand simulation with yellow granular particles, blue fluid and white container walls."
+      featured: false
+      visible: true
+    - id: "arena-game"
+      title: "Arena game — combat demo"
+      project_slug: null
+      type: "demo"
+      tags: ["Game development", "Pixel art", "Arena"]
+      date: null
+      image: "/gallery/Screenshot 2026-02-26 004637.png"
+      width: 1079
+      height: 606
+      alt: "A pixel-art arena with a player character, eyeball enemies, slimes and health and experience indicators."
+      featured: false
+      visible: true
+    - id: "space-goblins"
+      title: "Space Goblins — arcade demo"
+      project_slug: null
+      type: "demo"
+      tags: ["Godot", "Arcade", "Game development"]
+      date: null
+      image: "/gallery/Space_invaders_game.png"
+      width: 1153
+      height: 684
+      alt: "The Space Goblins game showing a spaceship, projectiles and asteroids in a Godot debug window."
+      featured: false
+      visible: true
+    - id: "godot-vr"
+      title: "Godot — virtual reality demo"
+      project_slug: null
+      type: "demo"
+      tags: ["Godot", "VR", "XR"]
+      date: null
+      image: "/gallery/VR_GODOT_DEMO.png"
+      width: 687
+      height: 404
+      alt: "A Godot XR demo with yellow tracked hands inside a three-dimensional environment."
+      featured: false
+      visible: true
+    - id: "carla-simulation"
+      title: "CARLA — driving simulation"
+      project_slug: null
+      type: "demo"
+      tags: ["CARLA", "Simulation", "Data collection"]
+      date: null
+      image: "/gallery/carla_simulation.png"
+      width: 1919
+      height: 1079
+      alt: "A CARLA city driving simulation beside terminal output for data collection."
+      featured: false
+      visible: true
+    - id: "chest-classification"
+      title: "Chest X-ray — classification output"
+      project_slug: "computer-vision-healthcare"
+      type: "result"
+      tags: ["Computer vision", "Healthcare", "Classification", "X-ray"]
+      date: null
+      image: "/gallery/chest_classification.png"
+      width: 1064
+      height: 348
+      alt: "A chest X-ray alongside a table of predicted pathologies and classification scores."
+      featured: false
+      visible: true
+    - id: "chest-detection"
+      title: "Chest X-ray — detection overlay"
+      project_slug: "computer-vision-healthcare"
+      type: "result"
+      tags: ["Computer vision", "Healthcare", "Detection", "X-ray"]
+      date: null
+      image: "/gallery/chest_detection.png"
+      width: 479
+      height: 483
+      alt: "A chest X-ray with a heatmap and bounding boxes labeled Cardiomegaly and Aortic enlargement."
+      featured: false
+      visible: true
+
 navigation:
   items:
     - label: "HOME"
@@ -1167,6 +1400,9 @@ navigation:
       visible: true
     - label: "CONTACT"
       href: "/#contact"
+      visible: true
+    - label: "GALLERY"
+      href: "/gallery"
       visible: true
 
 command_palette:

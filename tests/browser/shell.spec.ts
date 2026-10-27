@@ -268,6 +268,9 @@ for (const viewport of viewports) {
           .locator(`#${section}`)
           .screenshot({ path: testInfo.outputPath(`${section}.png`) });
       }
+      const footer = page.getByRole("contentinfo");
+      await expect(footer.locator("canvas, svg, figure")).toHaveCount(0);
+      await footer.screenshot({ path: testInfo.outputPath("footer.png") });
       await page.evaluate(() => scrollTo(0, 0));
       const shell = new ShellPage(page);
       await shell.open();

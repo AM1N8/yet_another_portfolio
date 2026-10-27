@@ -1,5 +1,6 @@
 import type { Portfolio } from "../../lib/content/types.ts";
 import { getProjectLinks, getProjectSections } from "../../lib/projects.ts";
+import { GALLERY_TYPES } from "../../lib/gallery.ts";
 
 export type VirtualEntry =
   | { path: string; kind: "directory" }
@@ -30,6 +31,7 @@ export type TerminalContent = {
   skills: { name: string; items: string[] }[];
   contact: string;
   files: VirtualEntry[];
+  gallery: { visible: boolean; types: string[] };
 };
 
 // Content is displayed as text, never interpreted as terminal control sequences.
@@ -191,5 +193,9 @@ export function createTerminalContent(portfolio: Portfolio): TerminalContent {
     skills,
     contact,
     files,
+    gallery: {
+      visible: portfolio.gallery.visible,
+      types: [...GALLERY_TYPES],
+    },
   };
 }
