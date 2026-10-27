@@ -41,9 +41,13 @@ test("homepage renders verified YAML content and omits missing or private fields
   await expect(
     page.getByText(portfolio.contact.phone!, { exact: true }),
   ).toHaveCount(0);
-  await expect(
-    page.getByRole("link", { name: "Résumé", exact: true }),
-  ).toHaveCount(0);
+  const resume = page.locator("#home").getByRole("link", { name: /^Resume/ });
+  await expect(resume).toHaveAttribute("href", portfolio.contact.resume.url!);
+  await expect(resume).toHaveAttribute("target", "_blank");
+  const pdf = await page.request.get(portfolio.contact.resume.url!);
+  expect(pdf.ok()).toBeTruthy();
+  expect(pdf.headers()["content-type"]).toContain("application/pdf");
+  expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   await expect(page.getByRole("link", { name: /^Run/ })).toHaveCount(0);
   await expect(
     page.getByRole("heading", { name: "Currently exploring", exact: true }),

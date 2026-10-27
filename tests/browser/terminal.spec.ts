@@ -63,8 +63,6 @@ test("palette opens terminal; completion, history, themes and project navigation
   await expect(shell.output).toContainText(portfolio.identity.full_name);
   await shell.command("theme ink");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "ink");
-  await shell.command("resume");
-  await expect(shell.output).toContainText("No public résumé URL");
   await shell.command("unavailable-command");
   await expect(shell.output).toContainText("command not found");
   await shell.command("open noor-alerts");
@@ -107,7 +105,7 @@ test("public terminal content contains no private contact or environment configu
   expect(text).not.toContain("GITHUB_TOKEN");
   if (portfolio.contact.phone && !portfolio.contact.phone_public)
     expect(text).not.toContain(portfolio.contact.phone);
-  expect(JSON.parse(text).links.resume).toBeNull();
+  expect(JSON.parse(text).links.resume).toBe(portfolio.contact.resume.url);
 });
 
 for (const [width, height] of [

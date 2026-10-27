@@ -101,9 +101,9 @@ contact:
     other: []
 
   resume:
-    url: null
-    filename: null
-    label: "Résumé"
+    url: "/resume.pdf"
+    filename: "MAD_RESUME.pdf"
+    label: "Resume"
     visible: true
 
 hero:

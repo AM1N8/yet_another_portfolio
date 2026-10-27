@@ -68,6 +68,17 @@ export function Hero({
               Email <span aria-hidden="true">↗</span>
             </a>
           )}
+          {contact.resume.visible && contact.resume.url && (
+            <a
+              className="text-link label"
+              href={contact.resume.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {contact.resume.label} <span aria-hidden="true">↗</span>
+              <span className="sr-only"> (PDF, opens in a new tab)</span>
+            </a>
+          )}
         </div>
       </div>
       {hero.show_scroll_hint && nextSection && (

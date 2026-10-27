@@ -87,9 +87,12 @@ test("commands use real public content, quote parsing and allowlisted navigation
     "open constructor",
     "open __proto__",
     "open ../../etc",
-    "resume",
   ])
     assert.equal(executeCommand(input, ctx).action, undefined);
+  assert.deepEqual(executeCommand("resume", ctx).action, {
+    kind: "open",
+    href: portfolio.contact.resume.url,
+  });
   assert.deepEqual(executeCommand("github", ctx).action, {
     kind: "open",
     href: portfolio.contact.links.github,

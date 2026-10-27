@@ -48,6 +48,7 @@ test("empty or hidden content removes sections, while Stack stays independent of
   input.hero.show_activity_visual = false;
   assert.deepEqual(getHomepageSections(input), ["hero", "stack", "contact"]);
   input.skills.groups = [];
+  input.contact.resume.visible = false;
   input.contact.email_public = false;
   input.contact.links = {
     ...input.contact.links,
@@ -75,7 +76,12 @@ test("experiment counts and timeline filters preserve only available content", (
 
 test("public link lists omit null fields and respect resume visibility", () => {
   const input = structuredClone(portfolio);
-  assert.ok(!getPublicLinks(input).some((link) => link.label === "Résumé"));
+  input.contact.resume.url = null;
+  assert.ok(
+    !getPublicLinks(input).some(
+      (link) => link.label === input.contact.resume.label,
+    ),
+  );
   input.contact.resume.url = "/resume.pdf";
   assert.ok(getPublicLinks(input).some((link) => link.url === "/resume.pdf"));
   input.contact.resume.visible = false;

@@ -83,7 +83,7 @@ test("palette keyboard search, arrow selection, focus trapping, Escape, and rest
   await expect(page.locator("html")).toHaveAttribute("data-theme", "ink");
 });
 
-test("command destinations, unavailable routes, missing resume, clipboard and empty search", async ({
+test("command destinations, resume, clipboard and empty search", async ({
   page,
   context,
 }) => {
@@ -92,8 +92,8 @@ test("command destinations, unavailable routes, missing resume, clipboard and em
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await shell.open();
   await expect(
-    shell.palette.getByRole("option", { name: "Open Résumé", exact: false }),
-  ).toHaveCount(0);
+    shell.palette.getByRole("option", { name: "Open Resume", exact: false }),
+  ).toBeEnabled();
   await shell.search.fill("Projects");
   for (const option of await shell.palette.getByRole("option").all())
     await expect(option).toBeEnabled();
